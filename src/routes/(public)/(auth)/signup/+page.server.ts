@@ -30,9 +30,13 @@ export const actions: Actions = {
 		// * Saving photo in table profiles
 		const { data: inserDataProfile, error: errorInsertProfile } = await supabase
 			.from('profiles')
-			.upsert({
-				photo_url: PUBLIC_PHOTO_DEFAULT
+			.insert({
+				photo_url: PUBLIC_PHOTO_DEFAULT,
+				email: userData.email,
+				username: userData.username
 			})
+
+		console.log(inserDataProfile ?? errorInsertProfile)
 
 		if (errorInsert) {
 			return {
@@ -43,7 +47,8 @@ export const actions: Actions = {
 
 		return {
 			message: 'Congratulations you have registered 🎉',
-			invalidate: false
+			invalidate: false,
+			location: '/login'
 		}
 	}
 }

@@ -2,7 +2,6 @@
 	import { HeaderConfig } from '$lib/config/layout/header.config'
 	import Icon from '@iconify/svelte'
 	import { currentUser } from '$lib/store/currentUser'
-	import { page } from '$app/stores'
 </script>
 
 <header
@@ -27,7 +26,7 @@
 		<li>
 			<a
 				style="font-family: 'Gabarito', sans-serif;"
-				href="/user/{$currentUser?.username}"
+				href="/space/u/{$currentUser.username}"
 				class="text-lg font-normal flex items-center gap-1 bg-light_gray
 				pr-3 py-1 rounded-full text-dark"
 			>

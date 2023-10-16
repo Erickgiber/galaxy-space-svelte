@@ -4,6 +4,7 @@
 	import { enhance } from '$app/forms'
 	import { writable } from 'svelte/store'
 	import { resolver } from '$lib/utils/resolver'
+	import { page } from '$app/stores'
 
 	// Disable for btn
 	const btnDisabled = writable(false)

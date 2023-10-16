@@ -4,7 +4,6 @@ import {
 	PUBLIC_SUPABASE_ANON_KEY,
 	PUBLIC_PHOTO_DEFAULT
 } from '$env/static/public'
-import type { ICurrentUser } from '$lib/store/currentUser'
 import { createSupabaseServerClient } from '@supabase/auth-helpers-sveltekit'
 import { redirect, type Handle } from '@sveltejs/kit'
 
@@ -14,16 +13,6 @@ export const handle: Handle = async ({ event, resolve }) => {
 		supabaseKey: PUBLIC_SUPABASE_ANON_KEY,
 		event
 	})
-
-	const access_token = event.cookies.get('access_token')
-	const refresh_token = event.cookies.get('refresh_token')
-
-	if (access_token && refresh_token) {
-		const { data, error } = await event.locals.supabase.auth.setSession({
-			access_token,
-			refresh_token
-		})
-	}
 
 	event.locals.getSession = async () => {
 		const {
@@ -39,10 +28,11 @@ export const handle: Handle = async ({ event, resolve }) => {
 	} = await event.locals.supabase.auth.getUser()
 
 	if (user) {
+		console.log(user)
 		const { data: getUserData, error: errorUserData } = await event.locals.supabase
 			.from('register')
 			.select()
-			.eq('email', user.email)
+			.eq('uuid', user.id)
 
 		const { data: getProfileData, error: errorProfileData } = await event.locals.supabase
 			.from('profiles')
@@ -60,8 +50,6 @@ export const handle: Handle = async ({ event, resolve }) => {
 			refresh_token: session!.refresh_token,
 			uuid: getUserData![0].uuid
 		}
-
-		event.locals.supabase.auth.setSession(session!!)
 	}
 
 	if (event.url.pathname === '/') {

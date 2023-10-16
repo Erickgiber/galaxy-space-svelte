@@ -3,6 +3,16 @@
 	import { AsideConfig } from '$lib/config/layout/aside.config'
 	import Icon from '@iconify/svelte'
 	import LOGO from '$lib/assets/logos/logo.png'
+	import type { SupabaseClient } from '@supabase/supabase-js'
+	import { goto } from '$app/navigation'
+
+	const supabase = $page.data.supabase as SupabaseClient
+
+	const handleLogout = async () => {
+		await supabase.auth.signOut()
+		// @ts-ignore
+		goto('/login')
+	}
 </script>
 
 <aside class="w-52 min-w-[208px] h-screen flex flex-col px-5 py-5 gap-8 select-none">
@@ -10,7 +20,7 @@
 
 	<a
 		style="font-family: 'Gabarito', sans-serif;"
-		href="/"
+		href="/space"
 		class="text-xl font-normal text-[#1D2E79] flex items-center gap-1.5"
 	>
 		<img class="h-10 object-cover" src={LOGO} alt="Galaxy Space" />
@@ -33,6 +43,18 @@
 				</a>
 			</li>
 		{/each}
+
+		<li>
+			<button
+				on:click={handleLogout}
+				class="w-full flex items-center gap-1.5 text-lg px-1.5 py-2.5 rounded-lg transition-all
+                    hover:bg-black hover:bg-opacity-5
+                    text-[#808080] select-none"
+			>
+				<Icon icon="heroicons-outline:logout" />
+				<span>Logout</span>
+			</button>
+		</li>
 	</ul>
 </aside>
 

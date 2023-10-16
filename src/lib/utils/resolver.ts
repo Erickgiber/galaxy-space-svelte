@@ -1,7 +1,6 @@
 import { goto, invalidate, invalidateAll } from '$app/navigation'
 import { currentUser, type ICurrentUser } from '$lib/store/currentUser'
 import { toast } from '@zerodevx/svelte-toast'
-import { saveAuthCookies } from './cookies'
 
 export const resolver = (disabled: any, { onError, onSuccess, action }: any | null) => {
 	disabled.set(true)
@@ -16,13 +15,10 @@ export const resolver = (disabled: any, { onError, onSuccess, action }: any | nu
 
 				if (data.user && data.location) {
 					const user = data.user as ICurrentUser
-					console.log(user)
 
 					// Set data
 					currentUser.set(user)
 
-					console.log()
-					saveAuthCookies(user.access_token, user.refresh_token)
 					goto(data.location)
 					return
 				}
