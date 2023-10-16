@@ -1,0 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Gabarito:wght@400;500;600&display=swap');
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+:root {
+	// ? Variables
+	--primary: #4a00c6;
+	--light_gray: #f7f6f6;
+	--dark: #505050;
+
+	// * CSS Initial
+	font-family: 'Red Hat Display', sans-serif;
+	background-color: #f9f6ff;
+}
