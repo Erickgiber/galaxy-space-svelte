@@ -1,6 +1,10 @@
 // src/hooks.server.ts
-import { PUBLIC_SUPABASE_URL, PUBLIC_SUPABASE_ANON_KEY } from '$env/static/public'
-import type { ICurrentUser } from '$lib/fakedb/currentUser'
+import {
+	PUBLIC_SUPABASE_URL,
+	PUBLIC_SUPABASE_ANON_KEY,
+	PUBLIC_PHOTO_DEFAULT
+} from '$env/static/public'
+import type { ICurrentUser } from '$lib/store/currentUser'
 import { createSupabaseServerClient } from '@supabase/auth-helpers-sveltekit'
 import { redirect, type Handle } from '@sveltejs/kit'
 
@@ -11,11 +15,22 @@ export const handle: Handle = async ({ event, resolve }) => {
 		event
 	})
 
+	const access_token = event.cookies.get('access_token')
+	const refresh_token = event.cookies.get('refresh_token')
+
+	if (access_token && refresh_token) {
+		const { data, error } = await event.locals.supabase.auth.setSession({
+			access_token,
+			refresh_token
+		})
+	}
+
 	event.locals.getSession = async () => {
 		const {
 			data: { session }
 			// @ts-ignore
 		} = await event.locals.supabase.auth.getSession()
+
 		return session
 	}
 
@@ -24,11 +39,30 @@ export const handle: Handle = async ({ event, resolve }) => {
 	} = await event.locals.supabase.auth.getUser()
 
 	if (user) {
-		// @ts-ignore
-		event.locals.user = user as ICurrentUser
-	}
+		const { data: getUserData, error: errorUserData } = await event.locals.supabase
+			.from('register')
+			.select()
+			.eq('email', user.email)
 
-	console.log(user)
+		const { data: getProfileData, error: errorProfileData } = await event.locals.supabase
+			.from('profiles')
+			.select()
+			.eq('uuid', getUserData![0].uuid)
+
+		const session = await event.locals.getSession()
+
+		event.locals.user = {
+			email: user.email as string,
+			access_token: session!.access_token as string,
+			public_name: getUserData![0].public_name,
+			photo_url: getProfileData![0].photo_url,
+			username: getUserData![0].username,
+			refresh_token: session!.refresh_token,
+			uuid: getUserData![0].uuid
+		}
+
+		event.locals.supabase.auth.setSession(session!!)
+	}
 
 	if (event.url.pathname === '/') {
 		throw redirect(303, '/login')

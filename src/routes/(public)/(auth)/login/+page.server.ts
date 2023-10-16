@@ -1,10 +1,9 @@
-import type { ICurrentUser } from '$lib/fakedb/currentUser'
+import type { ICurrentUser } from '$lib/store/currentUser'
 import { supabase } from '$lib/supabase/supabase'
 import type { Actions } from '@sveltejs/kit'
-import { serialize } from 'cookie'
 
 export const actions: Actions = {
-	default: async ({ request }) => {
+	default: async ({ request, cookies }) => {
 		const formEntry = await request.formData()
 		const userData = Object.fromEntries(formEntry.entries())
 
@@ -32,10 +31,18 @@ export const actions: Actions = {
 			public_name: getUserData![0].public_name,
 			photo_url: '',
 			username: getUserData![0].username,
-			refresh_token: data.session.refresh_token
+			refresh_token: data.session.refresh_token,
+			uuid: getUserData![0].uuid
 		}
 
 		supabase.auth.setSession(data.session)
+
+		const refresh_token = data.session.refresh_token
+		const access_token = data.session.access_token
+
+		cookies.set('access_token', access_token)
+		cookies.set('refresh_token', refresh_token)
+		console.log('Token guardado')
 
 		return {
 			user,

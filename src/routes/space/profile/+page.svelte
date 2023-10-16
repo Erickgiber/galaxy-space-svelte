@@ -1,5 +1,5 @@
 <script>
-	import { currentUser } from '$lib/fakedb/currentUser'
+	import { currentUser } from '$lib/store/currentUser'
 </script>
 
 <svelte:head>

@@ -7,6 +7,7 @@ export type ICurrentUser = {
 	username: string
 	photo_url?: string
 	refresh_token: string
+	uuid: string
 }
 
 export const currentUser = writable<ICurrentUser>()

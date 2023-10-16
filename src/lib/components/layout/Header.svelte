@@ -1,9 +1,8 @@
 <script>
-	import { appConfig } from '$lib/config/app/app.confing'
 	import { HeaderConfig } from '$lib/config/layout/header.config'
 	import Icon from '@iconify/svelte'
-	import LOGO from '$lib/assets/logos/logo.png'
-	import { currentUser } from '$lib/fakedb/currentUser'
+	import { currentUser } from '$lib/store/currentUser'
+	import { page } from '$app/stores'
 </script>
 
 <header

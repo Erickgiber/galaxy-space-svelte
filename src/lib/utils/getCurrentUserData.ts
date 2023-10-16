@@ -1,5 +1,5 @@
 import { goto } from '$app/navigation'
-import { currentUser, type ICurrentUser } from '$lib/fakedb/currentUser'
+import { currentUser, type ICurrentUser } from '$lib/store/currentUser'
 import type { SupabaseClient } from '@supabase/supabase-js'
 
 export const getCurrentUserData = async (supabase: SupabaseClient, email: string) => {

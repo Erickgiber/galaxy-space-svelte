@@ -5,7 +5,7 @@ import type { IUser } from 'localTypes'
 
 import { SupabaseClient, Session } from '@supabase/supabase-js'
 import type { Session } from '@supabase/gotrue-js/src/lib/types'
-import type { ICurrentUser } from '$lib/fakedb/currentUser'
+import type { ICurrentUser } from '$lib/store/currentUser'
 
 declare global {
 	namespace App {

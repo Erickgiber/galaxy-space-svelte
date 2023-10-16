@@ -3,25 +3,21 @@
 	import Header from '$lib/components/layout/Header.svelte'
 	import BackgroundAnimated from '$lib/components/ui/BackgroundAnimated.svelte'
 	import { SvelteToast } from '@zerodevx/svelte-toast'
-	import { currentUser, type ICurrentUser } from '$lib/fakedb/currentUser'
+	import { currentUser, type ICurrentUser } from '$lib/store/currentUser'
 	import '../app.scss'
 	import { onMount } from 'svelte'
-	import { goto, invalidate } from '$app/navigation'
-	import { getCurrentUserData } from '$lib/utils/getCurrentUserData'
+	import { invalidate } from '$app/navigation'
 	export let data
 
 	// Optionally set default options here
 	const options = {}
-	const isLoadingData = data?.user
 
-	onMount(async () => {
-		if (data.session) {
-			await getCurrentUserData(data.supabase, data.user.email)
-		}
-	})
+	let { supabase, session, user } = data
+	$: ({ supabase, session, user } = data)
 
-	let { supabase, session } = data
-	$: ({ supabase, session } = data)
+	$: if (user) {
+		currentUser.set(user)
+	}
 
 	onMount(() => {
 		const {
@@ -46,8 +42,6 @@
 			<slot />
 		</div>
 	</main>
-{:else if isLoadingData}
-	Loading Data
 {:else}
 	<BackgroundAnimated />
 	<main class="w-full flex justify-center items-center min-h-screen">

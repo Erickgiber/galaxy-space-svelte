@@ -1,3 +1,4 @@
+import { PUBLIC_PHOTO_DEFAULT } from '$env/static/public'
 import { supabase } from '$lib/supabase/supabase'
 import type { Actions } from '@sveltejs/kit'
 
@@ -6,6 +7,7 @@ export const actions: Actions = {
 		const formEntry = await request.formData()
 		const userData = Object.fromEntries(formEntry.entries())
 
+		// ? Creating user
 		const { data, error } = await supabase.auth.signUp({
 			email: userData.email as string,
 			password: userData.password as string
@@ -18,11 +20,19 @@ export const actions: Actions = {
 			}
 		}
 
+		// * Saving data in table register
 		const { data: inserData, error: errorInsert } = await supabase.from('register').upsert({
 			public_name: userData.public_name,
 			username: userData.username,
 			email: userData.email
 		})
+
+		// * Saving photo in table profiles
+		const { data: inserDataProfile, error: errorInsertProfile } = await supabase
+			.from('profiles')
+			.upsert({
+				photo_url: PUBLIC_PHOTO_DEFAULT
+			})
 
 		if (errorInsert) {
 			return {
