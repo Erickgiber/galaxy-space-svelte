@@ -12,7 +12,7 @@ export const AsideConfig = {
 			name: 'Profile',
 			icon: 'lucide:user-2',
 			customClass: '',
-			href: '/space/profile'
+			href: '/space/u'
 		},
 		{
 			name: 'My contacts',

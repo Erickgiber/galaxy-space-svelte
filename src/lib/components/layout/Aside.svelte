@@ -5,6 +5,7 @@
 	import LOGO from '$lib/assets/logos/logo.png'
 	import type { SupabaseClient } from '@supabase/supabase-js'
 	import { goto } from '$app/navigation'
+	import { currentUser } from '$lib/store/currentUser'
 
 	const supabase = $page.data.supabase as SupabaseClient
 
@@ -17,7 +18,6 @@
 
 <aside class="w-52 min-w-[208px] h-screen flex flex-col px-5 py-5 gap-8 select-none">
 	<!-- ? Profile btn -->
-
 	<a
 		style="font-family: 'Gabarito', sans-serif;"
 		href="/space"
@@ -31,12 +31,16 @@
 		{#each AsideConfig.routes as route}
 			<li>
 				<a
-					href={route.href}
+					href={route.name === 'Profile' ? `${route.href}/${$currentUser.username}` : route.href}
 					class="flex items-center gap-1.5 text-lg px-1.5 py-2.5 rounded-lg transition-all
                     hover:bg-black hover:bg-opacity-5
                     text-[#808080] select-none
                     {route.customClass}
-                    {$page.url.pathname === route.href ? 'link_active' : ''}"
+                    {$page.url.pathname === route.href
+						? 'link_active'
+						: $page.url.pathname.includes($currentUser.username) && route.href.includes('/u')
+						? 'link_active'
+						: ''}"
 				>
 					<Icon icon={route.icon} />
 					<span>{route.name}</span>
