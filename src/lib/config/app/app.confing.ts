@@ -1,6 +1,6 @@
 export const appConfig = {
 	colors: {
-		primary: '#4A00C6',
+		primary: '#5D23CE',
 		background: '#f9f6ff'
 	}
 }

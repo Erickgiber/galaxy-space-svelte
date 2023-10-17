@@ -5,6 +5,7 @@
 	import { writable } from 'svelte/store'
 	import { resolver } from '$lib/utils/resolver'
 	import { page } from '$app/stores'
+	import ButtonLoader from '$lib/components/ui/ButtonLoader.svelte'
 
 	// Disable for btn
 	const btnDisabled = writable(false)
@@ -66,19 +67,23 @@
 			</div>
 		</label>
 
-		<button
-			disabled={$btnDisabled}
-			type="submit"
-			class="rounded-md w-36 mx-auto px-3.5 py-2 m-1 overflow-hidden relative group
+		{#if !$btnDisabled}
+			<button
+				disabled={$btnDisabled}
+				type="submit"
+				class="rounded-md w-36 mx-auto px-3.5 py-2 m-1 overflow-hidden relative group
             cursor-pointer border-2 font-medium border-indigo-600 text-white"
-		>
-			<span
-				class="absolute w-64 h-0 transition-all duration-300 origin-center rotate-45 -translate-x-20 bg-indigo-600 top-1/2 group-hover:h-64 group-hover:-translate-y-32 ease"
-			/>
-			<span class="relative text-indigo-600 transition duration-300 group-hover:text-white ease"
-				>Sign in</span
 			>
-		</button>
+				<span
+					class="absolute w-64 h-0 transition-all duration-300 origin-center rotate-45 -translate-x-20 bg-indigo-600 top-1/2 group-hover:h-64 group-hover:-translate-y-32 ease"
+				/>
+				<span class="relative text-indigo-600 transition duration-300 group-hover:text-white ease"
+					>Sign in</span
+				>
+			</button>
+		{:else}
+			<ButtonLoader />
+		{/if}
 	</form>
 
 	<div class="h-0.5 my-5 w-full bg-light_gray" />
