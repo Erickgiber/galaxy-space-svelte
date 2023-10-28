@@ -1,5 +1,5 @@
 export interface IProfile {
-	id: number
+	id: number | string
 	created_at: string
 	uuid: string
 	photo_url: string

@@ -2,6 +2,7 @@
 	import { HeaderConfig } from '$lib/config/layout/header.config'
 	import Icon from '@iconify/svelte'
 	import { currentUser } from '$lib/store/currentUser'
+	import { fade } from 'svelte/transition'
 </script>
 
 <header
@@ -28,10 +29,11 @@
 				style="font-family: 'Gabarito', sans-serif;"
 				href="/space/u/{$currentUser.username}"
 				class="text-lg font-normal flex items-center gap-1 bg-light_gray
-				pr-3 py-1 rounded-full text-dark"
+				pr-3 rounded-full text-dark hover:bg-primary hover:text-white"
 			>
 				<img
-					class="h-8 object-cover rounded-full"
+					in:fade
+					class="h-9 w-9 object-cover rounded-full"
 					src={$currentUser.photo_url}
 					alt="Galaxy Space"
 				/>
