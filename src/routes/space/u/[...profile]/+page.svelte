@@ -14,8 +14,6 @@
 
 	// Dynamic profile
 	$: profile.set(data.profile as IProfile)
-
-	console.log($profile)
 </script>
 
 <svelte:head>
