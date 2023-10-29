@@ -33,10 +33,9 @@ export const actions: Actions = {
 			.insert({
 				photo_url: PUBLIC_PHOTO_DEFAULT,
 				email: userData.email,
-				username: userData.username
+				username: userData.username,
+				public_name: userData.public_name
 			})
-
-		console.log(inserDataProfile ?? errorInsertProfile)
 
 		if (errorInsert) {
 			return {
