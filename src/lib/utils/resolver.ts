@@ -1,8 +1,12 @@
 import { goto, invalidate, invalidateAll } from '$app/navigation'
 import { currentUser, type ICurrentUser } from '$lib/store/currentUser'
 import { toast } from '@zerodevx/svelte-toast'
+import type { Writable } from 'svelte/store'
 
-export const resolver = (disabled: any, { onError, onSuccess, action }: any | null) => {
+export const resolver = (
+	disabled: Writable<boolean>,
+	{ onError, onSuccess, action }: any | null
+) => {
 	disabled.set(true)
 
 	return async ({ result: { data, type } }: any) => {
