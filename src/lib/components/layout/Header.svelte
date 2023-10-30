@@ -28,7 +28,7 @@
 			<a
 				style="font-family: 'Gabarito', sans-serif;"
 				href="/space/u/{$currentUser.username}"
-				class="text-lg font-normal flex items-center gap-1 bg-bg
+				class="text-base font-normal flex items-center gap-1 bg-bg
 				pr-3 rounded-full text-dark hover:bg-primary hover:text-white"
 			>
 				<img

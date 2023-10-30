@@ -110,7 +110,7 @@
 			</a>
 
 			<article class="leading-5 mt-1 flex-col items-center text-center">
-				<p class="text-lg flex items-center text-center gap-1 text-dark font-semibold">
+				<p class="text-base flex items-center text-center gap-1 text-dark font-semibold">
 					{$currentUser.public_name}
 					{#if $currentUser.is_star}
 						<Icon
@@ -120,7 +120,7 @@
 						/>
 					{/if}
 				</p>
-				<span class="text-md text font-semibold text-gray-500">@{$currentUser.username}</span>
+				<span class="text-sm text font-semibold text-gray-500">@{$currentUser.username}</span>
 			</article>
 			<article class="mt-2 flex items-center">
 				{#if $currentUser.is_star}
