@@ -56,9 +56,9 @@
 
 			<textarea
 				class="
-			p-2 w-full h-20 bg-white border-b-2
+			p-2 w-full h-16 bg-white border-b-2
 			border-transparent outline-none transition-all duration-300 resize-none
-			focus:h-32 focus:border-b-bg
+			focus:h-24 focus:border-b-bg
 			"
 				name="text"
 				id="text"
@@ -66,12 +66,12 @@
 				bind:value={postText}
 			/>
 
-			<div class="flex justify-end px-4 pb-3 gap-4">
+			<div class="flex justify-end px-4 pb-2 gap-3">
 				<button
 					disabled={$btnPostDisabled}
 					class="{$btnPostDisabled
 						? 'opacity-20 bg-dark'
-						: 'bg-red-400'}  text-white px-3 py-1.5 rounded-md shadow-sm transition-all"
+						: 'bg-red-400'}  text-white px-2.5 py-1.5 rounded-md shadow-sm transition-all text-sm select-none"
 					type="reset"
 				>
 					Clean
@@ -80,7 +80,7 @@
 					<p
 						class="
 				{$btnPostDisabled ? 'opacity-40 bg-gray-800' : 'bg_gradient'}
-				text-white px-3 py-1.5 rounded-md shadow-lg transition-all
+				text-white px-2.5 py-1.5 rounded-md shadow-lg transition-all text-sm select-none
 				"
 					>
 						Posting
