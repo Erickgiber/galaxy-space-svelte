@@ -1,10 +1,8 @@
 <script lang="ts">
 	import dayjs from 'dayjs'
 	import type { IPost } from '$lib/types/post.types'
+	import Icon from '@iconify/svelte'
 	export let posts: IPost[]
-
-	const date = dayjs(posts[0].created_at).format('h:mm')
-	console.log(date)
 </script>
 
 <section class="my-2 flex flex-col gap-3">
@@ -12,7 +10,7 @@
 		{#each posts as post}
 			<article class="relative flex flex-col gap-2 bg-white py-2 px-1 rounded-lg shadow-sm">
 				<a
-					class="flex max-w-max rounded-md gap-1.5 px-2 py-1.5 transition-all hover:bg-bg"
+					class="flex max-w-max rounded-md gap-1.5 px-2 pr-5 py-1.5 transition-all hover:bg-bg"
 					href="/space/u/{post.user?.username}"
 				>
 					<img
@@ -21,7 +19,16 @@
 						alt={post.username}
 					/>
 					<div class="flex flex-col leading-4">
-						<p>{post.user.public_name}</p>
+						<p class="flex items-center gap-1">
+							{post.user.public_name}
+							{#if post.user.is_star}
+								<Icon
+									class="grid place-content-center text-base"
+									icon="material-symbols:verified-rounded"
+									color="#5d23ce"
+								/>
+							{/if}
+						</p>
 						<p class="text-sm font-semibold text-gray-500">@{post.username}</p>
 					</div>
 				</a>

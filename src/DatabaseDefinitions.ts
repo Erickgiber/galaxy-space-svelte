@@ -13,6 +13,7 @@ export interface Database {
 					text: string | null
 					username: string | null
 					uuid: string | null
+					is_star: boolean
 				}
 				Insert: {
 					created_at?: string
@@ -23,6 +24,7 @@ export interface Database {
 					text?: string | null
 					username?: string | null
 					uuid?: string | null
+					is_star?: boolean
 				}
 				Update: {
 					created_at?: string
@@ -33,7 +35,9 @@ export interface Database {
 					text?: string | null
 					username?: string | null
 					uuid?: string | null
+					is_star?: boolean
 				}
+				is_star: boolean
 				Relationships: [
 					{
 						foreignKeyName: 'posts_email_fkey'
