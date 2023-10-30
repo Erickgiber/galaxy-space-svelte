@@ -12,6 +12,7 @@
 
 	let profile = writable(data.profile as IProfile)
 	let isPhotoLoading = writable(false)
+	let isPhotoCoverLoading = writable(false)
 
 	// Dynamic profile
 	$: profile.set(data.profile as IProfile)
@@ -35,19 +36,31 @@
 	>
 		<!-- ? button change cover photo -->
 		{#if data.isUserAuth}
-			<button
-				class="
-				absolute text-dark bottom-3 right-3 text-2xl rounded-full bg-white shadow-md p-2 transition-all duration-100 border-2 border-white
-				{!$isPhotoLoading
-					? 'hover:text-white hover:bg-primary hover:p-2.5 hover:duration-200'
-					: 'opacity-0'}
-				"
-				on:click={() =>
-					handleChangePhotoCover($profile, $currentUser, data.supabase, profile, isPhotoLoading)}
-				disabled={$isPhotoLoading}
-			>
-				<Icon icon="line-md:image" />
-			</button>
+			{#if $isPhotoCoverLoading}
+				<div in:fade class="w-10 h-10 absolute bottom-3 right-3">
+					<PhotoLoader style="font-size: 15px;" />
+				</div>
+			{:else}
+				<button
+					class="
+			absolute text-dark bottom-3 right-3 text-2xl rounded-full bg-white shadow-md p-2 transition-all duration-100 border-2 border-white
+			{!$isPhotoLoading
+						? 'hover:text-white hover:bg-primary hover:p-2.5 hover:duration-200'
+						: 'opacity-0'}
+			"
+					on:click={() =>
+						handleChangePhotoCover(
+							$profile,
+							$currentUser,
+							data.supabase,
+							profile,
+							isPhotoCoverLoading
+						)}
+					disabled={$isPhotoLoading}
+				>
+					<Icon icon="line-md:image" />
+				</button>
+			{/if}
 		{/if}
 
 		<!-- ? Photo container -->

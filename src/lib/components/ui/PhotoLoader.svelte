@@ -1,5 +1,5 @@
 <div id="container">
-	<span class="loader" />
+	<span class="loader" {...$$props} />
 </div>
 
 <style>

@@ -94,10 +94,10 @@
 	</div>
 
 	<section
-		style="background-image: url({$currentUser.cover_photo_url}); background-size: 100% 100px;"
+		style="background-image: linear-gradient(180deg, #5700e4 0%, #3e00a5 100%); background-size: 100% 80px;"
 		class="w-[250px] bg-white rounded-lg shadow-sm h-full bg-no-repeat"
 	>
-		<div class="w-[250px] h-max flex flex-col items-center px-2 pt-10 pb-3">
+		<div class="w-[250px] h-max flex flex-col items-center px-2 pt-7 pb-3">
 			<a
 				href="/space/u/{$currentUser.username}"
 				class="rounded-full transition-all hover:duration-75 hover:scale-95 hover:shadow-xl"
@@ -109,8 +109,8 @@
 				/>
 			</a>
 
-			<article class="leading-5 mt-1 text-center">
-				<p class="text-lg flex items-center gap-1 text-dark font-semibold">
+			<article class="leading-5 mt-1 flex-col items-center text-center">
+				<p class="text-lg flex items-center text-center gap-1 text-dark font-semibold">
 					{$currentUser.public_name}
 					{#if $currentUser.is_star}
 						<Icon
@@ -126,7 +126,7 @@
 				{#if $currentUser.is_star}
 					<b>You are a star!</b>
 				{:else}
-					<p>You're common user</p>
+					<b>You're common user</b>
 				{/if}
 			</article>
 			<div />
