@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import Icon from '@iconify/svelte'
 	import LOGO from '$lib/assets/logos/logo.png'
 	import { enhance } from '$app/forms'
@@ -8,6 +8,12 @@
 
 	// Disable for btn
 	const btnDisabled = writable(false)
+
+	const handleInputUsername = (e: Event) => {
+		const input = e.currentTarget as HTMLInputElement
+		const { value } = input
+		input.value = value.replaceAll(' ', '')
+	}
 
 	const handleSubmit = () => {
 		return resolver(btnDisabled, {})
@@ -62,6 +68,7 @@
 					id="username"
 					type="text"
 					placeholder="It should be unique and fun."
+					on:input={handleInputUsername}
 				/>
 			</div>
 		</label>
