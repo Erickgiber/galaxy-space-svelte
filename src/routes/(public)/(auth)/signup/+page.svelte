@@ -102,16 +102,16 @@
 		</label>
 
 		<!-- ? Password -->
-		<label for="password_repeat" class="flex flex-col">
-			<span>Repeat Password</span>
+		<label for="confirm_password" class="flex flex-col">
+			<span>Confirm Password</span>
 			<div
 				class="flex items-center bg-light_gray px-2 rounded-lg border border-transparent focus-within:border-primary"
 			>
 				<Icon icon="carbon:password" />
 				<input
 					class="w-60 px-2 py-2 bg-transparent outline-none"
-					id="password"
-					name="password"
+					id="confirm_password"
+					name="confirm_password"
 					type="password"
 					placeholder="********"
 					required

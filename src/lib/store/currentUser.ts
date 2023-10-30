@@ -8,6 +8,7 @@ export type ICurrentUser = {
 	photo_url?: string
 	refresh_token: string
 	uuid: string
+	role: 'admin' | 'user'
 }
 
 export const currentUser = writable<ICurrentUser>()

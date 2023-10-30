@@ -12,7 +12,9 @@
 	// Optionally set default options here
 	const options = {}
 
+	// @ts-ignore
 	let { supabase, session, user } = data
+	// @ts-ignore
 	$: ({ supabase, session, user } = data)
 
 	$: if (user) {

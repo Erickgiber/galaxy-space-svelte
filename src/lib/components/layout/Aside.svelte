@@ -6,13 +6,15 @@
 	import type { SupabaseClient } from '@supabase/supabase-js'
 	import { goto } from '$app/navigation'
 	import { currentUser } from '$lib/store/currentUser'
+	import { toast } from '@zerodevx/svelte-toast'
 
 	const supabase = $page.data.supabase as SupabaseClient
 
 	const handleLogout = async () => {
+		const toastLogout = toast.push('Logging out...')
 		await supabase.auth.signOut()
-		// @ts-ignore
 		goto('/login')
+		toast.pop(toastLogout)
 	}
 </script>
 
@@ -47,6 +49,21 @@
 				</a>
 			</li>
 		{/each}
+
+		{#if $currentUser.role === 'admin'}
+			<li>
+				<a
+					href="/statistics"
+					class="flex items-center gap-1.5 text-lg px-1.5 py-2.5 rounded-lg transition-all
+					hover:bg-black hover:bg-opacity-5
+					text-[#808080] select-none
+					{$page.url.pathname === '/statistics' ? 'link_active' : ''}"
+				>
+					<Icon icon="nimbus:stats" />
+					<span>Statistics</span>
+				</a>
+			</li>
+		{/if}
 
 		<li>
 			<button

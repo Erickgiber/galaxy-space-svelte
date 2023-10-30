@@ -28,7 +28,6 @@ export const handle: Handle = async ({ event, resolve }) => {
 	} = await event.locals.supabase.auth.getUser()
 
 	if (user) {
-		console.log(user)
 		const { data: getUserData, error: errorUserData } = await event.locals.supabase
 			.from('register')
 			.select()
@@ -48,7 +47,8 @@ export const handle: Handle = async ({ event, resolve }) => {
 			photo_url: getProfileData![0].photo_url,
 			username: getUserData![0].username,
 			refresh_token: session!.refresh_token,
-			uuid: getUserData![0].uuid
+			uuid: getUserData![0].uuid,
+			role: getUserData![0].role
 		}
 	}
 

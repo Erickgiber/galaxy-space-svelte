@@ -54,7 +54,7 @@
 				absolute text-dark bottom-0 right-0 text-2xl rounded-full bg-white shadow-md p-2 transition-all duration-100 border-2 border-white
 				{!$isPhotoLoading
 						? 'hover:text-white hover:bg-primary hover:p-2.5 hover:duration-200'
-						: 'opacity-80'}
+						: 'opacity-0'}
 				"
 					on:click={() =>
 						handleChangePhoto($profile, $currentUser, data.supabase, profile, isPhotoLoading)}
