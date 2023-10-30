@@ -3,6 +3,7 @@
 	import { currentUser } from '$lib/store/currentUser'
 	import type { IProfile } from '$lib/types/profile.types.js'
 	import { handleChangePhoto } from '$lib/utils/profile/handleChangePhoto.js'
+	import { handleChangePhotoCover } from '$lib/utils/profile/handleChangePhotoCover.js'
 	import Icon from '@iconify/svelte'
 	import { writable } from 'svelte/store'
 	import { fade } from 'svelte/transition'
@@ -27,11 +28,29 @@
 {#if $profile}
 	<div
 		id="cover_photo"
-		class="w-full flex items-end justify-center h-full max-h-56 bg-white shadow-sm rounded-xl"
+		class="w-full relative flex items-end justify-center h-full max-h-56 bg-white shadow-sm rounded-xl"
 		style={$profile.cover_photo_url
-			? `background-image: url(${$profile.cover_photo_url}); background-size: cover;`
+			? `background-image: url(${$profile.cover_photo_url}); background-size: cover; background-position: center;`
 			: null}
 	>
+		<!-- ? button change cover photo -->
+		{#if data.isUserAuth}
+			<button
+				class="
+				absolute text-dark bottom-3 right-3 text-2xl rounded-full bg-white shadow-md p-2 transition-all duration-100 border-2 border-white
+				{!$isPhotoLoading
+					? 'hover:text-white hover:bg-primary hover:p-2.5 hover:duration-200'
+					: 'opacity-0'}
+				"
+				on:click={() =>
+					handleChangePhotoCover($profile, $currentUser, data.supabase, profile, isPhotoLoading)}
+				disabled={$isPhotoLoading}
+			>
+				<Icon icon="line-md:image" />
+			</button>
+		{/if}
+
+		<!-- ? Photo container -->
 		<div
 			class="w-36 h-36 select-none relative top-16 rounded-full bg-light_gray border-4 border-white shadow-sm"
 		>
@@ -42,7 +61,7 @@
 			{:else}
 				<img
 					in:fade
-					class="rounded-full w-full h-full object-cover"
+					class="rounded-full bg-white w-full h-full object-cover"
 					src={$profile.photo_url}
 					alt=""
 				/>

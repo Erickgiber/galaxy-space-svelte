@@ -53,11 +53,11 @@
 		{#if $currentUser.role === 'admin'}
 			<li>
 				<a
-					href="/statistics"
+					href="/space/statistics"
 					class="flex items-center gap-1.5 text-lg px-1.5 py-2.5 rounded-lg transition-all
 					hover:bg-black hover:bg-opacity-5
 					text-[#808080] select-none
-					{$page.url.pathname === '/statistics' ? 'link_active' : ''}"
+					{$page.url.pathname === '/space/statistics' ? 'link_active' : ''}"
 				>
 					<Icon icon="nimbus:stats" />
 					<span>Statistics</span>
