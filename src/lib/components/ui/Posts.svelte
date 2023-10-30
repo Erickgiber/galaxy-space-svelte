@@ -32,7 +32,7 @@
 						<p class="text-sm font-semibold text-gray-500">@{post.username}</p>
 					</div>
 				</a>
-				<p class="px-2 pb-7">
+				<p class="px-2 pb-7 text-[15px]">
 					{@html post.text}
 				</p>
 
