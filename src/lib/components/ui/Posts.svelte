@@ -19,7 +19,7 @@
 					/>
 					<div class="flex flex-col leading-4">
 						<p>{post.user.public_name}</p>
-						<p>{post.username}</p>
+						<p class="text-sm font-semibold text-gray-500">@{post.username}</p>
 					</div>
 				</a>
 				<p>
