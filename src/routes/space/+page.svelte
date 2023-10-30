@@ -39,7 +39,7 @@
 </svelte:head>
 
 <main class="flex justify-between gap-8">
-	<div class="flex flex-col" style="width: calc(100% - 250px);">
+	<div class="flex flex-col w-full" style="width: calc(100% - 250px);">
 		<!-- ? Form for new post -->
 		<form
 			use:enhance={handleSubmitPost}

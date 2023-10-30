@@ -3,7 +3,7 @@
 	import Header from '$lib/components/layout/Header.svelte'
 </script>
 
-<main class="flex mx-auto max-w-[1440px]">
+<main class="flex mx-auto max-w-[1280px]">
 	<Aside />
 
 	<div class="w-full py-5 px-3">
