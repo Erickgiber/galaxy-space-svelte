@@ -11,7 +11,7 @@
 	<!-- ? Searcher -->
 	<label
 		for="searcher"
-		class="flex items-center px-2 bg-light_gray
+		class="flex items-center px-2 bg-bg
 		rounded-xl h-9 gap-1 transition focus-within:text-primary"
 	>
 		<Icon icon="majesticons:search-line" class="text-xl" />
@@ -28,7 +28,7 @@
 			<a
 				style="font-family: 'Gabarito', sans-serif;"
 				href="/space/u/{$currentUser.username}"
-				class="text-lg font-normal flex items-center gap-1 bg-light_gray
+				class="text-lg font-normal flex items-center gap-1 bg-bg
 				pr-3 rounded-full text-dark hover:bg-primary hover:text-white"
 			>
 				<img
@@ -44,7 +44,7 @@
 		{#each HeaderConfig.options as option}
 			<li>
 				<button
-					class="h-full grid place-content-center text-2xl bg-light_gray p-2
+					class="h-full grid place-content-center text-2xl bg-bg p-2
                     rounded-full text-dark hover:bg-primary hover:text-white"
 					on:click={option.onclick}
 				>
