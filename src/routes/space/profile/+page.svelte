@@ -2,9 +2,7 @@
 	import { page } from '$app/stores'
 	import { currentUser } from '$lib/store/currentUser'
 
-
 	const isThisUser = $currentUser.username === $page.params.username
-	console.log(isThisUser)
 </script>
 
 <svelte:head>

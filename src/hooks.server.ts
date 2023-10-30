@@ -52,8 +52,6 @@ export const handle: Handle = async ({ event, resolve }) => {
 			cover_photo_url: getProfileData![0].cover_photo_url,
 			is_star: getProfileData![0].is_star
 		}
-
-		console.log(getProfileData![0].is_star)
 	}
 
 	if (event.url.pathname === '/') {
