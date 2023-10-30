@@ -10,6 +10,7 @@ export type ICurrentUser = {
 	uuid: string
 	role: 'admin' | 'user'
 	cover_photo_url: string
+	is_star: boolean
 }
 
 export const currentUser = writable<ICurrentUser>()

@@ -28,7 +28,7 @@
 					uuid: $currentUser.uuid
 				}
 				postText = ''
-				posts = [...posts, post]
+				posts = [post, ...posts]
 			}
 		})
 	}
@@ -38,57 +38,101 @@
 	<title>Galaxy Space</title>
 </svelte:head>
 
-<!-- ? Form for new post -->
-<form
-	use:enhance={handleSubmitPost}
-	action="?/new_post"
-	method="post"
-	class="bg-white rounded-lg shadow-sm"
->
-	<label for="text">
-		<p class="px-3 py-1.5 border-b-2 border-bg flex items-center gap-1.5 text-gray-700">
-			<Icon icon="ant-design:edit-outlined" />
-			New post
-		</p>
-	</label>
-
-	<textarea
-		class="
-		p-2 w-full h-20 bg-white border-b-2
-		border-transparent outline-none transition-all duration-300 resize-none
-		focus:h-32 focus:border-b-bg
-		"
-		name="text"
-		id="text"
-		placeholder="{username}, What's on your mind?"
-		bind:value={postText}
-	/>
-
-	<div class="flex justify-end px-4 pb-3 gap-4">
-		<button
-			disabled={$btnPostDisabled}
-			class="{$btnPostDisabled
-				? 'opacity-20 bg-dark'
-				: 'bg-red-400'}  text-white px-3 py-1.5 rounded-md shadow-sm transition-all"
-			type="reset"
+<main class="flex justify-between gap-8">
+	<div class="flex flex-col" style="width: calc(100% - 250px);">
+		<!-- ? Form for new post -->
+		<form
+			use:enhance={handleSubmitPost}
+			action="?/new_post"
+			method="post"
+			class="bg-white rounded-lg shadow-sm"
 		>
-			Clean
-		</button>
-		<button type="submit" disabled={$btnPostDisabled}>
-			<p
-				class="
-			{$btnPostDisabled ? 'opacity-40 bg-gray-800' : 'bg_gradient'}
-			text-white px-3 py-1.5 rounded-md shadow-lg transition-all
-			"
-			>
-				Posting
-			</p>
-		</button>
-	</div>
-</form>
+			<label for="text">
+				<p class="px-3 py-1.5 border-b-2 border-bg flex items-center gap-1.5 text-gray-700">
+					<Icon icon="ant-design:edit-outlined" />
+					New post
+				</p>
+			</label>
 
-<!-- ? Posts -->
-<Posts bind:posts />
+			<textarea
+				class="
+			p-2 w-full h-20 bg-white border-b-2
+			border-transparent outline-none transition-all duration-300 resize-none
+			focus:h-32 focus:border-b-bg
+			"
+				name="text"
+				id="text"
+				placeholder="{username}, What's on your mind?"
+				bind:value={postText}
+			/>
+
+			<div class="flex justify-end px-4 pb-3 gap-4">
+				<button
+					disabled={$btnPostDisabled}
+					class="{$btnPostDisabled
+						? 'opacity-20 bg-dark'
+						: 'bg-red-400'}  text-white px-3 py-1.5 rounded-md shadow-sm transition-all"
+					type="reset"
+				>
+					Clean
+				</button>
+				<button type="submit" disabled={$btnPostDisabled}>
+					<p
+						class="
+				{$btnPostDisabled ? 'opacity-40 bg-gray-800' : 'bg_gradient'}
+				text-white px-3 py-1.5 rounded-md shadow-lg transition-all
+				"
+					>
+						Posting
+					</p>
+				</button>
+			</div>
+		</form>
+
+		<!-- ? Posts -->
+		<Posts bind:posts />
+	</div>
+
+	<section
+		style="background-image: url({$currentUser.cover_photo_url}); background-size: 100% 100px;"
+		class="w-[250px] bg-white rounded-lg shadow-sm h-full bg-no-repeat"
+	>
+		<div class="w-[250px] h-max flex flex-col items-center px-2 pt-10 pb-3">
+			<a
+				href="/space/u/{$currentUser.username}"
+				class="rounded-full transition-all hover:duration-75 hover:scale-95 hover:shadow-xl"
+			>
+				<img
+					class="w-28 h-28 rounded-full object-cover bg-light_gray shadow-md border-2 border-white"
+					src={$currentUser.photo_url}
+					alt={$currentUser.public_name}
+				/>
+			</a>
+
+			<article class="leading-5 mt-1 text-center">
+				<p class="text-lg flex items-center gap-1 text-dark font-semibold">
+					{$currentUser.public_name}
+					{#if $currentUser.is_star}
+						<Icon
+							class="grid place-content-center text-xl"
+							icon="material-symbols:verified-rounded"
+							color="#5d23ce"
+						/>
+					{/if}
+				</p>
+				<span class="text-md text font-semibold text-gray-500">@{$currentUser.username}</span>
+			</article>
+			<article class="mt-2 flex items-center">
+				{#if $currentUser.is_star}
+					<b>You are a star!</b>
+				{:else}
+					<p>You're common user</p>
+				{/if}
+			</article>
+			<div />
+		</div>
+	</section>
+</main>
 
 <style lang="scss">
 	#text:focus {

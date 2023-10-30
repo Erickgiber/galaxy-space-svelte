@@ -36,7 +36,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 		const { data: getProfileData, error: errorProfileData } = await event.locals.supabase
 			.from('profiles')
 			.select()
-			.eq('uuid', getUserData![0].uuid)
+			.eq('uuid', user.id)
 
 		const session = await event.locals.getSession()
 
@@ -48,8 +48,12 @@ export const handle: Handle = async ({ event, resolve }) => {
 			username: getUserData![0].username,
 			refresh_token: session!.refresh_token,
 			uuid: getUserData![0].uuid,
-			role: getUserData![0].role
+			role: getUserData![0].role,
+			cover_photo_url: getProfileData![0].cover_photo_url,
+			is_star: getProfileData![0].is_star
 		}
+
+		console.log(getProfileData![0].is_star)
 	}
 
 	if (event.url.pathname === '/') {

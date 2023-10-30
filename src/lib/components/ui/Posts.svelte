@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { page } from '$app/stores'
 	import type { IPost } from '$lib/types/post.types'
 	export let posts: IPost[]
 </script>
@@ -22,7 +21,7 @@
 						<p class="text-sm font-semibold text-gray-500">@{post.username}</p>
 					</div>
 				</a>
-				<p>
+				<p class="px-3">
 					{@html post.text}
 				</p>
 			</article>
