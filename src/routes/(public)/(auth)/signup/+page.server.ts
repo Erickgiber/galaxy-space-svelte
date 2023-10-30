@@ -7,6 +7,40 @@ export const actions: Actions = {
 		const formEntry = await request.formData()
 		const userData = Object.fromEntries(formEntry.entries())
 
+		if (
+			userData.email === '' ||
+			userData.password === '' ||
+			userData.confirm_password === '' ||
+			userData.public_name === '' ||
+			userData.username === ''
+		) {
+			return {
+				message: 'All fields are required',
+				invalidate: false
+			}
+		}
+
+		if (userData.password !== userData.confirm_password) {
+			return {
+				message: 'Passwords do not match',
+				invalidate: false
+			}
+		}
+
+		// ? Get usernames information
+		const { data: usernames, error: errorUsernames } = await supabase
+			.from('register')
+			.select('username')
+			.eq('username', userData.username)
+			.single()
+
+		if (usernames?.username) {
+			return {
+				message: 'Username already exists',
+				invalidate: false
+			}
+		}
+
 		// ? Creating user
 		const { data, error } = await supabase.auth.signUp({
 			email: userData.email as string,
@@ -39,7 +73,7 @@ export const actions: Actions = {
 
 		if (errorInsert) {
 			return {
-				message: `Error: ${errorInsert.message}`,
+				message: errorInsert.message,
 				invalidate: false
 			}
 		}

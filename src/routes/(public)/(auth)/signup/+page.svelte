@@ -4,6 +4,7 @@
 	import { enhance } from '$app/forms'
 	import { writable } from 'svelte/store'
 	import { resolver } from '$lib/utils/resolver'
+	import ButtonLoader from '$lib/components/ui/ButtonLoader.svelte'
 
 	// Disable for btn
 	const btnDisabled = writable(false)
@@ -95,23 +96,46 @@
 					name="password"
 					type="password"
 					placeholder="********"
+					required
 				/>
 			</div>
 		</label>
 
-		<button
-			disabled={$btnDisabled}
-			type="submit"
-			class="rounded-md w-36 mx-auto px-3.5 py-2 m-1 overflow-hidden relative group
-            cursor-pointer border-2 font-medium border-indigo-600 text-white"
-		>
-			<span
-				class="absolute w-64 h-0 transition-all duration-300 origin-center rotate-45 -translate-x-20 bg-indigo-600 top-1/2 group-hover:h-64 group-hover:-translate-y-32 ease"
-			/>
-			<span class="relative text-indigo-600 transition duration-300 group-hover:text-white ease"
-				>Sign up</span
+		<!-- ? Password -->
+		<label for="password_repeat" class="flex flex-col">
+			<span>Repeat Password</span>
+			<div
+				class="flex items-center bg-light_gray px-2 rounded-lg border border-transparent focus-within:border-primary"
 			>
-		</button>
+				<Icon icon="carbon:password" />
+				<input
+					class="w-60 px-2 py-2 bg-transparent outline-none"
+					id="password"
+					name="password"
+					type="password"
+					placeholder="********"
+					required
+				/>
+			</div>
+		</label>
+
+		{#if !$btnDisabled}
+			<button
+				disabled={$btnDisabled}
+				type="submit"
+				class="rounded-md w-36 mx-auto px-3.5 py-2 m-1 overflow-hidden relative group
+            cursor-pointer border-2 font-medium border-indigo-600 text-white"
+			>
+				<span
+					class="absolute w-64 h-0 transition-all duration-300 origin-center rotate-45 -translate-x-20 bg-indigo-600 top-1/2 group-hover:h-64 group-hover:-translate-y-32 ease"
+				/>
+				<span class="relative text-indigo-600 transition duration-300 group-hover:text-white ease"
+					>Sign up</span
+				>
+			</button>
+		{:else}
+			<ButtonLoader />
+		{/if}
 	</form>
 
 	<div class="h-0.5 my-5 w-full bg-light_gray" />
@@ -125,11 +149,9 @@
             cursor-pointer border-2 font-medium border-indigo-600 text-white"
 		>
 			<span
-				class="absolute w-64 h-0 transition-all duration-300 origin-center rotate-45 -translate-x-20 bg-indigo-600 top-1/2 h-64 -translate-y-32 ease"
+				class="absolute w-64 transition-all duration-300 origin-center rotate-45 -translate-x-20 bg-indigo-600 top-1/2 h-64 -translate-y-32 ease"
 			/>
-			<span class="relative text-indigo-600 transition duration-300 text-white ease"
-				>Sign in</span
-			>
+			<span class="relative transition duration-300 text-white ease">Sign in</span>
 		</a>
 	</article>
 </div>
