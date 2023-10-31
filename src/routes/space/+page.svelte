@@ -64,7 +64,7 @@
 </svelte:head>
 
 <main class="flex justify-between gap-8">
-	<div class="flex flex-col w-full" style="width: calc(100% - 250px);">
+	<div id="feed_content" class="flex flex-col w-full">
 		<!-- ? Form for new post -->
 		<form
 			use:enhance={handleSubmitPost}
@@ -149,7 +149,7 @@
 
 	<section
 		style="background-image: linear-gradient(180deg, #5700e4 0%, #3e00a5 100%); background-size: 100% 80px;"
-		class="w-[250px] bg-white rounded-lg shadow-sm h-full bg-no-repeat"
+		class="w-[250px] hidden md:flex md:flex-col bg-white rounded-lg shadow-sm h-full bg-no-repeat"
 	>
 		<div class="w-[250px] h-max flex flex-col items-center px-2 pt-7 pb-3">
 			<a
@@ -163,7 +163,7 @@
 				/>
 			</a>
 
-			<article class="leading-5 mt-1 flex-col items-center text-center">
+			<article class="leading-5 mt-1 flex flex-col items-center text-center">
 				<p class="text-base flex items-center text-center gap-1 text-dark font-semibold">
 					{$currentUser.public_name}
 					{#if $currentUser.is_star}
@@ -189,6 +189,14 @@
 </main>
 
 <style lang="scss">
+	#feed_content {
+		width: calc(100% - 250px);
+
+		@media (width < 768px) {
+			width: 100%;
+		}
+	}
+
 	#text:focus {
 		background: rgb(93, 35, 206);
 		background: linear-gradient(90deg, rgba(93, 35, 206, 0.05) 0%, rgba(255, 255, 255, 1) 24%);

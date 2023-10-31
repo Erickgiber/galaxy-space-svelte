@@ -6,12 +6,12 @@
 </script>
 
 <header
-	class="w-full h-14 px-3 mb-3 flex items-center justify-between bg-white rounded-xl shadow-sm"
+	class="w-full h-14 px-3 mb-3 flex items-center justify-center md:justify-between bg-white rounded-xl shadow-sm"
 >
 	<!-- ? Searcher -->
 	<label
 		for="searcher"
-		class="flex items-center px-2 bg-bg
+		class="hidden items-center px-2 bg-bg md:flex
 		rounded-xl h-9 gap-1 transition focus-within:text-primary"
 	>
 		<Icon icon="majesticons:search-line" class="text-xl" />
@@ -22,14 +22,14 @@
 		/>
 	</label>
 
-	<ul class="flex items-center gap-2">
+	<ul class="w-full flex justify-evenly md:justify-start items-center gap-2">
 		<!-- ? Profile Button -->
 		<li>
 			<a
 				style="font-family: 'Gabarito', sans-serif;"
 				href="/space/u/{$currentUser.username}"
 				class="text-base font-normal flex items-center gap-1 bg-bg
-				pr-3 rounded-full text-dark hover:bg-primary hover:text-white"
+				md:pr-3 rounded-full text-dark hover:bg-primary hover:text-white"
 			>
 				<img
 					in:fade
@@ -37,7 +37,9 @@
 					src={$currentUser.photo_url}
 					alt="Galaxy Space"
 				/>
-				{$currentUser.public_name}
+				<p class="hidden md:flex">
+					{$currentUser.public_name}
+				</p>
 			</a>
 		</li>
 

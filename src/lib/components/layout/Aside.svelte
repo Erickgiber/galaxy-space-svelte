@@ -18,7 +18,7 @@
 	}
 </script>
 
-<aside class="w-52 min-w-[208px] h-screen flex flex-col px-5 py-5 gap-8 select-none">
+<aside class="w-52 min-w-[208px] h-screen hidden sm:flex flex-col px-5 py-5 gap-8 select-none">
 	<!-- ? Profile btn -->
 	<a
 		style="font-family: 'Gabarito', sans-serif;"
