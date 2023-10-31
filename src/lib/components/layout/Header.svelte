@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import { HeaderConfig } from '$lib/config/layout/header.config'
 	import Icon from '@iconify/svelte'
 	import { currentUser } from '$lib/store/currentUser'
@@ -22,7 +22,7 @@
 		/>
 	</label>
 
-	<ul class="w-full flex justify-evenly md:justify-start items-center gap-2">
+	<ul class="w-full md:w-max justify-evenly md:justify-start flex items-center gap-2">
 		<!-- ? Profile Button -->
 		<li>
 			<a
