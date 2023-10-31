@@ -2,10 +2,11 @@ import type { IProfile } from '$lib/types/profile.types'
 import { transformTextPost } from '$lib/utils/transformTextPost'
 import type { Actions, ServerLoad } from '@sveltejs/kit'
 import type { IPost } from '$lib/types/post.types'
+import { v4 } from 'uuid'
 
 type IFormPost = {
 	text: string
-	image: File | File[]
+	image_url: File | File[] | string
 	user: IProfile
 }
 
@@ -51,6 +52,20 @@ export const actions: Actions = {
 				message: 'All fields are required',
 				invalidate: false
 			}
+		}
+
+		// @ts-ignore
+		if (postData.image_url?.name) {
+			const { data, error } = await supabase.storage
+				.from('photos')
+				.upload(`/posts_img/${locals.user.username}/${v4()}`, postData.image_url as File)
+
+			if (data) {
+				const path = `https://ufcvvchllbhbkfekutmt.supabase.co/storage/v1/object/public/photos/${data.path}`
+				postData.image_url = path as string
+			}
+		} else {
+			postData.image_url = ''
 		}
 
 		const { error } = await supabase.from('posts').insert({

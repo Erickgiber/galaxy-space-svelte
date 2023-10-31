@@ -13,6 +13,10 @@
 	const username = $currentUser.username.charAt(0).toUpperCase() + $currentUser.username.slice(1)
 	let postText = ''
 	let btnPostDisabled = writable(false)
+	let imgExists = {
+		src: '',
+		name: ''
+	}
 	$: postText.length < 1 ? ($btnPostDisabled = true) : ($btnPostDisabled = false)
 
 	const handleSubmitPost = () => {
@@ -20,7 +24,7 @@
 			onSuccess: () => {
 				const post: IPost = {
 					text: postText,
-					image_url: '',
+					image_url: imgExists ? imgExists.src : '',
 					// @ts-ignore
 					user: $currentUser,
 					username: $currentUser.username,
@@ -29,8 +33,26 @@
 				}
 				postText = ''
 				posts = [post, ...posts]
+				// @ts-ignore
+				imgExists = undefined
 			}
 		})
+	}
+
+	const handleLoadImg = (e: Event) => {
+		const input = e.currentTarget as HTMLInputElement
+		const files = input.files
+		const reader = new FileReader()
+
+		if (files && files.length > 0) {
+			reader.readAsDataURL(files![0])
+			reader.addEventListener('loadend', () => {
+				imgExists = {
+					src: reader.result as string,
+					name: files[0].name
+				}
+			})
+		}
 	}
 </script>
 
@@ -54,6 +76,16 @@
 				</p>
 			</label>
 
+			<input
+				on:change={handleLoadImg}
+				type="file"
+				name="image_url"
+				id="image"
+				maxlength="1"
+				accept="image/*"
+				class="hidden"
+			/>
+
 			<textarea
 				class="
 			p-2 w-full h-16 bg-white border-b-2
@@ -66,28 +98,47 @@
 				bind:value={postText}
 			/>
 
-			<div class="flex justify-end px-4 pb-2 gap-3">
-				<button
-					disabled={$btnPostDisabled}
-					class="{$btnPostDisabled
-						? 'opacity-20 bg-dark'
-						: 'bg-red-400'}  text-white px-2.5 py-1.5 rounded-md shadow-sm transition-all text-sm select-none"
-					type="reset"
-				>
-					Clean
-				</button>
-				<button type="submit" disabled={$btnPostDisabled}>
-					<p
-						class="
-				{$btnPostDisabled ? 'opacity-40 bg-gray-800' : 'bg_gradient'}
-				text-white px-2.5 py-1.5 rounded-md shadow-lg transition-all text-sm select-none
-				"
+			<article class="w-full flex items-center justify-between px-4 pb-2">
+				<!-- ? Buttons left -->
+				<div class="flex justify-end gap-3">
+					<label for="image" class="cursor-pointer">
+						<Icon class="text-4xl" icon="flat-color-icons:add-image" />
+					</label>
+				</div>
+
+				<!-- ? Buttons right -->
+				<div class="flex gap-3">
+					<button
+						disabled={$btnPostDisabled}
+						class="{$btnPostDisabled
+							? 'opacity-20 bg-dark'
+							: 'bg-red-400'}  text-white px-2.5 py-1.5 rounded-md shadow-sm transition-all text-sm select-none"
+						type="reset"
 					>
-						Posting
-					</p>
-				</button>
-			</div>
+						Clean
+					</button>
+					<button type="submit" disabled={$btnPostDisabled}>
+						<p
+							class="
+					{$btnPostDisabled ? 'opacity-40 bg-gray-800' : 'bg_gradient'}
+					text-white px-2.5 py-1.5 rounded-md shadow-lg transition-all text-sm select-none"
+						>
+							Posting
+						</p>
+					</button>
+				</div>
+			</article>
 		</form>
+		{#if imgExists?.src}
+			<div
+				class="w-full h-max mt-2 rounded-lg shadow-md"
+				style="background-image: url({imgExists.src}); background-size: cover; background-position: center;"
+			>
+				<div class="w-full h-max backdrop-blur-md rounded-lg">
+					<img class="w-auto mx-auto h-80" src={imgExists.src} alt="xd" />
+				</div>
+			</div>
+		{/if}
 
 		<!-- ? Posts -->
 		<Posts bind:posts />
