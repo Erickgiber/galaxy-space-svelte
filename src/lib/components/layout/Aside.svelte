@@ -25,7 +25,7 @@
 		href="/space"
 		class="text-xl font-normal text-[#1D2E79] flex items-center gap-1.5"
 	>
-		<img class="h-10 object-cover" src={LOGO} alt="Galaxy Space" />
+		<img class="h-10 object-cover pointer-events-none select-none" src={LOGO} alt="Galaxy Space" />
 		Galaxy Space
 	</a>
 

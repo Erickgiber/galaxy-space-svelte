@@ -51,7 +51,10 @@
 					src: reader.result as string,
 					name: files[0].name
 				}
+				btnPostDisabled.set(false)
 			})
+		} else {
+			btnPostDisabled.set(false)
 		}
 	}
 </script>

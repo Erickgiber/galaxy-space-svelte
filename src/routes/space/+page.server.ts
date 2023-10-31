@@ -47,7 +47,7 @@ export const actions: Actions = {
 		// ? Transform text
 		postData.text = transformTextPost(postData.text)
 
-		if (postData.text === '') {
+		if (postData.text === '' && !postData.image_url) {
 			return {
 				message: 'All fields are required',
 				invalidate: false

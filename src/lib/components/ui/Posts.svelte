@@ -32,9 +32,11 @@
 						<p class="text-sm font-semibold text-gray-500">@{post.username}</p>
 					</div>
 				</a>
-				<p class="px-2 text-[15px]">
-					{@html post.text}
-				</p>
+				{#if post.text}
+					<p class="px-2 text-[15px]">
+						{@html post.text}
+					</p>
+				{/if}
 
 				{#if post.image_url}
 					<div
