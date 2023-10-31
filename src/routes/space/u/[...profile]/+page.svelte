@@ -99,7 +99,18 @@
 	</div>
 
 	<div class="flex flex-col justify-center text-center mt-[73px]">
-		<p class="text-2xl font-semibold text-dark leading-tight">{$profile.public_name}</p>
+		<p
+			class="text-2xl flex items-center justify-center gap-1 font-semibold text-dark leading-tight"
+		>
+			{$profile.public_name}
+			{#if $profile.is_star}
+				<Icon
+					class="grid place-content-center text-xl"
+					icon="material-symbols:verified-rounded"
+					color="#5d23ce"
+				/>
+			{/if}
+		</p>
 		<b class="text-lg capitalize text-dark opacity-80 leading-snug">@{$profile.username}</b>
 	</div>
 {:else}
