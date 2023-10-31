@@ -33,6 +33,11 @@ export const handle: Handle = async ({ event, resolve }) => {
 			.select()
 			.eq('uuid', user.id)
 
+		if (errorUserData) {
+			await event.locals.supabase.auth.signOut()
+			throw redirect(303, '/login')
+		}
+
 		const { data: getProfileData, error: errorProfileData } = await event.locals.supabase
 			.from('profiles')
 			.select()
