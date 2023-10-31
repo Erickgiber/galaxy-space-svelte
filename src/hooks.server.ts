@@ -28,11 +28,6 @@ export const handle: Handle = async ({ event, resolve }) => {
 		error
 	} = await event.locals.supabase.auth.getUser()
 
-	if (error) {
-		await event.locals.supabase.auth.signOut()
-		throw redirect(303, '/login')
-	}
-
 	if (user) {
 		const { data: getUserData, error: errorUserData } = await event.locals.supabase
 			.from('register')
