@@ -10,4 +10,5 @@ export interface IProfile {
 	email: string
 	public_name: string
 	is_star: boolean
+	description: string
 }

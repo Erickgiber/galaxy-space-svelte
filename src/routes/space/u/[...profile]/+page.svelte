@@ -9,6 +9,7 @@
 	import { fade } from 'svelte/transition'
 
 	export let data
+	const optionsRight = ['photos', 'followers']
 
 	let profile = writable(data.profile as IProfile)
 	let isPhotoLoading = writable(false)
@@ -16,6 +17,12 @@
 
 	// Dynamic profile
 	$: profile.set(data.profile as IProfile)
+
+	const handleButtonsRight = (option: string) => {
+		if (optionsRight.includes(option)) {
+			console.log(option)
+		}
+	}
 </script>
 
 <svelte:head>
@@ -112,6 +119,30 @@
 			{/if}
 		</p>
 		<b class="text-lg capitalize text-dark opacity-80 leading-snug">@{$profile.username}</b>
+	</div>
+
+	<div class="flex flex-wrap justify-between mt-5">
+		<!-- ? Content Left -->
+		<article class="w-[39%]">
+			<div class="bg-white flex flex-col rounded-md shadow-sm p-2.5">
+				<h1 class="font-semibold px-2 border-b border-light_gray">Description</h1>
+				<p class="p-2 mt-2 text-[15px] h-40 bg-bg rounded-md">
+					{@html $profile.description || '<p class="text-dark select-none">Not description</p>'}
+				</p>
+			</div>
+		</article>
+		<article class="w-[59%] flex flex-col">
+			<!-- ? Buttons right -->
+			<article class="">
+				<button
+					on:click={() => handleButtonsRight('photos')}
+					type="button"
+					class="border-b-2 border-transparent hover:border-dark transition-all"
+				>
+					<span class="text-dark">Photos</span>
+				</button>
+			</article>
+		</article>
 	</div>
 {:else}
 	<h1>{data.msg}</h1>
