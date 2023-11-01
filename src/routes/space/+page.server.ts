@@ -56,9 +56,16 @@ export const actions: Actions = {
 
 		// @ts-ignore
 		if (postData.image_url?.name) {
+			if ((postData.image_url as File).size > 5000000) {
+				return {
+					message: 'The image must be less than 5MB',
+					invalidate: false
+				}
+			}
+
 			const { data, error } = await supabase.storage
 				.from('photos')
-				.upload(`/posts_img/${locals.user.username}/${v4()}`, postData.image_url as File)
+				.upload(`/posts_img/${locals.user.username}/${v4()}.png`, postData.image_url as File)
 
 			if (data) {
 				const path = `https://ufcvvchllbhbkfekutmt.supabase.co/storage/v1/object/public/photos/${data.path}`
