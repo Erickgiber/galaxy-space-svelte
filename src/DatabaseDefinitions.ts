@@ -13,7 +13,6 @@ export interface Database {
 					text: string | null
 					username: string | null
 					uuid: string | null
-					is_star: boolean
 				}
 				Insert: {
 					created_at?: string
@@ -24,7 +23,6 @@ export interface Database {
 					text?: string | null
 					username?: string | null
 					uuid?: string | null
-					is_star?: boolean
 				}
 				Update: {
 					created_at?: string
@@ -35,9 +33,7 @@ export interface Database {
 					text?: string | null
 					username?: string | null
 					uuid?: string | null
-					is_star?: boolean
 				}
-				is_star: boolean
 				Relationships: [
 					{
 						foreignKeyName: 'posts_email_fkey'
@@ -63,8 +59,10 @@ export interface Database {
 				Row: {
 					cover_photo_url: string | null
 					created_at: string
+					description: string
 					email: string | null
 					id: number
+					is_star: boolean
 					lastname: string | null
 					name: string | null
 					photo_url: string | null
@@ -75,8 +73,10 @@ export interface Database {
 				Insert: {
 					cover_photo_url?: string | null
 					created_at?: string
+					description?: string
 					email?: string | null
 					id?: number
+					is_star?: boolean
 					lastname?: string | null
 					name?: string | null
 					photo_url?: string | null
@@ -87,8 +87,10 @@ export interface Database {
 				Update: {
 					cover_photo_url?: string | null
 					created_at?: string
+					description?: string
 					email?: string | null
 					id?: number
+					is_star?: boolean
 					lastname?: string | null
 					name?: string | null
 					photo_url?: string | null
