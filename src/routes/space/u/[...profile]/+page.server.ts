@@ -1,5 +1,5 @@
 import type { IProfile } from '$lib/types/profile.types'
-import type { ServerLoad } from '@sveltejs/kit'
+import type { Actions, ServerLoad } from '@sveltejs/kit'
 
 export const load: ServerLoad = async (event) => {
 	const { supabase } = event.locals
@@ -23,6 +23,37 @@ export const load: ServerLoad = async (event) => {
 			isUserAuth: false,
 			status: 404,
 			msg: 'Profile not found'
+		}
+	}
+}
+
+export const actions: Actions = {
+	async changeDescription(event) {
+		const { locals } = event
+		const { supabase } = locals
+		const formEntries = await event.request.formData()
+		const formData = Object.fromEntries(formEntries)
+		console.log(formData)
+
+		const { data, error } = await supabase
+			.from('profiles')
+			.update({
+				description: formData.description
+			})
+			.eq('uuid', locals.user.uuid)
+
+		console.log(data, error)
+
+		if (error) {
+			return {
+				message: 'Error updating description',
+				invalidate: false
+			}
+		}
+
+		return {
+			message: 'Description updated',
+			invalidate: false
 		}
 	}
 }

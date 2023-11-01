@@ -1,9 +1,11 @@
 <script lang="ts">
+	import { enhance } from '$app/forms'
 	import PhotoLoader from '$lib/components/ui/PhotoLoader.svelte'
 	import { currentUser } from '$lib/store/currentUser'
 	import type { IProfile } from '$lib/types/profile.types.js'
 	import { handleChangePhoto } from '$lib/utils/profile/handleChangePhoto.js'
 	import { handleChangePhotoCover } from '$lib/utils/profile/handleChangePhotoCover.js'
+	import { resolver } from '$lib/utils/resolver.js'
 	import Icon from '@iconify/svelte'
 	import { writable } from 'svelte/store'
 	import { fade } from 'svelte/transition'
@@ -15,7 +17,7 @@
 	let isPhotoLoading = writable(false)
 	let isPhotoCoverLoading = writable(false)
 	let isEditableDescription = writable(false)
-	let descriptionHTML: HTMLDivElement
+	let descriptionHTML: HTMLTextAreaElement
 
 	// Dynamic profile
 	$: profile.set(data.profile as IProfile)
@@ -28,13 +30,20 @@
 
 	const handleEditDescription = (cancel?: 'cancel') => {
 		if (cancel === 'cancel') {
-			descriptionHTML.innerHTML =
-				$profile.description || '<p class="text-dark select-none">Not description</p>'
+			descriptionHTML.innerHTML = $profile.description || 'Not description'
 			$isEditableDescription = false
 			return
 		} else {
 			$isEditableDescription = true
 		}
+	}
+
+	const handleSubmitChangeDescription = () => {
+		return resolver(isEditableDescription, {
+			onSuccess: async () => {
+				$profile = { ...$profile, description: descriptionHTML.value }
+			}
+		})
 	}
 </script>
 
@@ -138,18 +147,25 @@
 		<!-- ? Content Left -->
 		<article class="w-[39%]">
 			<form
-				action="/changeDescription"
+				use:enhance={handleSubmitChangeDescription}
+				action="?/changeDescription"
 				method="post"
 				class="bg-white flex flex-col rounded-md shadow-sm p-2.5"
 			>
 				<h1 class="font-semibold px-2 border-b border-light_gray">Description</h1>
-				<div
-					bind:this={descriptionHTML}
-					contenteditable={$isEditableDescription}
-					class="p-2 mt-2 text-[15px] h-40 bg-bg rounded-md outline-primary"
-				>
-					{@html $profile.description || '<p class="text-dark select-none">Not description</p>'}
-				</div>
+
+				{#if $isEditableDescription}
+					<textarea
+						bind:this={descriptionHTML}
+						name="description"
+						class="p-2 mt-2 text-dark h-40 bg-bg rounded-md outline-primary"
+						>{$profile.description || 'Not description'}</textarea
+					>
+				{:else}
+					<div class="p-2 mt-2 text-dark h-40 bg-bg rounded-md outline-primary">
+						{@html $profile.description || '<p class="text-dark select-none">Not description</p>'}
+					</div>
+				{/if}
 				<div class="flex items-center justify-between gap-2">
 					{#if data.isUserAuth}
 						<button
@@ -166,7 +182,7 @@
 
 						{#if $isEditableDescription}
 							<button
-								type="button"
+								type="submit"
 								class="bg-primary w-max text-white rounded-md px-4 py-1.5 mt-2.5 transition-all duration-100 hover:bg-opacity-80"
 							>
 								Save
