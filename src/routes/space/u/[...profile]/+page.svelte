@@ -14,6 +14,8 @@
 	let profile = writable(data.profile as IProfile)
 	let isPhotoLoading = writable(false)
 	let isPhotoCoverLoading = writable(false)
+	let isEditableDescription = writable(false)
+	let descriptionHTML: HTMLDivElement
 
 	// Dynamic profile
 	$: profile.set(data.profile as IProfile)
@@ -21,6 +23,17 @@
 	const handleButtonsRight = (option: string) => {
 		if (optionsRight.includes(option)) {
 			console.log(option)
+		}
+	}
+
+	const handleEditDescription = (cancel?: 'cancel') => {
+		if (cancel === 'cancel') {
+			descriptionHTML.innerHTML =
+				$profile.description || '<p class="text-dark select-none">Not description</p>'
+			$isEditableDescription = false
+			return
+		} else {
+			$isEditableDescription = true
 		}
 	}
 </script>
@@ -124,12 +137,44 @@
 	<div class="flex flex-wrap justify-between mt-5">
 		<!-- ? Content Left -->
 		<article class="w-[39%]">
-			<div class="bg-white flex flex-col rounded-md shadow-sm p-2.5">
+			<form
+				action="/changeDescription"
+				method="post"
+				class="bg-white flex flex-col rounded-md shadow-sm p-2.5"
+			>
 				<h1 class="font-semibold px-2 border-b border-light_gray">Description</h1>
-				<p class="p-2 mt-2 text-[15px] h-40 bg-bg rounded-md">
+				<div
+					bind:this={descriptionHTML}
+					contenteditable={$isEditableDescription}
+					class="p-2 mt-2 text-[15px] h-40 bg-bg rounded-md outline-primary"
+				>
 					{@html $profile.description || '<p class="text-dark select-none">Not description</p>'}
-				</p>
-			</div>
+				</div>
+				<div class="flex items-center justify-between gap-2">
+					{#if data.isUserAuth}
+						<button
+							on:click={!$isEditableDescription
+								? () => handleEditDescription()
+								: () => handleEditDescription('cancel')}
+							type="button"
+							class="{$isEditableDescription
+								? 'bg-red-600'
+								: 'bg-primary'} w-max text-white rounded-md px-4 py-1.5 mt-2.5 transition-all duration-100 hover:bg-opacity-80"
+						>
+							{!$isEditableDescription ? 'Edit' : 'Cancel'}
+						</button>
+
+						{#if $isEditableDescription}
+							<button
+								type="button"
+								class="bg-primary w-max text-white rounded-md px-4 py-1.5 mt-2.5 transition-all duration-100 hover:bg-opacity-80"
+							>
+								Save
+							</button>
+						{/if}
+					{/if}
+				</div>
+			</form>
 		</article>
 		<article class="w-[59%] flex flex-col">
 			<!-- ? Buttons right -->
