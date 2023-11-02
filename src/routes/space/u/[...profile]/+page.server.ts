@@ -1,3 +1,4 @@
+import type { IFollower } from '$lib/types/follower.types'
 import type { IProfile } from '$lib/types/profile.types'
 import type { Actions, ServerLoad } from '@sveltejs/kit'
 
@@ -10,9 +11,15 @@ export const load: ServerLoad = async (event) => {
 	if (data && data.length > 0) {
 		const profile = data![0] as IProfile
 		const { data: dataUser, error } = await supabase.auth.getUser()
+		const { data: dataFollowers, error: errorFollowers } = await supabase
+			.from('followers')
+			.select()
+			.eq('username', profile.username)
 
 		return {
 			profile,
+			followers: (dataFollowers![0].followers as IFollower[]) || ([] as IFollower[]),
+			following: (dataFollowers![0].following as IFollower[]) || ([] as IFollower[]),
 			isUserAuth: dataUser?.user ? dataUser.user.id === profile.uuid : false,
 			status: 200,
 			msg: 'Profile found'
@@ -33,7 +40,6 @@ export const actions: Actions = {
 		const { supabase } = locals
 		const formEntries = await event.request.formData()
 		const formData = Object.fromEntries(formEntries)
-		console.log(formData)
 
 		const { data, error } = await supabase
 			.from('profiles')
@@ -41,8 +47,6 @@ export const actions: Actions = {
 				description: formData.description
 			})
 			.eq('uuid', locals.user.uuid)
-
-		console.log(data, error)
 
 		if (error) {
 			return {

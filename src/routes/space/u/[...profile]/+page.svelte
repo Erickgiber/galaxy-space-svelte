@@ -45,6 +45,13 @@
 			}
 		})
 	}
+
+	$: if ($profile.description) {
+		let regex = /\n/g
+		let textoConSaltosDeLinea = $profile.description.replace(regex, '<br>')
+
+		$profile.description = textoConSaltosDeLinea
+	}
 </script>
 
 <svelte:head>
@@ -146,6 +153,29 @@
 	<div class="flex flex-wrap justify-between mt-5">
 		<!-- ? Content Left -->
 		<article class="w-[39%]">
+			<!-- ? Followers -->
+			<div class="flex justify-between gap-2 mb-2">
+				<!-- ? Buttons right -->
+				<div class="bg-white h-max w-2/4 flex flex-col rounded-md shadow-sm p-2.5">
+					<!-- Followers -->
+					<h1 class="font-semibold text-lg px-2">Followers</h1>
+					<p class="px-2 w-max flex items-center gap-1 text-lg">
+						<Icon icon="solar:users-group-rounded-bold-duotone" class="text-xl text-primary" />
+						{data?.followers?.length}
+					</p>
+				</div>
+
+				<!-- ? Buttons right -->
+				<div class="bg-white h-max w-2/4 flex flex-col rounded-md shadow-sm p-2.5">
+					<!-- Following -->
+					<h1 class="font-semibold text-lg px-2">Following</h1>
+					<p class="px-2 w-max flex items-center gap-1 text-lg">
+						<Icon icon="solar:users-group-rounded-bold" class="text-xl text-dark" />
+						{data?.following?.length}
+					</p>
+				</div>
+			</div>
+
 			<form
 				use:enhance={handleSubmitChangeDescription}
 				action="?/changeDescription"
@@ -158,11 +188,13 @@
 					<textarea
 						bind:this={descriptionHTML}
 						name="description"
-						class="p-2 mt-2 text-dark h-40 bg-bg rounded-md outline-primary"
-						>{$profile.description || 'Not description'}</textarea
+						class="px-2 py-1 mt-1 resize-none bg-bg text-dark h-40 rounded-md outline-primary"
+						>{$profile.description.replaceAll('<br>', '\n') || 'Not description'}</textarea
 					>
 				{:else}
-					<div class="p-2 mt-2 text-dark h-40 bg-bg rounded-md outline-primary">
+					<div
+						class="px-2 py-1 mt-1 text-dark h-40 overflow-y-auto overflow-x-hidden rounded-md outline-primary"
+					>
 						{@html $profile.description || '<p class="text-dark select-none">Not description</p>'}
 					</div>
 				{/if}
@@ -192,18 +224,9 @@
 				</div>
 			</form>
 		</article>
-		<article class="w-[59%] flex flex-col">
-			<!-- ? Buttons right -->
-			<article class="">
-				<button
-					on:click={() => handleButtonsRight('photos')}
-					type="button"
-					class="border-b-2 border-transparent hover:border-dark transition-all"
-				>
-					<span class="text-dark">Photos</span>
-				</button>
-			</article>
-		</article>
+
+		<!-- ? Content Right -->
+		<article class="w-[59%] flex flex-wrap gap-5" />
 	</div>
 {:else}
 	<h1>{data.msg}</h1>
