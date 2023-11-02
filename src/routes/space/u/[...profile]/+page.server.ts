@@ -18,8 +18,14 @@ export const load: ServerLoad = async (event) => {
 
 		return {
 			profile,
-			followers: (dataFollowers![0].followers as IFollower[]) || ([] as IFollower[]),
-			following: (dataFollowers![0].following as IFollower[]) || ([] as IFollower[]),
+			followers:
+				dataFollowers && dataFollowers.length > 0
+					? (dataFollowers[0].followers as IFollower[])
+					: ([] as IFollower[]),
+			following:
+				dataFollowers && dataFollowers.length > 0
+					? (dataFollowers[0].following as IFollower[])
+					: ([] as IFollower[]),
 			isUserAuth: dataUser?.user ? dataUser.user.id === profile.uuid : false,
 			status: 200,
 			msg: 'Profile found'
