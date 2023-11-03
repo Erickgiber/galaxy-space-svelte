@@ -1,12 +1,16 @@
 <script lang="ts">
 	import { enhance } from '$app/forms'
+	import ButtonLoader from '$lib/components/ui/ButtonLoader.svelte'
 	import PhotoLoader from '$lib/components/ui/PhotoLoader.svelte'
 	import { currentUser } from '$lib/store/currentUser'
+	import { ProfileRepository } from '$lib/supabase/profile/ProfileRepository.js'
+	import type { IFollower } from '$lib/types/follower.types.js'
 	import type { IProfile } from '$lib/types/profile.types.js'
 	import { handleChangePhoto } from '$lib/utils/profile/handleChangePhoto.js'
 	import { handleChangePhotoCover } from '$lib/utils/profile/handleChangePhotoCover.js'
 	import { resolver } from '$lib/utils/resolver.js'
 	import Icon from '@iconify/svelte'
+	import dayjs from 'dayjs'
 	import { writable } from 'svelte/store'
 	import { fade } from 'svelte/transition'
 
@@ -18,6 +22,9 @@
 	let isPhotoCoverLoading = writable(false)
 	let isEditableDescription = writable(false)
 	let descriptionHTML: HTMLTextAreaElement
+	let btnFollowLoading = false
+	let isFollowed = data.isFollowing
+	const repository = new ProfileRepository()
 
 	// Dynamic profile
 	$: profile.set(data.profile as IProfile)
@@ -44,6 +51,33 @@
 				$profile = { ...$profile, description: descriptionHTML.value }
 			}
 		})
+	}
+
+	const handleFollow = async () => {
+		btnFollowLoading = true
+		isFollowed = await repository.follow.add($currentUser, $profile, data.supabase)
+		if (isFollowed) {
+			const updateFollowers = [
+				...(data.followers as IFollower[]),
+				{
+					created_at: dayjs(new Date()).format('DD/MM/YYYY HH:mm:ss'),
+					username: $currentUser.username,
+					uuid: $currentUser.uuid
+				} as IFollower
+			]
+			data.followers = updateFollowers
+		}
+		btnFollowLoading = false
+	}
+
+	const handleUnFollow = async () => {
+		btnFollowLoading = true
+		isFollowed = await repository.follow.remove($currentUser, $profile, data.supabase)
+		const updateFollowers = data.followers?.filter(
+			(follower: IFollower) => follower.uuid !== $currentUser.uuid
+		)
+		data.followers = updateFollowers
+		btnFollowLoading = false
 	}
 
 	$: if ($profile.description) {
@@ -136,7 +170,7 @@
 
 	<div class="flex flex-col justify-center text-center mt-[73px]">
 		<p
-			class="text-2xl flex items-center justify-center gap-1 font-semibold text-dark leading-tight"
+			class="text-2xl left-1 relative inline-flex w-max mx-auto items-center justify-center gap-1 font-semibold text-dark leading-tight"
 		>
 			{$profile.public_name}
 			{#if $profile.is_star}
@@ -148,11 +182,58 @@
 			{/if}
 		</p>
 		<b class="text-lg capitalize text-dark opacity-80 leading-snug">@{$profile.username}</b>
+
+		{#if !data.isUserAuth}
+			<article class="mt-1.5 w-max flex mx-auto items-center gap-2">
+				{#if !isFollowed}
+					{#if !btnFollowLoading}
+						<button
+							on:click={handleFollow}
+							class="text-base h-9 bg-primary border flex items-center gap-1 text-white px-3 py-1 rounded-lg shadow-md
+				hover:bg-opacity-80 transition-all duration-100
+				"
+							type="button"
+						>
+							Follow
+							<Icon icon="mingcute:user-add-2-line" />
+						</button>
+					{:else}
+						<div class="h-9">
+							<ButtonLoader style="width: 7px; height: 7px;" />
+						</div>
+					{/if}
+				{:else if !btnFollowLoading}
+					<button
+						on:click={handleUnFollow}
+						class="text-base h-9 bg-black text-white flex font-semibold items-center gap-1 px-3 py-1 rounded-lg
+				hover:bg-red-500 hover:text-white transition-all duration-100
+				"
+						type="button"
+					>
+						Following
+						<!-- <Icon icon="mingcute:user-remove-2-line" color="#ffffff" /> -->
+					</button>
+				{:else}
+					<div class="h-9">
+						<ButtonLoader style="width: 7px; height: 7px;" />
+					</div>
+				{/if}
+
+				<button
+					class="flex h-9 items-center gap-1 text-base bg-dark border text-white px-3 py-1 rounded-lg shadow-md
+				hover:bg-opacity-80 transition-all duration-100
+				"
+					type="button"
+				>
+					<Icon icon="simple-line-icons:options" />
+				</button>
+			</article>
+		{/if}
 	</div>
 
-	<div class="flex flex-wrap justify-between mt-5">
+	<div class="flex sm:flex-wrap justify-between mt-5">
 		<!-- ? Content Left -->
-		<article class="w-[39%]">
+		<article class="w-full sm:w-[39%]">
 			<!-- ? Followers -->
 			<div class="flex justify-between gap-2 mb-2">
 				<!-- ? Buttons right -->
@@ -226,7 +307,7 @@
 		</article>
 
 		<!-- ? Content Right -->
-		<article class="w-[59%] flex flex-wrap gap-5" />
+		<article class="sm:w-[59%] flex flex-wrap gap-5" />
 	</div>
 {:else}
 	<h1>{data.msg}</h1>

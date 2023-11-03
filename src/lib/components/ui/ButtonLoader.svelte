@@ -1,4 +1,4 @@
-<span class="loader" />
+<span class="loader" {...$$props} />
 
 <style lang="scss">
 	.loader {

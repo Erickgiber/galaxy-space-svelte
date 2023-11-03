@@ -16,6 +16,13 @@ export const load: ServerLoad = async (event) => {
 			.select()
 			.eq('username', profile.username)
 
+		const isFollowing =
+			dataFollowers && dataFollowers.length > 0
+				? dataFollowers[0].followers.find(
+						(follower: IFollower) => follower.uuid === dataUser?.user?.id
+				  )
+				: false
+
 		return {
 			profile,
 			followers:
@@ -27,6 +34,7 @@ export const load: ServerLoad = async (event) => {
 					? (dataFollowers[0].following as IFollower[])
 					: ([] as IFollower[]),
 			isUserAuth: dataUser?.user ? dataUser.user.id === profile.uuid : false,
+			isFollowing: isFollowing,
 			status: 200,
 			msg: 'Profile found'
 		}
@@ -47,7 +55,7 @@ export const actions: Actions = {
 		const formEntries = await event.request.formData()
 		const formData = Object.fromEntries(formEntries)
 
-		const { data, error } = await supabase
+		const { error } = await supabase
 			.from('profiles')
 			.update({
 				description: formData.description

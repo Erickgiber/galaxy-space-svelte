@@ -50,7 +50,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 			username: getUserData![0].username,
 			refresh_token: session!.refresh_token,
 			uuid: getUserData![0].uuid,
-			role: getProfileData![0].role,
+			role: getUserData![0].role,
 			cover_photo_url: getProfileData![0].cover_photo_url,
 			is_star: getProfileData![0].is_star
 		}
