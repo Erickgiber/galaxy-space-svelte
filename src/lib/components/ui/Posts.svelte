@@ -50,7 +50,7 @@
 				{/if}
 
 				<div class="absolute bottom-2 left-3 text-sm text-dark">
-					{dayjs(post.created_at).format('DD-MM-YY h:mm A')}
+					{dayjs(post.created_at).format('DD/MM/YYYY h:mm A')}
 				</div>
 			</article>
 		{/each}
