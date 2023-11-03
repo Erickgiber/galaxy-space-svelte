@@ -92,7 +92,26 @@ export class ProfileRepository {
 					})
 					.eq('username', profile.username)
 
-				return errorSaveFollowers ? false : true
+				const { data: oldFollowingCurrent, error } = await supabase
+					.from('followers')
+					.select()
+					.eq('username', profile.username)
+
+				const { data: saveFollowersCurrent, error: errorSaveFollowersCurrent } = await supabase
+					.from('followers')
+					.update({
+						following: [
+							...(oldFollowingCurrent![0]?.following || []),
+							{
+								uuid: profile.uuid,
+								username: profile.username,
+								created_at: dayjs(new Date()).format('DD/MM/YYYY HH:mm:ss')
+							}
+						]
+					})
+					.eq('username', currentUser.username)
+
+				return errorSaveFollowersCurrent ? false : true
 			} else {
 				const { data: saveFollowers, error: errorSaveFollowers } = await supabase
 					.from('followers')
@@ -107,7 +126,42 @@ export class ProfileRepository {
 							} as IFollower
 						]
 					})
-				return errorSaveFollowers ? false : true
+
+				const { data: existTableCurrent, error: errorExistTableCurrent } = await supabase
+					.from('followers')
+					.select()
+					.eq('username', currentUser.username)
+
+				if (existTableCurrent && existTableCurrent.length > 0) {
+					const { data: saveFollowersCurrent, error: errorSaveFollowersCurrent } = await supabase
+						.from('followers')
+						.update({
+							following: [
+								...(existTableCurrent![0]?.following || []),
+								{
+									uuid: profile.uuid,
+									username: profile.username,
+									created_at: dayjs(new Date()).format('DD/MM/YYYY HH:mm:ss')
+								} as IFollower
+							]
+						})
+						.eq('username', currentUser.username)
+					return errorSaveFollowersCurrent ? false : true
+				} else {
+					const { data: saveFollowersCurrent, error: errorSaveFollowersCurrent } = await supabase
+						.from('followers')
+						.insert({
+							username: currentUser.username,
+							following: [
+								{
+									uuid: profile.uuid,
+									username: profile.username,
+									created_at: dayjs(new Date()).format('DD/MM/YYYY HH:mm:ss')
+								} as IFollower
+							]
+						})
+					return errorSaveFollowersCurrent ? false : true
+				}
 			}
 		},
 		remove: async (currentUser: ICurrentUser, profile: IProfile, supabase: SupabaseClient) => {
@@ -134,7 +188,25 @@ export class ProfileRepository {
 						})
 						.eq('username', profile.username)
 
-					return !removeFollower ? false : true
+					const { data: oldFollowingCurrent, error: errorOldFollowingCurrent } = await supabase
+						.from('followers')
+						.select()
+						.eq('username', currentUser.username)
+
+					if (oldFollowingCurrent) {
+						const existsFollowing = oldFollowingCurrent[0]?.following?.filter(
+							(follower: IFollower) => follower.uuid === currentUser.uuid
+						)
+
+						const { data: removeFollowerCurrent, error: errorRemoveCurrent } = await supabase
+							.from('followers')
+							.update({
+								following: existsFollowing
+							})
+							.eq('username', currentUser.username)
+
+						return !errorRemoveCurrent ? false : true
+					}
 				} else {
 					toast.push('You not follow this user', {
 						theme: {
