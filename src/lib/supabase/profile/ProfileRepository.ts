@@ -97,21 +97,36 @@ export class ProfileRepository {
 					.select()
 					.eq('username', profile.username)
 
-				const { data: saveFollowersCurrent, error: errorSaveFollowersCurrent } = await supabase
-					.from('followers')
-					.update({
-						following: [
-							...(oldFollowingCurrent![0]?.following || []),
-							{
-								uuid: profile.uuid,
-								username: profile.username,
-								created_at: dayjs(new Date()).format('DD/MM/YYYY HH:mm:ss')
-							}
-						]
-					})
-					.eq('username', currentUser.username)
-
-				return errorSaveFollowersCurrent ? false : true
+				if (oldFollowingCurrent && oldFollowingCurrent.length > 0) {
+					const { data: saveFollowersCurrent, error: errorSaveFollowersCurrent } = await supabase
+						.from('followers')
+						.update({
+							following: [
+								...(oldFollowingCurrent![0]?.following || []),
+								{
+									uuid: profile.uuid,
+									username: profile.username,
+									created_at: dayjs(new Date()).format('DD/MM/YYYY HH:mm:ss')
+								}
+							]
+						})
+						.eq('username', currentUser.username)
+					return errorSaveFollowersCurrent ? false : true
+				} else {
+					const { data: saveFollowersCurrent, error: errorSaveFollowersCurrent } = await supabase
+						.from('followers')
+						.insert({
+							username: currentUser.username,
+							following: [
+								{
+									uuid: profile.uuid,
+									username: profile.username,
+									created_at: dayjs(new Date()).format('DD/MM/YYYY HH:mm:ss')
+								}
+							]
+						})
+					return errorSaveFollowersCurrent ? false : true
+				}
 			} else {
 				const { data: saveFollowers, error: errorSaveFollowers } = await supabase
 					.from('followers')
