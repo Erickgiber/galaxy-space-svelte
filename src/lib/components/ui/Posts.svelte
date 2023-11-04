@@ -10,7 +10,7 @@
 		{#each posts as post}
 			<article class="relative flex flex-col gap-2 pb-10 bg-white py-2 rounded-lg shadow-sm">
 				<a
-					class="flex max-w-max rounded-md gap-1.5 px-2 pr-5 py-1.5 transition-all hover:bg-bg"
+					class="flex ml-2 max-w-max rounded-md gap-1.5 pl-0.5 py-1.5 transition-all"
 					href="/space/u/{post.user?.username}"
 				>
 					<img
