@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { enhance } from '$app/forms'
+	import ButtonFollowingLoader from '$lib/components/ui/ButtonFollowingLoader.svelte'
 	import ButtonLoader from '$lib/components/ui/ButtonLoader.svelte'
 	import PhotoLoader from '$lib/components/ui/PhotoLoader.svelte'
 	import { currentUser } from '$lib/store/currentUser'
@@ -199,7 +200,7 @@
 						</button>
 					{:else}
 						<div class="h-9">
-							<ButtonLoader style="width: 7px; height: 7px;" />
+							<ButtonFollowingLoader width="75px" height="100%" />
 						</div>
 					{/if}
 				{:else if !btnFollowLoading}
@@ -215,7 +216,7 @@
 					</button>
 				{:else}
 					<div class="h-9">
-						<ButtonLoader style="width: 7px; height: 7px;" />
+						<ButtonFollowingLoader width="75px" height="100%" />
 					</div>
 				{/if}
 
