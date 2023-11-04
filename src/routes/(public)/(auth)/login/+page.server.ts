@@ -36,7 +36,10 @@ export const actions: Actions = {
 			username: getUserData![0].username,
 			refresh_token: data.session.refresh_token,
 			uuid: getUserData![0].uuid,
-			photo_url: getProfileData![0].photo_url
+			photo_url: getProfileData![0].photo_url,
+			role: getUserData![0].role,
+			cover_photo_url: getProfileData![0].cover_photo_url,
+			is_star: getProfileData![0].is_star
 		}
 
 		return {

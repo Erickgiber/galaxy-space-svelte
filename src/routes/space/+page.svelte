@@ -13,6 +13,7 @@
 	const username = $currentUser.username.charAt(0).toUpperCase() + $currentUser.username.slice(1)
 	let postText = ''
 	let btnPostDisabled = writable(false)
+	let inputHTMLFile: HTMLInputElement
 	let imgExists = {
 		src: '',
 		name: ''
@@ -57,6 +58,33 @@
 			btnPostDisabled.set(false)
 		}
 	}
+
+	const handleCleanFormPost = () => {
+		// Reseting img variable
+		imgExists = {
+			src: '',
+			name: ''
+		}
+		if (postText.length > 0) {
+			postText = ''
+		}
+
+		// Reseting input file
+		inputHTMLFile.files = null
+		inputHTMLFile.value = ''
+		btnPostDisabled.set(true)
+	}
+
+	const handleCleanImage = () => {
+		imgExists = {
+			src: '',
+			name: ''
+		}
+
+		if (postText.length === 0) {
+			btnPostDisabled.set(true)
+		}
+	}
 </script>
 
 <svelte:head>
@@ -87,6 +115,7 @@
 				maxlength="1"
 				accept="image/*"
 				class="hidden"
+				bind:this={inputHTMLFile}
 			/>
 
 			<textarea
@@ -112,6 +141,7 @@
 				<!-- ? Buttons right -->
 				<div class="flex gap-3">
 					<button
+						on:click={!$btnPostDisabled ? handleCleanFormPost : null}
 						disabled={$btnPostDisabled}
 						class="{$btnPostDisabled
 							? 'opacity-20 bg-dark'
@@ -134,12 +164,19 @@
 		</form>
 		{#if imgExists?.src}
 			<div
-				class="w-full h-max mt-2 rounded-lg shadow-md"
+				class="relative w-full h-max mt-2 rounded-lg shadow-md"
 				style="background-image: url({imgExists.src}); background-size: cover; background-position: center;"
 			>
 				<div class="w-full h-max backdrop-blur-md rounded-lg">
 					<img class="w-auto mx-auto h-80" src={imgExists.src} alt="xd" />
 				</div>
+
+				<button
+					on:click={handleCleanImage}
+					class="absolute top-2 right-2 p-0.5 rounded-md bg-red-500 shadow-xl"
+				>
+					<Icon icon="solar:trash-bin-2-bold" width="20" height="20" color="white" />
+				</button>
 			</div>
 		{/if}
 
