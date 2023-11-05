@@ -1,7 +1,7 @@
 export const HeaderConfig = {
 	options: [
 		{
-			name: 'Menu',
+			name: 'menu',
 			icon: 'ic:twotone-apps',
 			customClass: '',
 			onclick: (params?: any) => {
@@ -9,15 +9,16 @@ export const HeaderConfig = {
 			}
 		},
 		{
-			name: 'Notifications',
+			name: 'notifications',
 			icon: 'mingcute:notification-line',
 			customClass: '',
 			onclick: (params?: any) => {
-				console.log('Notifications')
+				const { isNotificationsOpen, value } = params
+				isNotificationsOpen.set(!value)
 			}
 		},
 		{
-			name: 'Dropdown',
+			name: 'dropdown',
 			icon: 'eva:arrow-down-fill',
 			customClass: '',
 			onclick: (params?: any) => {

@@ -2,11 +2,14 @@
 	import { HeaderConfig } from '$lib/config/layout/header.config'
 	import Icon from '@iconify/svelte'
 	import { currentUser } from '$lib/store/currentUser'
-	import { fade } from 'svelte/transition'
+	import { draw, fade, slide } from 'svelte/transition'
+	import { writable } from 'svelte/store'
+
+	let isNotificationsOpen = writable(false)
 </script>
 
 <header
-	class="w-full h-14 px-3 mb-3 flex items-center justify-center md:justify-between bg-white rounded-xl shadow-sm"
+	class="relative w-full h-14 px-3 mb-3 flex items-center justify-center md:justify-between bg-white rounded-xl shadow-sm"
 >
 	<!-- ? Searcher -->
 	<label
@@ -22,7 +25,7 @@
 		/>
 	</label>
 
-	<ul class="w-full md:w-max justify-evenly md:justify-start flex items-center gap-2">
+	<ul class="relative w-full md:w-max justify-evenly md:justify-start flex items-center gap-2">
 		<!-- ? Profile Button -->
 		<li>
 			<a
@@ -48,11 +51,30 @@
 				<button
 					class="h-full grid place-content-center text-2xl bg-bg p-2
                     rounded-full text-dark hover:bg-primary hover:text-white"
-					on:click={option.onclick}
+					on:click={() => {
+						if (option.name === 'notifications') {
+							option.onclick({
+								isNotificationsOpen,
+								value: $isNotificationsOpen
+							})
+						}
+					}}
 				>
 					<Icon icon={option.icon} />
 				</button>
 			</li>
 		{/each}
 	</ul>
+
+	{#if !$isNotificationsOpen}
+		<div
+			transition:slide
+			class="absolute top-16 right-0 bg-white bg-opacity-95 backdrop-blur-sm shadow-xl z-10 rounded-xl w-72 h-52"
+		>
+			<h1 class="text-center py-2 border-b-2 border-gray-200">Notifications</h1>
+			<div class="w-full h-max">
+				<p class="text-center py-2">Nothing here :p</p>
+			</div>
+		</div>
+	{/if}
 </header>
