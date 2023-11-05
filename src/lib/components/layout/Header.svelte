@@ -66,7 +66,7 @@
 		{/each}
 	</ul>
 
-	{#if !$isNotificationsOpen}
+	{#if $isNotificationsOpen}
 		<div
 			transition:slide
 			class="absolute top-16 right-0 bg-white bg-opacity-95 backdrop-blur-sm shadow-xl z-10 rounded-xl w-72 h-52"
