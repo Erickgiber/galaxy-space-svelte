@@ -37,7 +37,7 @@
 				style="font-family: 'Gabarito', sans-serif;"
 				href="/space/u/{$currentUser.username}"
 				class="text-base font-normal flex items-center gap-1 bg-bg
-				md:pr-3 rounded-full text-dark hover:bg-primary hover:text-white"
+				md:pr-3 rounded-full text-dark sm:hover:bg-primary sm:hover:text-white"
 			>
 				<img
 					in:fade
@@ -55,7 +55,7 @@
 			<li>
 				<button
 					class="h-full grid place-content-center text-2xl bg-bg p-2
-                    rounded-full text-dark hover:bg-primary hover:text-white
+                    rounded-full text-dark sm:hover:bg-primary sm:hover:text-white
 					{$isNotificationsOpen && option.name === 'notifications' ? 'bg-primary text-white' : ''}
 					"
 					on:click={() => {
