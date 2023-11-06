@@ -274,7 +274,7 @@
 				<button
 					on:click={data.followers.length > 0
 						? HandleShowFollowers
-						: () => handleToast('Not followers found :(')}
+						: () => handleToast('Nothig here')}
 					class="bg-white h-max w-2/4 flex flex-col rounded-md shadow-sm p-2.5 outline-primary"
 				>
 					<!-- Followers -->
@@ -289,7 +289,7 @@
 				<button
 					on:click={data.following.length > 0
 						? HandleShowFollowers
-						: () => handleToast('Not followers found :(')}
+						: () => handleToast('Nothing here')}
 					class="bg-white h-max w-2/4 flex flex-col rounded-md shadow-sm p-2.5"
 				>
 					<!-- Following -->
