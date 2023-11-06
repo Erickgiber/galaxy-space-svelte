@@ -1,4 +1,5 @@
 import type { ICurrentUser } from '$lib/store/currentUser'
+import type { INotification } from '$lib/types/notification.types'
 import type { Actions } from '@sveltejs/kit'
 
 export const actions: Actions = {
@@ -28,6 +29,11 @@ export const actions: Actions = {
 			.select()
 			.eq('uuid', getUserData![0].uuid)
 
+		const { data: getNotifications, error: errorNOtifications } = await locals.supabase
+			.from('notifications')
+			.select()
+			.eq('uuid', getUserData![0].uuid)
+
 		// * Saving data in variable
 		const user: ICurrentUser = {
 			email: data.user.email as string,
@@ -39,7 +45,8 @@ export const actions: Actions = {
 			photo_url: getProfileData![0].photo_url,
 			role: getUserData![0].role,
 			cover_photo_url: getProfileData![0].cover_photo_url,
-			is_star: getProfileData![0].is_star
+			is_star: getProfileData![0].is_star,
+			notifications: getNotifications as INotification[]
 		}
 
 		return {
