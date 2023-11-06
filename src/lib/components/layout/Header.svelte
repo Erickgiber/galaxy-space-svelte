@@ -50,10 +50,9 @@
 			<li>
 				<button
 					class="h-full grid place-content-center text-2xl bg-bg p-2
-                    rounded-full text-dark hover:bg-primary hover:text-white {$isNotificationsOpen &&
-					option.name === 'notifications'
-						? 'bg-primary text-white'
-						: ''}"
+                    rounded-full text-dark hover:bg-primary hover:text-white
+					{$isNotificationsOpen && option.name === 'notifications' ? 'bg-primary text-white' : ''}
+					"
 					on:click={() => {
 						if (option.name === 'notifications') {
 							option.onclick({
