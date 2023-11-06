@@ -2,7 +2,7 @@
 	import { HeaderConfig } from '$lib/config/layout/header.config'
 	import Icon from '@iconify/svelte'
 	import { currentUser } from '$lib/store/currentUser'
-	import { draw, fade, slide } from 'svelte/transition'
+	import { fade, slide } from 'svelte/transition'
 	import { writable } from 'svelte/store'
 
 	let isNotificationsOpen = writable(false)
@@ -50,7 +50,10 @@
 			<li>
 				<button
 					class="h-full grid place-content-center text-2xl bg-bg p-2
-                    rounded-full text-dark hover:bg-primary hover:text-white"
+                    rounded-full text-dark hover:bg-primary hover:text-white {$isNotificationsOpen &&
+					option.name === 'notifications'
+						? 'bg-primary text-white'
+						: ''}"
 					on:click={() => {
 						if (option.name === 'notifications') {
 							option.onclick({
@@ -69,11 +72,19 @@
 	{#if $isNotificationsOpen}
 		<div
 			transition:slide
-			class="absolute top-16 right-0 bg-white bg-opacity-95 backdrop-blur-sm shadow-xl z-10 rounded-xl w-72 h-52"
+			class="absolute top-16 right-0 bg-white shadow-xl z-10 rounded-xl w-72 h-52"
 		>
-			<h1 class="text-center py-2 border-b-2 border-gray-200">Notifications</h1>
+			<h1 class="text-center font-bold text-dark py-2 border-b-2 border-gray-200">Notifications</h1>
 			<div class="w-full h-max">
-				<p class="text-center py-2">Nothing here :p</p>
+				<div class="mx-auto my-5 flex flex-col items-center">
+					<lord-icon
+						src="https://cdn.lordicon.com/nmipallp.json"
+						trigger="loop"
+						delay="2000"
+						style="width:90px;height:90px"
+					/>
+					<p class="text-lg font-semibold text-dark">Ehh.. this is dead</p>
+				</div>
 			</div>
 		</div>
 	{/if}

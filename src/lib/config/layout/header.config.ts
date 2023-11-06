@@ -1,4 +1,15 @@
-export const HeaderConfig = {
+type IHeaderOption = {
+	name: 'notifications' | 'menu' | 'dropdown'
+	icon: string
+	customClass: string
+	onclick: (params?: any) => void
+}
+
+type IHeaderConfig = {
+	options: IHeaderOption[]
+}
+
+export const HeaderConfig: IHeaderConfig = {
 	options: [
 		{
 			name: 'menu',
