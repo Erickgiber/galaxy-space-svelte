@@ -2,6 +2,7 @@
 	import dayjs from 'dayjs'
 	import type { IPost } from '$lib/types/post.types'
 	import Icon from '@iconify/svelte'
+	import VerifiedIcon from './VerifiedIcon.svelte'
 	export let posts: IPost[]
 </script>
 
@@ -21,13 +22,7 @@
 					<div class="flex flex-col leading-4">
 						<p class="flex items-center gap-1">
 							{post.user.public_name}
-							{#if post.user.is_star}
-								<Icon
-									class="grid place-content-center text-base"
-									icon="material-symbols:verified-rounded"
-									color="#5d23ce"
-								/>
-							{/if}
+							<VerifiedIcon isStar={post.user.is_star} />
 						</p>
 						<p class="text-sm font-semibold text-gray-500">@{post.username}</p>
 					</div>

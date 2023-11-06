@@ -7,10 +7,22 @@
 	import '../app.scss'
 	import { onMount } from 'svelte'
 	import { invalidate } from '$app/navigation'
+	import type { SvelteToastOptions } from '@zerodevx/svelte-toast/stores'
 	export let data
 
 	// Optionally set default options here
-	const options = {}
+	const options: SvelteToastOptions = {
+		theme: {
+			'--toastBackground': '#000',
+			'--toastColor': '#fff',
+			'--toastProgressBackground': 'va(--primary)'
+		},
+		intro: {
+			y: -100,
+			opacity: 0
+		},
+		dismissable: false
+	}
 
 	// @ts-ignore
 	let { supabase, session, user } = data

@@ -222,6 +222,8 @@ export class ProfileRepository {
 
 						return !errorRemoveCurrent ? false : true
 					}
+
+					return false
 				} else {
 					toast.push('You not follow this user', {
 						theme: {

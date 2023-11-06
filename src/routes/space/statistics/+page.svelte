@@ -1,4 +1,6 @@
 <script lang="ts">
+	import VerifiedIcon from '$lib/components/ui/VerifiedIcon.svelte'
+
 	export let data
 </script>
 
@@ -23,7 +25,10 @@
 				alt={user.public_name}
 			/>
 			<div class="flex flex-col leading-4">
-				<b class="text-md">{user.public_name}</b>
+				<b class="text-md flex items-center gap-1">
+					{user.public_name}
+					<VerifiedIcon isStar={user.is_star} />
+				</b>
 				<p class="text-sm font-semibold text-gray-500">@{user.username}</p>
 			</div>
 		</a>

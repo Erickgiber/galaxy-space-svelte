@@ -16,7 +16,7 @@ export const load: ServerLoad = async (event) => {
 			.select()
 			.eq('username', profile.username)
 
-		const isFollowing =
+		const isFollowing: boolean =
 			dataFollowers && dataFollowers.length > 0
 				? dataFollowers[0].followers.find(
 						(follower: IFollower) => follower.uuid === dataUser?.user?.id
@@ -43,7 +43,9 @@ export const load: ServerLoad = async (event) => {
 			profile: false,
 			isUserAuth: false,
 			status: 404,
-			msg: 'Profile not found'
+			msg: 'Profile not found',
+			followers: [] as IFollower[],
+			following: [] as IFollower[]
 		}
 	}
 }
