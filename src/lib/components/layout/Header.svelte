@@ -73,7 +73,7 @@
 		{/each}
 	</ul>
 
-	{#if !$isNotificationsOpen}
+	{#if $isNotificationsOpen}
 		<div
 			transition:slide
 			class="absolute top-16 right-0 bg-white shadow-xl z-10 rounded-xl w-72 h-52"
@@ -82,14 +82,21 @@
 			<div class="w-full h-max">
 				{#if notifications.length > 0}
 					{#each notifications as notification}
-						<div class="p-1 px-2 border-y-2 border-light_gray">
-							<h1 class="text-base text-dark font-bold">{notification.title}</h1>
+						<div class="p-2 border-b-2 border-light_gray">
+							{#if notification.type === 'follow'}
+								<h1 class="text-base text-dark font-bold flex items-center gap-1">
+									<Icon icon="mdi:account-plus" class="text-sm" />
+									{notification.title}
+								</h1>
+							{:else}
+								<h1 class="text-base text-dark font-bold">{notification.title}</h1>
+							{/if}
 							{#if notification.type === 'follow'}
 								<a href="/space/u/{notification.from_username}" class="text-sm"
 									>{@html notification.description}</a
 								>
 							{:else}
-								<p class="text-sm">{notification.description}</p>
+								<p class="text-sm py-2">{notification.description}</p>
 							{/if}
 						</div>
 					{/each}

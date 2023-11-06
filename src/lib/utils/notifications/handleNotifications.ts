@@ -16,7 +16,8 @@ export const handleNotifications = async (
 		username: profile.username,
 		title: data.title,
 		subtitle: data.subtitle,
-		description: data.description
+		description: data.description,
+		type: data.type
 	})
 
 	console.log(InserNotifications, error)
