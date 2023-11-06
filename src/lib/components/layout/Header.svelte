@@ -4,8 +4,13 @@
 	import { currentUser } from '$lib/store/currentUser'
 	import { fade, slide } from 'svelte/transition'
 	import { writable } from 'svelte/store'
+	import { page } from '$app/stores'
+	import type { INotification } from '$lib/types/notification.types'
 
 	let isNotificationsOpen = writable(false)
+	let notifications: INotification[] = []
+
+	$: notifications = $page.data.user?.notifications as INotification[]
 </script>
 
 <header
@@ -68,22 +73,37 @@
 		{/each}
 	</ul>
 
-	{#if $isNotificationsOpen}
+	{#if !$isNotificationsOpen}
 		<div
 			transition:slide
 			class="absolute top-16 right-0 bg-white shadow-xl z-10 rounded-xl w-72 h-52"
 		>
 			<h1 class="text-center font-bold text-dark py-2 border-b-2 border-gray-200">Notifications</h1>
 			<div class="w-full h-max">
-				<div class="mx-auto my-5 flex flex-col items-center">
-					<lord-icon
-						src="https://cdn.lordicon.com/nmipallp.json"
-						trigger="loop"
-						delay="2000"
-						style="width:90px;height:90px"
-					/>
-					<p class="text-lg font-semibold text-dark">Ehh.. this is dead</p>
-				</div>
+				{#if notifications.length > 0}
+					{#each notifications as notification}
+						<div class="p-1 px-2 border-y-2 border-light_gray">
+							<h1 class="text-base text-dark font-bold">{notification.title}</h1>
+							{#if notification.type === 'follow'}
+								<a href="/space/u/{notification.from_username}" class="text-sm"
+									>{@html notification.description}</a
+								>
+							{:else}
+								<p class="text-sm">{notification.description}</p>
+							{/if}
+						</div>
+					{/each}
+				{:else}
+					<div class="mx-auto my-5 flex flex-col items-center">
+						<lord-icon
+							src="https://cdn.lordicon.com/nmipallp.json"
+							trigger="loop"
+							delay="2000"
+							style="width:90px;height:90px"
+						/>
+						<p class="text-lg font-semibold text-dark">Ehh.. this is dead</p>
+					</div>
+				{/if}
 			</div>
 		</div>
 	{/if}

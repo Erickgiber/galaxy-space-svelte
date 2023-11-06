@@ -2,6 +2,7 @@ import type { ICurrentUser } from '$lib/store/currentUser'
 import type { IFollower } from '$lib/types/follower.types'
 import type { IProfile } from '$lib/types/profile.types'
 import { imageCompress } from '$lib/utils/imageCompress'
+import { handleNotifications } from '$lib/utils/notifications/handleNotifications'
 import type { SupabaseClient } from '@supabase/supabase-js'
 import { toast } from '@zerodevx/svelte-toast'
 import { decode } from 'base64-arraybuffer'
@@ -111,6 +112,13 @@ export class ProfileRepository {
 							]
 						})
 						.eq('username', currentUser.username)
+
+					// ? Send Notification
+					await handleNotifications(currentUser, profile, supabase, {
+						title: 'New follower',
+						description: `<b class="text-primary">${currentUser.public_name}</b> is now following you`,
+						type: 'follow'
+					})
 					return errorSaveFollowersCurrent ? false : true
 				} else {
 					const { data: saveFollowersCurrent, error: errorSaveFollowersCurrent } = await supabase
@@ -125,6 +133,13 @@ export class ProfileRepository {
 								}
 							]
 						})
+
+					// ? Send Notification
+					await handleNotifications(currentUser, profile, supabase, {
+						title: 'New follower',
+						description: `<b class="text-primary">${currentUser.public_name}</b> is now following you`,
+						type: 'follow'
+					})
 					return errorSaveFollowersCurrent ? false : true
 				}
 			} else {

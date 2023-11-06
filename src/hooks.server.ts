@@ -1,5 +1,6 @@
 // src/hooks.server.ts
 import { PUBLIC_SUPABASE_URL, PUBLIC_SUPABASE_ANON_KEY } from '$env/static/public'
+import type { INotification } from '$lib/types/notification.types'
 import { createSupabaseServerClient } from '@supabase/auth-helpers-sveltekit'
 import { redirect, type Handle } from '@sveltejs/kit'
 
@@ -40,6 +41,11 @@ export const handle: Handle = async ({ event, resolve }) => {
 			.select()
 			.eq('uuid', user.id)
 
+		const { data: getNotifications, error: errorNOtifications } = await event.locals.supabase
+			.from('notifications')
+			.select()
+			.eq('uuid', user.id)
+
 		const session = await event.locals.getSession()
 
 		event.locals.user = {
@@ -52,7 +58,8 @@ export const handle: Handle = async ({ event, resolve }) => {
 			uuid: getUserData![0].uuid,
 			role: getUserData![0].role,
 			cover_photo_url: getProfileData![0].cover_photo_url,
-			is_star: getProfileData![0].is_star
+			is_star: getProfileData![0].is_star,
+			notifications: getNotifications as INotification[]
 		}
 	}
 

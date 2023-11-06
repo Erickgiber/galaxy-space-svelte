@@ -1,3 +1,4 @@
+import type { INotification } from '$lib/types/notification.types'
 import { writable } from 'svelte/store'
 
 export type ICurrentUser = {
@@ -11,6 +12,7 @@ export type ICurrentUser = {
 	role: 'admin' | 'user'
 	cover_photo_url: string
 	is_star: boolean
+	notifications: INotification[]
 }
 
 export const currentUser = writable<ICurrentUser>()
