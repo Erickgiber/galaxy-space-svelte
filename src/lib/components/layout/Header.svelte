@@ -92,8 +92,10 @@
 								<h1 class="text-base text-dark font-bold">{notification.title}</h1>
 							{/if}
 							{#if notification.type === 'follow'}
-								<a href="/space/u/{notification.from_username}" class="text-sm"
-									>{@html notification.description}</a
+								<a
+									on:click={() => ($isNotificationsOpen = false)}
+									href="/space/u/{notification.from_username}"
+									class="text-sm">{@html notification.description}</a
 								>
 							{:else}
 								<p class="text-sm py-2">{notification.description}</p>

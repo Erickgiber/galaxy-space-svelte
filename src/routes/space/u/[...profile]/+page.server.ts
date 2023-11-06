@@ -29,7 +29,7 @@ export const load: ServerLoad = async (event) => {
 				dataFollowers && dataFollowers.length > 0
 					? (dataFollowers[0].followers as IFollower[])
 					: ([] as IFollower[]),
-			following:
+			followings:
 				dataFollowers && dataFollowers.length > 0
 					? (dataFollowers[0].following as IFollower[])
 					: ([] as IFollower[]),
@@ -45,7 +45,7 @@ export const load: ServerLoad = async (event) => {
 			status: 404,
 			msg: 'Profile not found',
 			followers: [] as IFollower[],
-			following: [] as IFollower[]
+			followings: [] as IFollower[]
 		}
 	}
 }

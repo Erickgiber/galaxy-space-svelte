@@ -2,6 +2,8 @@
 	import { enhance } from '$app/forms'
 	import ButtonFollowingLoader from '$lib/components/ui/ButtonFollowingLoader.svelte'
 	import ButtonLoader from '$lib/components/ui/ButtonLoader.svelte'
+	import ModalFollower from '$lib/components/ui/ModalFollower.svelte'
+	import ModalFollowing from '$lib/components/ui/ModalFollowing.svelte'
 	import PhotoLoader from '$lib/components/ui/PhotoLoader.svelte'
 	import VerifiedIcon from '$lib/components/ui/VerifiedIcon.svelte'
 	import { currentUser } from '$lib/store/currentUser'
@@ -11,6 +13,7 @@
 	import { handleChangePhoto } from '$lib/utils/profile/handleChangePhoto.js'
 	import { handleChangePhotoCover } from '$lib/utils/profile/handleChangePhotoCover.js'
 	import { handleGetFollowers } from '$lib/utils/profile/handleGetFollowers.js'
+	import { handleGetFollowings } from '$lib/utils/profile/handleGetFollowings.js'
 	import { resolver } from '$lib/utils/resolver.js'
 	import { handleToast } from '$lib/utils/toast/handleToast.js'
 	import Icon from '@iconify/svelte'
@@ -22,15 +25,24 @@
 	export let data
 	const optionsRight = ['photos', 'followers']
 
+	/* General vars */
 	let profile = writable(data.profile as IProfile)
 	let isPhotoLoading = writable(false)
 	let isPhotoCoverLoading = writable(false)
 	let isEditableDescription = writable(false)
 	let descriptionHTML: HTMLTextAreaElement
+	/* General vars */
+
+	/* Following vars */
 	let btnFollowLoading = false
 	let isFollowed = data.isFollowing as boolean
+	$: isFollowed = data.isFollowing as boolean
 	let isModalFollowers = false
+	let isModalFollowing = false
 	let followers = [] as IProfile[]
+	let followings = [] as IProfile[]
+	/* Following vars */
+
 	const repository = new ProfileRepository()
 
 	// Dynamic profile
@@ -103,8 +115,28 @@
 		}
 	}
 
+	const HandleShowFollowings = async () => {
+		isModalFollowing = true
+		followings = []
+		for (const following of data.followings as IProfile[]) {
+			const getFollowings = await handleGetFollowings(data.supabase, following.uuid)
+			if (getFollowings && getFollowings.uuid === following.uuid) {
+				following.photo_url = getFollowings.photo_url
+				following.public_name = getFollowings.public_name
+				following.username = getFollowings.username
+				following.is_star = getFollowings.is_star
+
+				followings = [...followings, following]
+			}
+		}
+	}
+
 	const handleCloseModalFollowers = (event: KeyboardEvent) => {
 		if (event.key === 'Escape' && isModalFollowers) {
+			isModalFollowers = false
+		}
+
+		if (event.key === 'Escape' && isModalFollowing) {
 			isModalFollowers = false
 		}
 	}
@@ -287,8 +319,8 @@
 
 				<!-- ? Buttons right -->
 				<button
-					on:click={data.following.length > 0
-						? HandleShowFollowers
+					on:click={data.followings.length > 0
+						? HandleShowFollowings
 						: () => handleToast('Nothing here')}
 					class="bg-white h-max w-2/4 flex flex-col rounded-md shadow-sm p-2.5 outline-primary"
 				>
@@ -296,7 +328,7 @@
 					<h1 class="font-semibold text-lg px-2">Following</h1>
 					<p class="px-2 w-max flex items-center gap-1 text-lg">
 						<Icon icon="solar:users-group-rounded-bold" class="text-xl text-dark" />
-						{data?.following?.length}
+						{data?.followings.length}
 					</p>
 				</button>
 			</div>
@@ -355,54 +387,9 @@
 	</div>
 
 	<!-- ! Followers Modal -->
-	{#if isModalFollowers}
-		<div
-			transition:fade
-			class="grid place-content-center fixed top-0 left-0 w-full h-full bg-black bg-opacity-50
-		backdrop-blur-sm p-2"
-		>
-			<article
-				class="w-full sm:min-w-[320px] min-h-[320px] flex gap-2 flex-col max-w-xl h-max max-h-[520px] overflow-x-hidden overflow-y-auto py-2 shadow-2xl rounded-xl bg-white"
-			>
-				<div class="pb-1 px-2 text-dark border-b-2 border-light_gray flex justify-between">
-					<p class="text-lg flex items-center gap-1">
-						<Icon icon="solar:users-group-rounded-bold-duotone" class="text-xl text-primary" />
-						Followers
-					</p>
-					<button
-						class="bg-red-500 text-white active:scale-95 transition-all duration-100 grid place-content-center p-1 rounded-xl"
-						on:click={() => (isModalFollowers = false)}
-					>
-						<Icon icon="carbon:close" class="text-xl" />
-					</button>
-				</div>
+	<ModalFollower bind:followers bind:isModalFollowers />
 
-				{#each followers as follower}
-					<div class="px-4">
-						<a
-							on:click={() => (isModalFollowers = false)}
-							href="/space/u/{follower.username}"
-							in:slide
-							class="w-full flex gap-1.5 py-2 px-3 border-light_gray hover:bg-light_gray rounded-md hover:shadow-sm transition-all duration-100"
-						>
-							<img
-								class="w-12 h-12 object-cover rounded-full bg-light_gray"
-								src={follower.photo_url}
-								alt={follower.username}
-							/>
-							<span class="flex flex-col leading-5">
-								<p class="flex items-center gap-1.5 font-bold text-dark">
-									{follower.public_name}
-									<VerifiedIcon isStar={follower.is_star} />
-								</p>
-								<p class="text-gray-400 font-semibold">@{follower.username}</p>
-							</span>
-						</a>
-					</div>
-				{/each}
-			</article>
-		</div>
-	{/if}
+	<ModalFollowing bind:followings bind:isModalFollowing />
 {:else}
 	<h1>{data.msg}</h1>
 {/if}
