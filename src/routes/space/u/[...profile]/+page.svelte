@@ -290,7 +290,7 @@
 					on:click={data.following.length > 0
 						? HandleShowFollowers
 						: () => handleToast('Nothing here')}
-					class="bg-white h-max w-2/4 flex flex-col rounded-md shadow-sm p-2.5"
+					class="bg-white h-max w-2/4 flex flex-col rounded-md shadow-sm p-2.5 outline-primary"
 				>
 					<!-- Following -->
 					<h1 class="font-semibold text-lg px-2">Following</h1>
@@ -370,7 +370,7 @@
 						Followers
 					</p>
 					<button
-						class="bg-red-500 text-white active:scale-95 transition-all duration-100 grid place-content-center px-1.5 py-1 rounded-xl"
+						class="bg-red-500 text-white active:scale-95 transition-all duration-100 grid place-content-center p-1 rounded-xl"
 						on:click={() => (isModalFollowers = false)}
 					>
 						<Icon icon="carbon:close" class="text-xl" />
