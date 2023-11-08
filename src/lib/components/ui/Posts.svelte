@@ -7,6 +7,7 @@
 	import { page } from '$app/stores'
 	import { handleLikeNotifications } from '$lib/utils/notifications/handleLikeNotifications'
 	export let posts: IPost[]
+	let btnLikeDisable = false
 
 	const handleLike = async (
 		post_id: string,
@@ -15,6 +16,7 @@
 		currentUser: ICurrentUser,
 		image_url: string | null
 	) => {
+		btnLikeDisable = true
 		const { data, error } = await $page.data.supabase.from('likes').insert({
 			post_id,
 			like: true,
@@ -46,9 +48,11 @@
 			}
 		})
 		posts = [...posts]
+		btnLikeDisable = false
 	}
 
 	const handleDislike = async (post_id: string, currentUser: ICurrentUser) => {
+		btnLikeDisable = true
 		const { data, error } = await $page.data.supabase
 			.from('likes')
 			.delete()
@@ -62,6 +66,7 @@
 		})
 
 		posts = [...posts]
+		btnLikeDisable = false
 	}
 </script>
 
@@ -110,6 +115,7 @@
 				<div class="flex items-center px-2 py-1 border-b-2 border-light_gray">
 					{#if post.isLiked}
 						<button
+							disabled={btnLikeDisable}
 							on:click={() => handleDislike(post.post_id, $currentUser)}
 							type="button"
 							class="outline-none flex items-center gap-1 hover:bg-light_gray transition-all duration-100 pr-4 p-1.5 rounded-md"
@@ -122,6 +128,7 @@
 						</button>
 					{:else}
 						<button
+							disabled={btnLikeDisable}
 							on:click={() =>
 								handleLike(post.post_id, post.uuid, post.username, $currentUser, post.image_url)}
 							type="button"
