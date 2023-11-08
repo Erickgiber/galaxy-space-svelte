@@ -17,3 +17,20 @@
 	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 	-webkit-tap-highlight-color: transparent;
 }
+
+::-webkit-scrollbar-thumb {
+	background: var(--primary);
+	border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+	background: var(--dark);
+	box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.2);
+}
+
+::-webkit-scrollbar-thumb:active {
+	background-color: #999999;
+}
+::-webkit-scrollbar {
+	width: 8px; /* Tamaño del scroll en vertical */
+	height: 8px; /* Tamaño del scroll en horizontal */
+}

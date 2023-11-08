@@ -76,15 +76,17 @@
 	{#if $isNotificationsOpen}
 		<div
 			transition:slide
-			class="absolute top-16 right-0 bg-white shadow-xl z-10 rounded-xl w-72 h-52"
+			class="absolute scroll-smooth scroll-modern top-16 right-0 bg-white shadow-2xl z-10 rounded-lg w-72 h-52 overflow-y-auto"
 		>
-			<h1 class="text-center font-bold text-dark py-2 border-b-2 border-gray-200">Notifications</h1>
-			<div class="w-full h-max">
+			<h1 class="text-center font-bold text-black py-2 border-b-2 border-gray-200">
+				Notifications
+			</h1>
+			<div transition:fade class="w-full h-max">
 				{#if notifications.length > 0}
 					{#each notifications as notification}
 						<div class="p-2 border-b-2 border-light_gray">
 							{#if notification.type === 'follow'}
-								<h1 class="text-base text-dark font-bold flex items-center gap-1">
+								<h1 class="text-base text-dark font-semibold flex items-center gap-1">
 									<Icon icon="mdi:account-plus" class="text-sm" />
 									{notification.title}
 								</h1>
