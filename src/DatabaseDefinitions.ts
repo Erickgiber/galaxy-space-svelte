@@ -46,8 +46,8 @@ export interface Database {
 					image_url: string | null
 					post_id: string
 					text: string | null
-					username: string | null
-					uuid: string | null
+					username: string
+					uuid: string
 				}
 				Insert: {
 					created_at?: string

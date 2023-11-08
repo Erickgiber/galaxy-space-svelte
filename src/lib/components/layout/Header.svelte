@@ -100,7 +100,7 @@
 									class="text-sm">{@html notification.description}</a
 								>
 							{:else}
-								<p class="text-sm py-2">{notification.description}</p>
+								<p class="text-sm py-2">{@html notification.description}</p>
 							{/if}
 						</div>
 					{/each}

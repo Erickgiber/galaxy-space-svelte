@@ -3,7 +3,66 @@
 	import type { IPost } from '$lib/types/post.types'
 	import Icon from '@iconify/svelte'
 	import VerifiedIcon from './VerifiedIcon.svelte'
+	import { currentUser, type ICurrentUser } from '$lib/store/currentUser'
+	import { page } from '$app/stores'
+	import { handleLikeNotifications } from '$lib/utils/notifications/handleLikeNotifications'
 	export let posts: IPost[]
+
+	const handleLike = async (
+		post_id: string,
+		uuid_profile: string,
+		username_profile: string,
+		currentUser: ICurrentUser,
+		image_url: string | null
+	) => {
+		const { data, error } = await $page.data.supabase.from('likes').insert({
+			post_id,
+			like: true,
+			username: currentUser.username,
+			uuid: currentUser.uuid,
+			type: 'post'
+		})
+
+		await handleLikeNotifications(
+			$currentUser,
+			uuid_profile,
+			username_profile,
+			$page.data.supabase,
+			{
+				title: 'Liked your post',
+				description: `<b class="text-primary">${$currentUser.public_name}</b> liked your post`,
+				type: 'post',
+				from_username: currentUser.username,
+				from_uuid: currentUser.uuid,
+				image_url: image_url ? image_url : '',
+				url: `/space/post/${post_id}`
+			}
+		)
+
+		posts.map((post) => {
+			if (post.post_id === post_id) {
+				post.isLiked = true
+				post.totalLikes++
+			}
+		})
+		posts = [...posts]
+	}
+
+	const handleDislike = async (post_id: string, currentUser: ICurrentUser) => {
+		const { data, error } = await $page.data.supabase
+			.from('likes')
+			.delete()
+			.match({ post_id, uuid: currentUser.uuid })
+
+		posts.map((post) => {
+			if (post.post_id === post_id) {
+				post.isLiked = false
+				post.totalLikes--
+			}
+		})
+
+		posts = [...posts]
+	}
 </script>
 
 <section class="my-2 flex flex-col gap-3">
@@ -28,7 +87,7 @@
 					</div>
 				</a>
 				{#if post.text}
-					<p class="px-2 text-[15px]">
+					<p class="px-3.5 text-[15px]">
 						{@html post.text}
 					</p>
 				{/if}
@@ -46,6 +105,35 @@
 
 				<div class="absolute bottom-2 left-3 text-sm text-dark">
 					{dayjs(post.created_at).format('DD/MM/YYYY h:mm A')}
+				</div>
+
+				<div class="flex items-center px-2 py-1 border-b-2 border-light_gray">
+					{#if post.isLiked}
+						<button
+							on:click={() => handleDislike(post.post_id, $currentUser)}
+							type="button"
+							class="outline-none flex items-center gap-1 hover:bg-light_gray transition-all duration-100 pr-4 p-1.5 rounded-md"
+						>
+							<Icon icon="fluent:thumb-like-16-filled" width="25" color="var(--primary)" />
+							{post.totalLikes}
+							<span class="text-sm">
+								{post.totalLikes > 1 ? 'Likes' : 'Like'}
+							</span>
+						</button>
+					{:else}
+						<button
+							on:click={() =>
+								handleLike(post.post_id, post.uuid, post.username, $currentUser, post.image_url)}
+							type="button"
+							class="outline-none flex items-center gap-1 hover:bg-light_gray transition-all duration-100 pr-4 p-1.5 rounded-md"
+						>
+							<Icon icon="fluent:thumb-like-16-regular" width="25" />
+							{post.totalLikes}
+							<span class="text-sm">
+								{post.totalLikes > 1 ? 'Likes' : 'Like'}
+							</span>
+						</button>
+					{/if}
 				</div>
 			</article>
 		{/each}

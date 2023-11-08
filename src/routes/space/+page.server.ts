@@ -18,6 +18,9 @@ export const load: ServerLoad = async ({ locals }) => {
 		.order('created_at', { ascending: false })
 
 	const { data: users, error: errorUsers } = await supabase.from('profiles').select('*')
+	const { data: getLikes, error: errorLikes } = await supabase
+		.from('likes')
+		.select('post_id, like, username, uuid')
 
 	// ? Handle error
 	if (error || errorUsers) {
@@ -32,6 +35,15 @@ export const load: ServerLoad = async ({ locals }) => {
 		const user = users.find((user) => user.uuid === post.uuid)
 		post.user = user
 	})
+
+	if (getLikes) {
+		posts.map((post) => {
+			const likes = getLikes.filter((like) => like.post_id === post.post_id)
+			post.likes = likes
+			post.totalLikes = likes.length
+			post.isLiked = likes.find((like) => like.uuid === locals.user.uuid) || false
+		})
+	}
 
 	return {
 		posts: posts as IPost[]

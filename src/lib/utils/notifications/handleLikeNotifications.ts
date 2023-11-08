@@ -3,21 +3,23 @@ import type { INotification } from '$lib/types/notification.types'
 import type { IProfile } from '$lib/types/profile.types'
 import type { SupabaseClient } from '@supabase/supabase-js'
 
-export const handleNotifications = async (
+export const handleLikeNotifications = async (
 	currentUser: ICurrentUser,
-	profile: IProfile,
+	uuid_profile: string,
+	username_profile: string,
 	supabase: SupabaseClient,
 	data: INotification
 ) => {
 	const { data: InserNotifications, error } = await supabase.from('notifications').insert({
-		uuid: profile.uuid,
+		uuid: uuid_profile,
 		from_uuid: currentUser.uuid,
 		from_username: currentUser.username,
-		username: profile.username,
+		username: username_profile,
 		title: data.title,
 		subtitle: data.subtitle,
 		description: data.description,
-		type: data.type
+		type: data.type,
+		url: data.url
 	})
 
 	// console.log(InserNotifications, error)
