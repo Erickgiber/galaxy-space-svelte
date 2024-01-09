@@ -45,6 +45,12 @@ export const load: ServerLoad = async ({ locals }) => {
 		})
 	}
 
+	posts.map((post: IPost) => {
+		if (post.image_url === '{}') {
+			post.image_url = ''
+		}
+	})
+
 	return {
 		posts: posts as IPost[]
 	}
