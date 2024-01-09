@@ -16,7 +16,6 @@
 	import { handleGetFollowers } from '$lib/utils/profile/handleGetFollowers.js'
 	import { handleGetFollowings } from '$lib/utils/profile/handleGetFollowings.js'
 	import { resolver } from '$lib/utils/resolver.js'
-	import { handleToast } from '$lib/utils/toast/handleToast.js'
 	import Icon from '@iconify/svelte'
 	import dayjs from 'dayjs'
 	import { onDestroy, onMount } from 'svelte'
@@ -296,9 +295,7 @@
 			<div class="flex gap-3 mb-2">
 				<!-- ? Buttons right -->
 				<button
-					on:click={data.followers.length > 0
-						? HandleShowFollowers
-						: () => handleToast('Nothig here')}
+					on:click={HandleShowFollowers}
 					class="bg-white h-max w-max flex flex-col rounded-md shadow-sm p-2.5 outline-primary"
 				>
 					<!-- Followers -->
@@ -311,9 +308,7 @@
 
 				<!-- ? Buttons right -->
 				<button
-					on:click={data.followings.length > 0
-						? HandleShowFollowings
-						: () => handleToast('Nothing here')}
+					on:click={HandleShowFollowings}
 					class="bg-white h-max w-max flex flex-col rounded-md shadow-sm p-2.5 outline-primary"
 				>
 					<!-- Following -->
@@ -412,11 +407,7 @@
 		</article>
 	</div>
 
-	{#if currentSection === 'images'}
-		<div class="w-full pb-5 h-max mb-5 rounded-xl mt-3">
-			<ImagesGallery imageList={data.images} />
-		</div>
-	{/if}
+	<ImagesGallery imageList={data.images} bind:currentSection />
 
 	{#if currentSection === 'videos'}
 		<div class="w-full h-max mb-5 rounded-xl mt-3">
