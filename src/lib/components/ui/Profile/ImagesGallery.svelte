@@ -21,10 +21,13 @@
 								alt={image.text}
 							/>
 						</a>
-						<ul class="mt-2 flex flex-wrap px-2">
+						<ul class="mt-2 flex items-center px-2">
 							<li class="mr-auto">
-								<a href="/space/post" class="flex text-gray-400 hover:text-gray-600">
-									<svg class="mr-0.5" style="width:24px;height:24px" viewBox="0 0 24 24">
+								<a
+									href="/space/post"
+									class="flex items-center text-sm text-gray-400 hover:text-gray-600"
+								>
+									<svg class="mr-0.5" style="width:20px;height:20px" viewBox="0 0 24 24">
 										<path
 											fill="currentColor"
 											d="M21,12L14,5V9C7,10 4,15 3,20C5.5,16.5 9,14.9 14,14.9V19L21,12Z"
@@ -45,8 +48,8 @@
 							</a>
 						</li> -->
 							<li>
-								<a href="#a" class="flex text-gray-400 hover:text-gray-600">
-									<svg class="mr-0.5" style="width:24px;height:24px" viewBox="0 0 24 24">
+								<a href="#a" class="flex items-center text-sm text-gray-400 hover:text-gray-600">
+									<svg class="mr-0.5" style="width:19px;height:19px" viewBox="0 0 24 24">
 										<path
 											fill="currentColor"
 											d="M12,21.35L10.55,20.03C5.4,15.36 2,12.27 2,8.5C2,5.41 4.42,3 7.5,3C9.24,3 10.91,3.81 12,5.08C13.09,3.81 14.76,3 16.5,3C19.58,3 22,5.41 22,8.5C22,12.27 18.6,15.36 13.45,20.03L12,21.35Z"
