@@ -1,11 +1,11 @@
 <script lang="ts">
-	import { HeaderConfig } from '$lib/config/layout/header.config'
-	import Icon from '@iconify/svelte'
-	import { currentUser } from '$lib/store/currentUser'
-	import { fade, slide } from 'svelte/transition'
-	import { writable } from 'svelte/store'
 	import { page } from '$app/stores'
+	import { HeaderConfig } from '$lib/config/layout/header.config'
+	import { currentUser } from '$lib/store/currentUser'
 	import type { INotification } from '$lib/types/notification.types'
+	import Icon from '@iconify/svelte'
+	import { writable } from 'svelte/store'
+	import { fade, slide } from 'svelte/transition'
 
 	let isNotificationsOpen = writable(false)
 	let notifications: INotification[] = []

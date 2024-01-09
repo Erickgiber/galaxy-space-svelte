@@ -288,7 +288,7 @@
 		<!-- ? Content Left -->
 		<article class="w-full">
 			<!-- ? Followers -->
-			<div class="flex gap-3 mb-2">
+			<div class="flex gap-3 mb-2 overflow-x-auto pb-1">
 				<!-- ? Buttons right -->
 				<button
 					on:click={HandleShowFollowers}
