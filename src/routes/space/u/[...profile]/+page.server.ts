@@ -24,7 +24,7 @@ export const load: ServerLoad = async (event) => {
 				  )
 				: false
 
-		const imagesProfile = await supabase.from('posts').select().eq('uuid', dataUser.user?.id)
+		const imagesProfile = await supabase.from('posts').select().eq('uuid', profile.uuid)
 
 		return {
 			profile,
