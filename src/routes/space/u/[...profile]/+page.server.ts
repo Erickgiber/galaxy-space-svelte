@@ -1,4 +1,5 @@
 import type { IFollower } from '$lib/types/follower.types'
+import type { TypeImage } from '$lib/types/image.types'
 import type { IProfile } from '$lib/types/profile.types'
 import type { Actions, ServerLoad } from '@sveltejs/kit'
 
@@ -23,6 +24,8 @@ export const load: ServerLoad = async (event) => {
 				  )
 				: false
 
+		const imagesProfile = await supabase.from('posts').select().eq('uuid', dataUser.user?.id)
+
 		return {
 			profile,
 			followers:
@@ -35,6 +38,7 @@ export const load: ServerLoad = async (event) => {
 					: ([] as IFollower[]),
 			isUserAuth: dataUser?.user ? dataUser.user.id === profile.uuid : false,
 			isFollowing: isFollowing,
+			images: imagesProfile ? (imagesProfile.data as TypeImage[]) : [],
 			status: 200,
 			msg: 'Profile found'
 		}

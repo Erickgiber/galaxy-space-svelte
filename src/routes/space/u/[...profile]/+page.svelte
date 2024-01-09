@@ -1,10 +1,11 @@
 <script lang="ts">
 	import { enhance } from '$app/forms'
+	import { page } from '$app/stores'
 	import ButtonFollowingLoader from '$lib/components/ui/ButtonFollowingLoader.svelte'
-	import ButtonLoader from '$lib/components/ui/ButtonLoader.svelte'
 	import ModalFollower from '$lib/components/ui/ModalFollower.svelte'
 	import ModalFollowing from '$lib/components/ui/ModalFollowing.svelte'
 	import PhotoLoader from '$lib/components/ui/PhotoLoader.svelte'
+	import ImagesGallery from '$lib/components/ui/Profile/ImagesGallery.svelte'
 	import VerifiedIcon from '$lib/components/ui/VerifiedIcon.svelte'
 	import { currentUser } from '$lib/store/currentUser'
 	import { ProfileRepository } from '$lib/supabase/profile/ProfileRepository.js'
@@ -20,20 +21,20 @@
 	import dayjs from 'dayjs'
 	import { onDestroy, onMount } from 'svelte'
 	import { writable } from 'svelte/store'
-	import { fade, slide } from 'svelte/transition'
+	import { fade } from 'svelte/transition'
 
 	export let data
-	const optionsRight = ['photos', 'followers']
+	let currentSection = ''
 
-	/* General vars */
+	$: {
+		currentSection = $page.url.searchParams.get('section') ?? ''
+	}
+
 	let profile = writable(data.profile as IProfile)
 	let isPhotoLoading = writable(false)
 	let isPhotoCoverLoading = writable(false)
 	let isEditableDescription = writable(false)
 	let descriptionHTML: HTMLTextAreaElement
-	/* General vars */
-
-	/* Following vars */
 	let btnFollowLoading = false
 	let isFollowed = data.isFollowing as boolean
 	$: isFollowed = data.isFollowing as boolean
@@ -41,18 +42,11 @@
 	let isModalFollowing = false
 	let followers = [] as IProfile[]
 	let followings = [] as IProfile[]
-	/* Following vars */
 
 	const repository = new ProfileRepository()
 
 	// Dynamic profile
 	$: profile.set(data.profile as IProfile)
-
-	const handleButtonsRight = (option: string) => {
-		if (optionsRight.includes(option)) {
-			console.log(option)
-		}
-	}
 
 	const handleEditDescription = (cancel?: 'cancel') => {
 		if (cancel === 'cancel') {
@@ -297,17 +291,17 @@
 		{/if}
 	</div>
 
-	<div class="flex sm:flex-wrap justify-between mt-5">
+	<div class="flex flex-col gap-2 sm:flex-row sm:gap-0 justify-between mt-5">
 		<!-- ? Content Left -->
-		<article class="w-full sm:w-[39%]">
+		<article class="w-full">
 			<!-- ? Followers -->
-			<div class="flex justify-between gap-2 mb-2">
+			<div class="flex gap-3 mb-2">
 				<!-- ? Buttons right -->
 				<button
 					on:click={data.followers.length > 0
 						? HandleShowFollowers
 						: () => handleToast('Nothig here')}
-					class="bg-white h-max w-2/4 flex flex-col rounded-md shadow-sm p-2.5 outline-primary"
+					class="bg-white h-max w-max flex flex-col rounded-md shadow-sm p-2.5 outline-primary"
 				>
 					<!-- Followers -->
 					<h1 class="font-semibold text-lg px-2">Followers</h1>
@@ -322,7 +316,7 @@
 					on:click={data.followings.length > 0
 						? HandleShowFollowings
 						: () => handleToast('Nothing here')}
-					class="bg-white h-max w-2/4 flex flex-col rounded-md shadow-sm p-2.5 outline-primary"
+					class="bg-white h-max w-max flex flex-col rounded-md shadow-sm p-2.5 outline-primary"
 				>
 					<!-- Following -->
 					<h1 class="font-semibold text-lg px-2">Following</h1>
@@ -331,6 +325,43 @@
 						{data?.followings.length}
 					</p>
 				</button>
+
+				<a
+					href="/space/u/{$profile.username}?section=images"
+					class="bg-white h-max w-max flex flex-col rounded-md shadow-sm p-2.5 outline-primary"
+					style={currentSection === 'images'
+						? 'background: var(--primary); color: white; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);'
+						: null}
+				>
+					<!-- Images -->
+					<h1 class="font-semibold text-lg px-2">Images</h1>
+					<p class="px-2 w-max flex items-center gap-1 text-lg">
+						<Icon
+							icon="ph:image-duotone"
+							class="text-xl {currentSection === 'images' ? 'text-white' : 'text-primary'}"
+						/>
+						{data?.images?.length}
+					</p>
+				</a>
+
+				<!-- ? Buttons right -->
+				<a
+					href="/space/u/{$profile.username}?section=videos"
+					class="bg-white h-max w-max flex flex-col rounded-md shadow-sm p-2.5 outline-primary"
+					style={currentSection === 'videos'
+						? 'background: var(--primary); color: white; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);'
+						: null}
+				>
+					<!-- Images -->
+					<h1 class="font-semibold text-lg px-2">Videos</h1>
+					<p class="px-2 w-max flex items-center gap-1 text-lg">
+						<Icon
+							icon="bxs:videos"
+							class="text-xl {currentSection === 'videos' ? 'text-white' : 'text-primary'}"
+						/>
+						{0}
+					</p>
+				</a>
 			</div>
 
 			<form
@@ -381,10 +412,19 @@
 				</div>
 			</form>
 		</article>
-
-		<!-- ? Content Right -->
-		<article class="sm:w-[59%] flex flex-wrap gap-5" />
 	</div>
+
+	{#if currentSection === 'images'}
+		<div class="w-full pb-5 h-max mb-5 rounded-xl mt-3">
+			<ImagesGallery imageList={data.images} />
+		</div>
+	{/if}
+
+	{#if currentSection === 'videos'}
+		<div class="w-full h-max mb-5 rounded-xl mt-3">
+			<h1>No videos found</h1>
+		</div>
+	{/if}
 
 	<!-- ! Followers Modal -->
 	<ModalFollower bind:followers bind:isModalFollowers />

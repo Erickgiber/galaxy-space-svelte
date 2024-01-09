@@ -1,11 +1,17 @@
 <script lang="ts">
+	import type { IProfile } from '$lib/types/profile.types'
 	import Icon from '@iconify/svelte'
 	import { fade, slide } from 'svelte/transition'
 	import VerifiedIcon from './VerifiedIcon.svelte'
-	import type { IProfile } from '$lib/types/profile.types'
 
 	export let isModalFollowers: boolean
 	export let followers: IProfile[]
+
+	$: if (isModalFollowers && typeof window !== 'undefined') {
+		window.document.body.style.overflow = 'hidden'
+	} else if (!isModalFollowers && typeof window !== 'undefined') {
+		window.document.body.style.overflow = 'auto'
+	}
 </script>
 
 <!-- ! Followers Modal -->
@@ -16,7 +22,7 @@
 backdrop-blur-sm p-2"
 	>
 		<article
-			class="w-full sm:min-w-[320px] min-h-[320px] flex gap-2 flex-col max-w-xl h-max max-h-[520px] overflow-x-hidden overflow-y-auto py-2 shadow-2xl rounded-xl bg-white"
+			class="w-full sm:min-w-[320px] flex gap-2 flex-col max-w-xl h-96 overflow-x-hidden overflow-y-auto py-2 shadow-2xl rounded-xl bg-white"
 		>
 			<div class="pb-1 px-2 text-dark border-b-2 border-light_gray flex justify-between">
 				<p class="text-lg flex items-center gap-1">
