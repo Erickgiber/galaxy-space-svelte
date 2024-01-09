@@ -37,7 +37,6 @@
 	let descriptionHTML: HTMLTextAreaElement
 	let btnFollowLoading = false
 	let isFollowed = data.isFollowing as boolean
-	$: isFollowed = data.isFollowing as boolean
 	let isModalFollowers = false
 	let isModalFollowing = false
 	let followers = [] as IProfile[]
@@ -68,7 +67,10 @@
 
 	const handleFollow = async () => {
 		btnFollowLoading = true
-		isFollowed = await repository.follow.add($currentUser, $profile, data.supabase)
+		const request = await repository.follow.add($currentUser, $profile, data.supabase)
+		isFollowed = request
+
+		console.log('Cuenta seguida! ', isFollowed)
 		if (isFollowed) {
 			const updateFollowers = [
 				...(data.followers as IFollower[]),
@@ -85,7 +87,9 @@
 
 	const handleUnFollow = async () => {
 		btnFollowLoading = true
-		isFollowed = await repository.follow.remove($currentUser, $profile, data.supabase)
+		const request = await repository.follow.remove($currentUser, $profile, data.supabase)
+		isFollowed = request
+		console.log('Cuenta se dejo de seguir! ', isFollowed)
 		const updateFollowers = data.followers?.filter(
 			(follower: IFollower) => follower.uuid !== $currentUser.uuid
 		)
@@ -246,24 +250,18 @@
 
 		{#if !data.isUserAuth}
 			<article class="mt-1.5 w-max flex mx-auto items-center gap-2">
-				{#if !isFollowed}
-					{#if !btnFollowLoading}
-						<button
-							on:click={handleFollow}
-							class="text-base h-9 bg-primary border flex items-center gap-1 text-white px-3 py-1 rounded-lg shadow-md
+				{#if !isFollowed && !btnFollowLoading}
+					<button
+						on:click={handleFollow}
+						class="text-base h-9 bg-primary border flex items-center gap-1 text-white px-3 py-1 rounded-lg shadow-md
 				hover:bg-opacity-80 transition-all duration-100
 				"
-							type="button"
-						>
-							Follow
-							<Icon icon="mingcute:user-add-2-line" />
-						</button>
-					{:else}
-						<div class="h-9">
-							<ButtonFollowingLoader width="75px" height="100%" />
-						</div>
-					{/if}
-				{:else if !btnFollowLoading}
+						type="button"
+					>
+						Follow
+						<Icon icon="mingcute:user-add-2-line" />
+					</button>
+				{:else if isFollowed && !btnFollowLoading}
 					<button
 						on:click={handleUnFollow}
 						class="text-base h-9 bg-black text-white flex font-semibold items-center gap-1 px-3 py-1 rounded-lg
@@ -273,7 +271,7 @@
 					>
 						Following
 					</button>
-				{:else}
+				{:else if btnFollowLoading}
 					<div class="h-9">
 						<ButtonFollowingLoader width="75px" height="100%" />
 					</div>
