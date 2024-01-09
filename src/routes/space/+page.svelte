@@ -85,11 +85,19 @@
 			btnPostDisabled.set(true)
 		}
 	}
+
+	const loadNewPosts = (postsResponse: any[]) => {
+		//
+	}
 </script>
 
 <svelte:head>
 	<title>Galaxy Space</title>
 </svelte:head>
+
+<!-- <svelte:window
+	on:scroll={() => onScrollLoadPosts(data.supabase, posts?.length ?? 0, loadNewPosts, $currentUser)}
+/> -->
 
 <main class="flex justify-between gap-8">
 	<div id="feed_content" class="flex flex-col w-full">

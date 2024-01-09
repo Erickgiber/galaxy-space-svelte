@@ -1,7 +1,7 @@
+import type { IPost } from '$lib/types/post.types'
 import type { IProfile } from '$lib/types/profile.types'
 import { transformTextPost } from '$lib/utils/transformTextPost'
 import type { Actions, ServerLoad } from '@sveltejs/kit'
-import type { IPost } from '$lib/types/post.types'
 import { v4 } from 'uuid'
 
 type IFormPost = {
