@@ -1,11 +1,11 @@
 <script lang="ts">
-	import dayjs from 'dayjs'
-	import type { IPost } from '$lib/types/post.types'
-	import Icon from '@iconify/svelte'
-	import VerifiedIcon from './VerifiedIcon.svelte'
-	import { currentUser, type ICurrentUser } from '$lib/store/currentUser'
 	import { page } from '$app/stores'
+	import { currentUser, type ICurrentUser } from '$lib/store/currentUser'
+	import type { IPost } from '$lib/types/post.types'
 	import { handleLikeNotifications } from '$lib/utils/notifications/handleLikeNotifications'
+	import Icon from '@iconify/svelte'
+	import dayjs from 'dayjs'
+	import VerifiedIcon from './VerifiedIcon.svelte'
 	export let posts: IPost[]
 	let btnLikeDisable = false
 
@@ -97,7 +97,7 @@
 					</p>
 				{/if}
 
-				{#if post.image_url}
+				{#if post.image_url && post.image_url.length > 2}
 					<div
 						class="w-full h-max mt-1"
 						style="background-image: url({post.image_url}); background-size: cover; background-position: center;"
@@ -118,13 +118,10 @@
 							disabled={btnLikeDisable}
 							on:click={() => handleDislike(post.post_id, $currentUser)}
 							type="button"
-							class="outline-none flex items-center gap-1 hover:bg-light_gray transition-all duration-100 pr-4 p-1.5 rounded-md"
+							class="outline-none flex items-center gap-1 bg-light_gray hover:bg-light_gray transition-all duration-100 pr-4 p-1.5 rounded-md"
 						>
-							<Icon icon="fluent:thumb-like-16-filled" width="25" color="var(--primary)" />
-							{post.totalLikes}
-							<span class="text-sm">
-								{post.totalLikes > 1 ? 'Likes' : 'Like'}
-							</span>
+							<Icon icon="solar:star-bold-duotone" width="24" color="var(--primary)" />
+							<span class="translate-y-0.5 text-lg font-semibold">{post.totalLikes}</span>
 						</button>
 					{:else}
 						<button
@@ -132,13 +129,10 @@
 							on:click={() =>
 								handleLike(post.post_id, post.uuid, post.username, $currentUser, post.image_url)}
 							type="button"
-							class="outline-none flex items-center gap-1 hover:bg-light_gray transition-all duration-100 pr-4 p-1.5 rounded-md"
+							class="outline-none bg-light_gray flex items-center gap-1 active:bg-primary active:text-white transition-all duration-50 pr-4 p-1.5 rounded-md"
 						>
-							<Icon icon="fluent:thumb-like-16-regular" width="25" />
-							{post.totalLikes}
-							<span class="text-sm">
-								{post.totalLikes > 1 ? 'Likes' : 'Like'}
-							</span>
+							<Icon icon="solar:star-line-duotone" width="23" />
+							<span class="translate-y-0.5 text-lg">{post.totalLikes}</span>
 						</button>
 					{/if}
 				</div>
