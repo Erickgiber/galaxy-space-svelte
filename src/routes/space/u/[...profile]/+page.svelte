@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { enhance } from '$app/forms'
-	import { goto } from '$app/navigation'
 	import { page } from '$app/stores'
 	import ButtonFollowingLoader from '$lib/components/ui/ButtonFollowingLoader.svelte'
 	import ModalFollower from '$lib/components/ui/ModalFollower.svelte'
@@ -28,11 +27,7 @@
 	let currentSection = ''
 
 	$: {
-		currentSection = $page.url.searchParams.get('section') ?? ''
-		if (!currentSection) {
-			const redirectRoute = `${$page.url.pathname}?section=images`
-			goto(redirectRoute)
-		}
+		currentSection = $page.url.searchParams.get('section') ?? 'images'
 	}
 
 	let profile = writable(data.profile as IProfile)

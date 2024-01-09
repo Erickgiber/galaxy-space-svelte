@@ -38,7 +38,9 @@ export const load: ServerLoad = async (event) => {
 					: ([] as IFollower[]),
 			isUserAuth: dataUser?.user ? dataUser.user.id === profile.uuid : false,
 			isFollowing: isFollowing,
-			images: imagesProfile ? (imagesProfile.data as TypeImage[]) : [],
+			images: imagesProfile
+				? (imagesProfile.data?.filter((obj: TypeImage) => obj.image_url) as TypeImage[])
+				: [],
 			status: 200,
 			msg: 'Profile found'
 		}
