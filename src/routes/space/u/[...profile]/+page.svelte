@@ -24,11 +24,7 @@
 
 	export let data
 	let currentSection = ''
-
-	$: {
-		currentSection = $page.url.searchParams.get('section') ?? 'images'
-	}
-
+	$: currentSection = $page.url.searchParams.get('section') ?? 'images'
 	let profile = writable(data.profile as IProfile)
 	let isPhotoLoading = writable(false)
 	let isPhotoCoverLoading = writable(false)

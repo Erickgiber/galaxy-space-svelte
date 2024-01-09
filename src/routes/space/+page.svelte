@@ -30,7 +30,8 @@
 					user: $currentUser,
 					username: $currentUser.username,
 					email: $currentUser.email,
-					uuid: $currentUser.uuid
+					uuid: $currentUser.uuid,
+					totalLikes: 0
 				}
 				postText = ''
 				posts = [post, ...posts]
