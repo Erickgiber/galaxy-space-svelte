@@ -17,7 +17,7 @@
 <!-- ! Followings Modal -->
 {#if isModalFollowing}
 	<div
-		transition:fade
+		transition:fade={{ duration: 150 }}
 		class="grid place-content-center z-40 fixed top-0 left-0 w-full h-full bg-black bg-opacity-50
 backdrop-blur-sm p-2"
 	>
@@ -42,7 +42,7 @@ backdrop-blur-sm p-2"
 					<a
 						on:click={() => (isModalFollowing = false)}
 						href="/space/u/{following.username}"
-						in:slide
+						in:slide={{ duration: 100 }}
 						class="w-full flex gap-1.5 py-2 px-3 border-light_gray hover:bg-light_gray rounded-md hover:shadow-sm transition-all duration-100"
 					>
 						<img

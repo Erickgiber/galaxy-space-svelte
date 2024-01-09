@@ -135,7 +135,7 @@
 		}
 
 		if (event.key === 'Escape' && isModalFollowing) {
-			isModalFollowers = false
+			isModalFollowing = false
 		}
 	}
 
