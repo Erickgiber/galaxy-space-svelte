@@ -15,7 +15,10 @@
 
 {#if enable}
 	<!-- CONTAINER MODAL-->
-	<div transition:fade={{ duration: 100 }} class="absolute w-96 left-28 bottom-12">
+	<div
+		transition:fade={{ duration: 100 }}
+		class="absolute sm:w-96 w-56 -left-1 bottom-28 sm:left-28 sm:bottom-12"
+	>
 		<!--MODAL ITEM-->
 		<div class="bg-gray-100 mx-4 p-4 pt-0 pb-2 rounded-xl w-full">
 			<!--MODAL HEADER-->
