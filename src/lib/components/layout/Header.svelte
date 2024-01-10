@@ -143,9 +143,7 @@
 				transition:slide={{ duration: 150 }}
 				class="absolute scroll-smooth scroll-modern top-16 right-0 bg-white shadow-2xl z-10 rounded-lg w-52 h-max"
 			>
-				<h1 class="text-center font-bold text-black py-2 border-b-2 border-gray-200">
-					{$currentUser.public_name}
-				</h1>
+				<h1 class="text-center font-bold text-black py-2 border-b-2 border-gray-200">Menu</h1>
 				<div transition:fade={{ duration: 200 }} class="w-full h-max">
 					<a
 						class="flex text-dark items-center gap-1 px-2 py-3 font-semibold border-b hover:bg-primary hover:text-white"
