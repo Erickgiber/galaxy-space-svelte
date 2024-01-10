@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { page } from '$app/stores'
 	import type { IPost } from '$lib/types/post.types'
+	import { fade } from 'svelte/transition'
 
 	export let enable: boolean = false
 	export let post: IPost
@@ -14,7 +15,7 @@
 
 {#if enable}
 	<!-- CONTAINER MODAL-->
-	<div class="absolute w-96 left-28 bottom-2">
+	<div transition:fade={{ duration: 100 }} class="absolute w-96 left-28 bottom-12">
 		<!--MODAL ITEM-->
 		<div class="bg-gray-100 mx-4 p-4 pt-0 pb-2 rounded-xl w-full">
 			<!--MODAL HEADER-->
