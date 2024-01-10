@@ -36,7 +36,8 @@
 
 <svelte:head>
 	<title
-		>{post.text?.slice(0, 5)} {post.text && post.text.length > 5 ? '...' : ''} | Galaxy Space</title
+		>{post.text?.slice(0, 10)}
+		{post.text && post.text.length > 10 ? '...' : ''} | Galaxy Space</title
 	>
 </svelte:head>
 
