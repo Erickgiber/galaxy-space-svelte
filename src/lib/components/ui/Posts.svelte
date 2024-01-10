@@ -1,6 +1,5 @@
 <script lang="ts">
-	import { page } from '$app/stores'
-	import { currentUser, type ICurrentUser } from '$lib/store/currentUser'
+	import { currentUser } from '$lib/store/currentUser'
 	import { LikesRepository } from '$lib/supabase/likes/LikesRepository'
 	import type { IPost } from '$lib/types/post.types'
 	import Icon from '@iconify/svelte'
@@ -21,7 +20,7 @@
 			posts.map((item: IPost) => {
 				if (item.post_id === post.post_id) {
 					item.isLiked = true
-					item.totalLikes = Number(item.totalLikes) + 1
+					item.totalLikes++
 				}
 			})
 
@@ -31,21 +30,21 @@
 		btnLikeDisable = false
 	}
 
-	const handleDislike = async (post_id: string, currentUser: ICurrentUser) => {
+	const handleDislike = async (post: IPost) => {
 		btnLikeDisable = true
-		const { data, error } = await $page.data.supabase
-			.from('likes')
-			.delete()
-			.match({ post_id, uuid: currentUser.uuid })
+		const isLiked = await likeRepository.removeLike(supabase, post.post_id, $currentUser)
 
-		posts.map((post) => {
-			if (post.post_id === post_id) {
-				post.isLiked = false
-				post.totalLikes--
-			}
-		})
+		if (isLiked) {
+			posts.map((item: IPost) => {
+				if (item.post_id === post.post_id) {
+					item.isLiked = false
+					item.totalLikes--
+				}
+			})
 
-		posts = [...posts]
+			posts = [...posts]
+		}
+
 		btnLikeDisable = false
 	}
 </script>
@@ -97,7 +96,7 @@
 						{#if post.isLiked}
 							<button
 								disabled={btnLikeDisable}
-								on:click={() => handleDislike(post.post_id, $currentUser)}
+								on:click={() => handleDislike(post)}
 								type="button"
 								class="outline-none flex items-center gap-1 bg-light_gray hover:bg-light_gray transition-all duration-100 pr-4 p-1.5 rounded-md"
 							>

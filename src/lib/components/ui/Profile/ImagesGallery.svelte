@@ -57,7 +57,7 @@
 				{#if image.image_url}
 					<!-- component -->
 					<div class="w-full h-full shadow-lg bg-white rounded-xl p-2">
-						<a href="/space/post">
+						<a href="/space/posts/{image.post_id}?username={image.username}">
 							<img
 								class="w-full h-72 object-cover rounded-xl"
 								src={image.image_url}
@@ -65,7 +65,7 @@
 							/>
 						</a>
 						<p
-							class="text-base h-6 pl-2 pr-3 mt-2 font-semibold text-ellipsis overflow-hidden whitespace-nowrap"
+							class="text-[15px] h-6 pl-2 pr-3 mt-2 text-ellipsis overflow-hidden whitespace-nowrap"
 						>
 							{@html image.text}
 						</p>

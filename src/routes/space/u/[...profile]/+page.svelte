@@ -66,7 +66,6 @@
 		const request = await repository.follow.add($currentUser, $profile, data.supabase)
 		isFollowed = request
 
-		console.log('Cuenta seguida! ', isFollowed)
 		if (isFollowed) {
 			const updateFollowers = [
 				...(data.followers as IFollower[]),
