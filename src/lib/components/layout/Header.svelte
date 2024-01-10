@@ -154,19 +154,18 @@
 					</a>
 					<a
 						class="flex text-dark items-center gap-1 px-2 py-3 font-semibold border-b hover:bg-primary hover:text-white"
-						href="/space/u/{$currentUser.username}"
+						href="/space/settings"
 					>
 						<Icon icon="solar:settings-linear" />
 						<span>Settings</span>
 					</a>
-					<a
-						class="flex text-dark items-center rounded-b-lg gap-1 px-2 py-3 font-semibold hover:bg-primary hover:text-white"
-						href="#logut"
+					<button
+						class="flex w-full text-dark items-center rounded-b-lg gap-1 px-2 py-3 font-semibold hover:bg-primary hover:text-white"
 						on:click={() => handleLogout(supabase)}
 					>
 						<Icon icon="heroicons-outline:logout" />
 						<span>Logout</span>
-					</a>
+					</button>
 				</div>
 			</div>
 		{/if}
