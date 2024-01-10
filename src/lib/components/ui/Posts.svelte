@@ -119,9 +119,7 @@
 
 						<button
 							class="bg-light_gray pr-2 pl-2.5 pb-0.5 h-10 grid place-content-center outline-none transition-all duration-50 rounded-md text-dark
-							active:scale-95 active:duration-0 active:bg-primary active:text-white {isActiveModalShare
-								? 'bg-primary text-white shadow-md'
-								: ''} "
+							active:scale-95 active:duration-0 active:bg-primary active:text-white"
 							on:click={() => {
 								isActiveModalShare = !isActiveModalShare
 								if (isActiveModalShare) {
