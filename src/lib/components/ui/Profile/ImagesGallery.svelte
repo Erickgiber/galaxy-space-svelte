@@ -59,7 +59,7 @@
 					<div class="w-full h-full shadow-lg bg-white rounded-xl p-2">
 						<a href="/space/posts/{image.id}?id={image.user.id}">
 							<img
-								class="w-full h-72 object-cover rounded-xl"
+								class="w-full h-56 sm:h-72 object-cover rounded-xl"
 								src={image.image_url}
 								alt={image.text}
 							/>
