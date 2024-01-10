@@ -92,13 +92,13 @@
 						{dayjs(post.created_at).format('DD/MM/YYYY h:mm A')}
 					</div>
 
-					<div class="flex items-center px-2 py-1 border-b-2 border-light_gray">
+					<div class="flex items-center gap-3 px-2 py-1 border-b-2 border-light_gray">
 						{#if post.isLiked}
 							<button
 								disabled={btnLikeDisable}
 								on:click={() => handleDislike(post)}
 								type="button"
-								class="outline-none flex items-center gap-1 bg-light_gray hover:bg-light_gray transition-all duration-100 pr-4 p-1.5 rounded-md"
+								class="outline-none h-10 flex items-center gap-1 bg-light_gray hover:bg-light_gray transition-all duration-100 pr-4 p-1.5 rounded-md"
 							>
 								<Icon icon="solar:star-bold-duotone" width="24" color="var(--primary)" />
 								<span class="translate-y-0.5 text-lg font-semibold">{post.totalLikes}</span>
@@ -108,12 +108,19 @@
 								disabled={btnLikeDisable}
 								on:click={() => handleLike(post)}
 								type="button"
-								class="outline-none bg-light_gray flex items-center gap-1 active:bg-primary active:text-white transition-all duration-50 pr-4 p-1.5 rounded-md"
+								class="outline-none h-10 bg-light_gray flex items-center gap-1 active:bg-primary active:text-white transition-all duration-50 pr-4 p-1.5 rounded-md"
 							>
 								<Icon icon="solar:star-line-duotone" width="23" />
 								<span class="translate-y-0.5 text-lg">{post.totalLikes}</span>
 							</button>
 						{/if}
+
+						<button
+							class="bg-light_gray pr-2 pl-2.5 pb-0.5 h-10 grid place-content-center outline-none transition-all duration-50 rounded-md
+							active:scale-95 active:duration-0 active:bg-primary active:text-white"
+						>
+							<Icon class="text-dark" icon="carbon:copy-link" width="23" />
+						</button>
 					</div>
 				</article>
 			{/if}

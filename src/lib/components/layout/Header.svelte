@@ -24,7 +24,7 @@
 
 {#if $currentUser}
 	<header
-		class="relative w-full h-14 px-3 mb-3 flex items-center justify-center md:justify-between bg-white rounded-xl shadow-sm"
+		class="relative w-full h-14 px-1 sm:px-3 mb-3 flex items-center justify-evenly md:justify-between bg-white rounded-xl shadow-sm"
 	>
 		<!-- ? Searcher -->
 		<label
@@ -41,8 +41,18 @@
 		</label>
 
 		<ul class="relative w-full md:w-max justify-evenly md:justify-start flex items-center gap-2">
-			<!-- ? Profile Button -->
 			<li>
+				<a
+					href="/space"
+					class="h-10 w-12 sm:hidden grid place-content-center bg-bg
+		rounded-full text-dark sm:hover:bg-primary sm:hover:text-white"
+				>
+					<Icon icon="solar:home-smile-linear" class="text-xl" />
+				</a>
+			</li>
+
+			<!-- ? Profile Button -->
+			<li class="hidden sm:flex">
 				<a
 					style="font-family: 'Gabarito', sans-serif;"
 					href="/space/u/{$currentUser.username}"
@@ -95,7 +105,7 @@
 		{#if $isNotificationsOpen}
 			<div
 				transition:slide={{ duration: 150 }}
-				class="absolute scroll-smooth scroll-modern top-16 right-0 bg-white shadow-2xl z-10 rounded-lg w-72 h-52 overflow-y-auto"
+				class="absolute scroll-smooth scroll-modern top-16 right-0 bg-white shadow-2xl z-10 rounded-lg w-52 h-52 overflow-y-auto"
 			>
 				<h1 class="text-center font-bold text-black py-2 border-b-2 border-gray-200">
 					Notifications
