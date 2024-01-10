@@ -11,7 +11,7 @@
 
 	const valueLink = `${$page.url.href}/posts/${post.post_id}?username=${post.username}`
 	const twitterLink =
-		`https://twitter.com/intent/tweet?text=Hey This post is so cool! ${valueLink}`.replaceAll(
+		`https://twitter.com/intent/tweet?text=Hey! this post is so cool! ${valueLink}`.replaceAll(
 			' ',
 			'%20'
 		)
