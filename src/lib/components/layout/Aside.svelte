@@ -22,66 +22,72 @@
 	}
 </script>
 
-<aside class="w-52 min-w-[208px] h-screen hidden sm:flex flex-col px-5 py-5 gap-8 select-none">
-	<!-- ? Profile btn -->
-	<a
-		style="font-family: 'Gabarito', sans-serif;"
-		href="/space"
-		class="text-xl font-normal text-[#1D2E79] flex items-center gap-1.5"
-	>
-		<img class="h-10 object-cover pointer-events-none select-none" src={LOGO} alt="Galaxy Space" />
-		Galaxy Space
-	</a>
+{#if $currentUser}
+	<aside class="w-52 min-w-[208px] h-screen hidden sm:flex flex-col px-5 py-5 gap-8 select-none">
+		<!-- ? Profile btn -->
+		<a
+			style="font-family: 'Gabarito', sans-serif;"
+			href="/space"
+			class="text-xl font-normal text-[#1D2E79] flex items-center gap-1.5"
+		>
+			<img
+				class="h-10 object-cover pointer-events-none select-none"
+				src={LOGO}
+				alt="Galaxy Space"
+			/>
+			Galaxy Space
+		</a>
 
-	<ul class="flex flex-col w-full gap-2">
-		{#each AsideConfig.routes as route}
-			<li>
-				<a
-					href={route.name === 'Profile' ? `${route.href}/${$currentUser.username}` : route.href}
-					class="flex items-center gap-1.5 text-lg px-1.5 py-2.5 rounded-lg transition-all
+		<ul class="flex flex-col w-full gap-2">
+			{#each AsideConfig.routes as route}
+				<li>
+					<a
+						href={route.name === 'Profile' ? `${route.href}/${$currentUser.username}` : route.href}
+						class="flex items-center gap-1.5 text-lg px-1.5 py-2.5 rounded-lg transition-all
                     hover:bg-black hover:bg-opacity-5
                     text-[#808080] select-none
                     {route.customClass}
                     {$page.url.pathname === route.href
-						? 'link_active'
-						: $page.url.pathname.includes($currentUser.username) && route.href.includes('/u')
-						? 'link_active'
-						: ''}"
-				>
-					<Icon icon={route.icon} />
-					<span>{route.name}</span>
-				</a>
-			</li>
-		{/each}
+							? 'link_active'
+							: $page.url.pathname.includes($currentUser.username) && route.href.includes('/u')
+							? 'link_active'
+							: ''}"
+					>
+						<Icon icon={route.icon} />
+						<span>{route.name}</span>
+					</a>
+				</li>
+			{/each}
 
-		{#if $currentUser.role === 'admin'}
-			<li>
-				<a
-					href="/space/statistics"
-					class="flex items-center gap-1.5 text-lg px-1.5 py-2.5 rounded-lg transition-all
+			{#if $currentUser.role === 'admin'}
+				<li>
+					<a
+						href="/space/statistics"
+						class="flex items-center gap-1.5 text-lg px-1.5 py-2.5 rounded-lg transition-all
 					hover:bg-black hover:bg-opacity-5
 					text-[#808080] select-none
 					{$page.url.pathname === '/space/statistics' ? 'link_active' : ''}"
-				>
-					<Icon icon="nimbus:stats" />
-					<span>Statistics</span>
-				</a>
-			</li>
-		{/if}
+					>
+						<Icon icon="nimbus:stats" />
+						<span>Statistics</span>
+					</a>
+				</li>
+			{/if}
 
-		<li>
-			<button
-				on:click={handleLogout}
-				class="w-full flex items-center gap-1.5 text-lg px-1.5 py-2.5 rounded-lg transition-all
+			<li>
+				<button
+					on:click={handleLogout}
+					class="w-full flex items-center gap-1.5 text-lg px-1.5 py-2.5 rounded-lg transition-all
                     hover:bg-black hover:bg-opacity-5
                     text-[#808080] select-none"
-			>
-				<Icon icon="heroicons-outline:logout" />
-				<span>Logout</span>
-			</button>
-		</li>
-	</ul>
-</aside>
+				>
+					<Icon icon="heroicons-outline:logout" />
+					<span>Logout</span>
+				</button>
+			</li>
+		</ul>
+	</aside>
+{/if}
 
 <style lang="scss">
 	.link_active {
