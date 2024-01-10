@@ -61,7 +61,7 @@
 				</a>
 			</li>
 
-			<li>
+			<li class="sm:hidden inline-block">
 				<a
 					href="/space"
 					class="h-full grid place-content-center text-2xl bg-bg p-2.5
