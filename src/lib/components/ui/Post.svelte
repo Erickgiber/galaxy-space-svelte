@@ -118,7 +118,18 @@
 							active:scale-95 active:duration-0 active:bg-primary active:text-white {isActiveModalShare
 						? 'bg-primary text-white shadow-md'
 						: ''} "
-					on:click={() => (isActiveModalShare = !isActiveModalShare)}
+					on:click={() => {
+						isActiveModalShare = !isActiveModalShare
+						if (isActiveModalShare) {
+							if (typeof window !== 'undefined') {
+								setTimeout(() => {
+									const modal = document.querySelector(`.modalShare-${post.id}`)
+									// @ts-ignore
+									modal.style.display = 'flex'
+								}, 10)
+							}
+						}
+					}}
 				>
 					<Icon class="text-inherit" icon="carbon:copy-link" width="23" />
 				</button>
