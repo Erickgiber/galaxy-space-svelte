@@ -53,7 +53,7 @@
 
 <section class="my-2 flex flex-col gap-3">
 	{#if posts && posts.length > 0}
-		{#each posts as post}
+		{#each posts as post, index}
 			{#if post.text && post.image_url}
 				<article class="relative flex flex-col gap-2 pb-10 bg-white py-2 rounded-lg shadow-sm">
 					<a
@@ -122,12 +122,23 @@
 							active:scale-95 active:duration-0 active:bg-primary active:text-white {isActiveModalShare
 								? 'bg-primary text-white shadow-md'
 								: ''} "
-							on:click={() => (isActiveModalShare = !isActiveModalShare)}
+							on:click={() => {
+								isActiveModalShare = !isActiveModalShare
+								if (isActiveModalShare) {
+									if (typeof window !== 'undefined') {
+										setTimeout(() => {
+											const modal = document.querySelector(`.modalShare-${index}`)
+											// @ts-ignore
+											modal.style.display = 'flex'
+										}, 10)
+									}
+								}
+							}}
 						>
 							<Icon class="text-inherit" icon="carbon:copy-link" width="23" />
 						</button>
 
-						<ModalShare bind:enable={isActiveModalShare} {post} />
+						<ModalShare bind:enable={isActiveModalShare} {post} classID={index.toString()} />
 					</div>
 				</article>
 			{/if}

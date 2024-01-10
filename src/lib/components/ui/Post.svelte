@@ -121,7 +121,7 @@
 					<Icon class="text-inherit" icon="carbon:copy-link" width="23" />
 				</button>
 
-				<ModalShare bind:enable={isActiveModalShare} {post} />
+				<ModalShare bind:enable={isActiveModalShare} {post} classID={post.id.toString()} />
 			</div>
 		</article>
 	{/if}

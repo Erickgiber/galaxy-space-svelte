@@ -1,10 +1,13 @@
 <script lang="ts">
 	import { page } from '$app/stores'
 	import type { IPost } from '$lib/types/post.types'
+	import { handleCopy } from '$lib/utils/handleCopy'
+	import { toast } from '@zerodevx/svelte-toast'
 	import { fade } from 'svelte/transition'
 
 	export let enable: boolean = false
 	export let post: IPost
+	export let classID: string
 
 	const valueLink = `${$page.url.href}/posts/${post.post_id}?username=${post.username}`
 	const twitterLink =
@@ -18,7 +21,7 @@
 	<!-- CONTAINER MODAL-->
 	<div
 		transition:fade={{ duration: 100 }}
-		class="absolute sm:w-96 w-56 -left-1 bottom-28 sm:left-28 sm:bottom-12"
+		class="absolute sm:w-96 w-56 -left-1 bottom-28 sm:left-28 sm:bottom-12 hidden modalShare-{classID}"
 	>
 		<!--MODAL ITEM-->
 		<div class="bg-gray-100 mx-4 p-4 pt-0 pb-2 rounded-xl w-full">
@@ -30,7 +33,9 @@
 
 				<button
 					class="bg-gray-300 grid place-content-center hover:bg-gray-500 cursor-pointer hover:text-gray-300 font-sans text-gray-500 w-8 h-8 rounded-full"
-					on:click={() => (enable = false)}
+					on:click={() => {
+						enable = false
+					}}
 				>
 					<span class="-translate-y-0.5 text-lg"> x</span>
 				</button>
@@ -119,6 +124,13 @@
 					/>
 
 					<button
+						on:click={async () => {
+							const isCopied = await handleCopy(valueLink)
+
+							if (isCopied) {
+								toast.push('Url copied to clipboard')
+							}
+						}}
 						class="bg-indigo-500 text-white rounded text-sm py-2 px-5 mr-2 hover:bg-indigo-600"
 					>
 						Copy
