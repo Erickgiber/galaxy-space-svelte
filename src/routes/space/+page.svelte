@@ -94,6 +94,18 @@
 
 <svelte:head>
 	<title>Galaxy Space</title>
+
+	<meta name="title" content="Galaxy Space" />
+	<meta name="description" content="Welcome to Galaxy Space the programmer universe!" />
+	<meta
+		name="keywords"
+		content="programming, social, network, spaces, universal, erickgiber, chat, group, post, posts, posting"
+	/>
+	<meta name="robots" content="index, follow" />
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="language" content="English" />
+	<meta name="revisit-after" content="1 days" />
+	<meta name="author" content="Erick Ramirez" />
 </svelte:head>
 
 <!-- <svelte:window
