@@ -64,7 +64,12 @@
 								alt={image.text}
 							/>
 						</a>
-						<ul class="mt-2 flex items-center px-2">
+						<p
+							class="text-base h-6 pl-2 pr-3 mt-2 font-semibold text-ellipsis overflow-hidden whitespace-nowrap"
+						>
+							{@html image.text}
+						</p>
+						<ul class="mt-2 flex items-center justify-between px-2">
 							<li class="flex items-center gap-1 text-sm text-gray-400 hover:text-gray-600">
 								{#if image.isLiked}
 									<button
