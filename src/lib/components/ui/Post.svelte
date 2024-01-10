@@ -34,6 +34,12 @@
 	}
 </script>
 
+<svelte:head>
+	<title
+		>{post.text?.slice(0, 5)} {post.text && post.text.length > 5 ? '...' : ''} | Galaxy Space</title
+	>
+</svelte:head>
+
 <section class="my-2 flex flex-col gap-3">
 	{#if post.text && post.image_url}
 		<article class="relative flex flex-col gap-2 pb-10 bg-white py-2 rounded-lg shadow-sm">

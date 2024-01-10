@@ -84,7 +84,6 @@
 		btnFollowLoading = true
 		const request = await repository.follow.remove($currentUser, $profile, data.supabase)
 		isFollowed = request
-		console.log('Cuenta se dejo de seguir! ', isFollowed)
 		const updateFollowers = data.followers?.filter(
 			(follower: IFollower) => follower.uuid !== $currentUser.uuid
 		)

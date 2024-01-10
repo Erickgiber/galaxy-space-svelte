@@ -5,7 +5,6 @@
 
 	export let data: PageData
 	const post = data.post as IPost
-	console.log(post)
 </script>
 
 <Post supabase={data.supabase} {post} />
