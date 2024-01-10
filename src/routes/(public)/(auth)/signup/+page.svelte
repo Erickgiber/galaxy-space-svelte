@@ -14,7 +14,7 @@
 	const handleInputUsername = (e: Event) => {
 		const input = e.currentTarget as HTMLInputElement
 		const { value } = input
-		input.value = value.replaceAll(' ', '')
+		input.value = value.replace(/[^A-Za-z0-9\-]/g, '')
 	}
 
 	const handleSubmit = () => {
