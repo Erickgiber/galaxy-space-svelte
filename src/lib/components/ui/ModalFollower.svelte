@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { IProfile } from '$lib/types/profile.types'
 	import Icon from '@iconify/svelte'
-	import { fade, slide } from 'svelte/transition'
+	import { fade } from 'svelte/transition'
 	import VerifiedIcon from './VerifiedIcon.svelte'
 
 	export let isModalFollowers: boolean
@@ -22,7 +22,7 @@
 backdrop-blur-sm p-2"
 	>
 		<article
-			class="w-full sm:min-w-[320px] flex gap-2 flex-col max-w-xl h-96 overflow-x-hidden overflow-y-auto py-2 shadow-2xl rounded-xl bg-white"
+			class="flex gap-2 flex-col max-w-72 h-96 overflow-x-hidden overflow-y-auto py-2 shadow-2xl rounded-xl bg-white"
 		>
 			<div class="pb-1 px-2 text-dark border-b-2 border-light_gray flex justify-between">
 				<p class="text-lg flex items-center gap-1">
@@ -38,15 +38,15 @@ backdrop-blur-sm p-2"
 			</div>
 
 			{#each followers as follower}
-				<div class="px-4">
+				<div class="px-2">
 					<a
 						on:click={() => (isModalFollowers = false)}
 						href="/space/u/{follower.username}"
-						in:slide={{ duration: 100 }}
-						class="w-full flex gap-1.5 py-2 px-3 border-light_gray hover:bg-light_gray rounded-md hover:shadow-sm transition-all duration-100"
+						in:fade={{ duration: 50 }}
+						class="w-full flex gap-1.5 py-2 px-2 border-light_gray hover:bg-light_gray rounded-md hover:shadow-sm transition-all duration-100"
 					>
 						<img
-							class="w-12 h-12 object-cover rounded-full bg-light_gray"
+							class="w-7 h-7 sm:w-12 sm:h-12 object-cover rounded-full bg-light_gray"
 							src={follower.photo_url}
 							alt={follower.username}
 						/>
@@ -55,7 +55,7 @@ backdrop-blur-sm p-2"
 								{follower.public_name}
 								<VerifiedIcon isStar={follower.is_star} />
 							</p>
-							<p class="text-gray-400 font-semibold">@{follower.username}</p>
+							<p class="text-gray-400 text-xs font-semibold">@{follower.username}</p>
 						</span>
 					</a>
 				</div>

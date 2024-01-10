@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { IProfile } from '$lib/types/profile.types'
 	import Icon from '@iconify/svelte'
-	import { fade, slide } from 'svelte/transition'
+	import { fade } from 'svelte/transition'
 	import VerifiedIcon from './VerifiedIcon.svelte'
 
 	export let isModalFollowing: boolean
@@ -18,11 +18,11 @@
 {#if isModalFollowing}
 	<div
 		transition:fade={{ duration: 150 }}
-		class="grid place-content-center z-40 fixed top-0 left-0 w-full h-full bg-black bg-opacity-50
+		class="grid place-content-center px-2 z-40 fixed top-0 left-0 w-full h-full bg-black bg-opacity-50
 backdrop-blur-sm p-2"
 	>
 		<article
-			class="w-full sm:min-w-[320px] flex gap-2 flex-col max-w-xl h-96 overflow-x-hidden overflow-y-auto py-2 shadow-2xl rounded-xl bg-white"
+			class="flex gap-2 flex-col w-full max-w-xl h-96 overflow-x-hidden overflow-y-auto py-2 shadow-2xl rounded-xl bg-white"
 		>
 			<div class="pb-1 px-2 text-dark border-b-2 border-light_gray flex justify-between">
 				<p class="text-lg flex items-center gap-1">
@@ -38,24 +38,24 @@ backdrop-blur-sm p-2"
 			</div>
 
 			{#each followings as following}
-				<div class="px-4">
+				<div class="px-2">
 					<a
 						on:click={() => (isModalFollowing = false)}
 						href="/space/u/{following.username}"
-						in:slide={{ duration: 100 }}
-						class="w-full flex gap-1.5 py-2 px-3 border-light_gray hover:bg-light_gray rounded-md hover:shadow-sm transition-all duration-100"
+						in:fade={{ duration: 50 }}
+						class="w-full flex gap-1.5 py-2 px-2 border-light_gray hover:bg-light_gray rounded-md hover:shadow-sm transition-all duration-100"
 					>
 						<img
-							class="w-12 h-12 object-cover rounded-full bg-light_gray"
+							class="w-7 h-7 sm:w-12 sm:h-12 object-cover rounded-full bg-light_gray"
 							src={following.photo_url}
 							alt={following.username}
 						/>
 						<span class="flex flex-col leading-5">
-							<p class="flex items-center gap-1.5 font-bold text-dark">
+							<p class="flex text-xs sm:text-base items-center gap-1.5 font-bold text-dark">
 								{following.public_name}
 								<VerifiedIcon isStar={following.is_star} />
 							</p>
-							<p class="text-gray-400 font-semibold">@{following.username}</p>
+							<p class="text-gray-400 text-xs font-semibold">@{following.username}</p>
 						</span>
 					</a>
 				</div>
