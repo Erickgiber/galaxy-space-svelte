@@ -10,7 +10,7 @@ export const load: ServerLoad = async ({ locals: { supabase, getSession }, param
 		throw redirect(303, '/space')
 	}
 
-	const post = (await supabase.from('posts').select().eq('post_id', post_id).single()).data as IPost
+	const post = (await supabase.from('posts').select().eq('id', post_id).single()).data as IPost
 
 	// ? Handle error
 	if (!post) {

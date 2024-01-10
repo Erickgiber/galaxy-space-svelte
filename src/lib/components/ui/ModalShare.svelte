@@ -9,7 +9,7 @@
 	export let post: IPost
 	export let classID: string
 
-	const valueLink = `${$page.url.href}/posts/${post.post_id}?username=${post.username}`
+	const valueLink = `${$page.url.host}/space/posts/${post.id}?username=${post.username}`
 	const twitterLink =
 		`https://twitter.com/intent/tweet?text=Hey! this post is so cool! ${valueLink}`.replaceAll(
 			' ',
