@@ -4,7 +4,7 @@ import { redirect, type ServerLoad } from '@sveltejs/kit'
 
 export const load: ServerLoad = async ({ locals: { supabase, getSession }, params, url }) => {
 	const { post_id } = params
-	const id = url.searchParams.get('id')
+	const id = url.searchParams.get('u')
 
 	if (!post_id) {
 		throw redirect(303, '/space')
