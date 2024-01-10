@@ -20,7 +20,7 @@
 			<!--MODAL HEADER-->
 			<div class="flex justify-between items center border-b border-gray-200 py-3">
 				<div class="flex items-center justify-center">
-					<p class="text-xl font-bold text-gray-800">Share Modal</p>
+					<p class="text-xl font-bold text-gray-800">Share this post</p>
 				</div>
 
 				<button
