@@ -13,6 +13,8 @@
 	let btnLikeDisable = false
 	let isActiveModalShare = false
 
+	console.log(post)
+
 	const likeRepository = new LikesRepository()
 
 	const handleLike = async (post: IPost) => {
@@ -48,7 +50,7 @@
 </svelte:head>
 
 <section class="my-2 flex flex-col gap-3">
-	{#if post.text && post.image_url}
+	{#if post.text || post.image_url}
 		<article class="relative flex flex-col gap-2 pb-10 bg-white py-2 rounded-lg shadow-sm">
 			<a
 				class="flex ml-2 max-w-max rounded-md gap-1.5 pl-0.5 py-1.5 transition-all"
