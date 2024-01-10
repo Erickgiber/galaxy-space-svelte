@@ -5,10 +5,12 @@
 	import Icon from '@iconify/svelte'
 	import type { SupabaseClient } from '@supabase/supabase-js'
 	import dayjs from 'dayjs'
+	import ModalShare from './ModalShare.svelte'
 	import VerifiedIcon from './VerifiedIcon.svelte'
 	export let posts: IPost[]
 	export let supabase: SupabaseClient
 	let btnLikeDisable = false
+	let isActiveModalShare = false
 
 	const likeRepository = new LikesRepository()
 
@@ -116,11 +118,16 @@
 						{/if}
 
 						<button
-							class="bg-light_gray pr-2 pl-2.5 pb-0.5 h-10 grid place-content-center outline-none transition-all duration-50 rounded-md
-							active:scale-95 active:duration-0 active:bg-primary active:text-white"
+							class="bg-light_gray pr-2 pl-2.5 pb-0.5 h-10 grid place-content-center outline-none transition-all duration-50 rounded-md text-dark
+							active:scale-95 active:duration-0 active:bg-primary active:text-white {isActiveModalShare
+								? 'bg-primary text-white shadow-md'
+								: ''} "
+							on:click={() => (isActiveModalShare = !isActiveModalShare)}
 						>
-							<Icon class="text-dark" icon="carbon:copy-link" width="23" />
+							<Icon class="text-inherit" icon="carbon:copy-link" width="23" />
 						</button>
+
+						<ModalShare bind:enable={isActiveModalShare} {post} />
 					</div>
 				</article>
 			{/if}
