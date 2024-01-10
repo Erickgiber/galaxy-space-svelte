@@ -13,8 +13,10 @@
 	let isNotificationsOpen = writable(false)
 	let isDropdownOpen = writable(false)
 	let notifications: INotification[] = []
+	let isHome = false
 	const supabase = $page.data.supabase as SupabaseClient
 
+	$: isHome = $page.url.pathname === '/space'
 	$: notifications = $page.data.user?.notifications as INotification[]
 
 	$: if (!$currentUser) {
@@ -65,7 +67,9 @@
 				<a
 					href="/space"
 					class="h-full grid place-content-center text-2xl bg-bg p-2.5
-                    rounded-full text-dark sm:hover:bg-primary sm:hover:text-white"
+                    rounded-full text-dark sm:hover:bg-primary sm:hover:text-white
+					{isHome ? 'bg-primary text-white' : ''}
+					"
 				>
 					<Icon icon="solar:home-smile-linear" class="text-xl" />
 				</a>
@@ -97,6 +101,7 @@
 						class="h-full grid place-content-center text-2xl bg-bg p-2
                     rounded-full text-dark sm:hover:bg-primary sm:hover:text-white
 					{$isNotificationsOpen && option.name === 'notifications' ? 'bg-primary text-white' : ''}
+					{$isDropdownOpen && option.name === 'dropdown' ? 'bg-primary text-white' : ''}
 					"
 						on:click={() => {
 							if (option.name === 'notifications') {
