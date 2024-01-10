@@ -38,6 +38,7 @@
 	let followings = [] as IProfile[]
 
 	const repository = new ProfileRepository()
+	const supabase = data.supabase
 
 	// Dynamic profile
 	$: profile.set(data.profile as IProfile)
@@ -311,7 +312,7 @@
 					<h1 class="font-semibold text-lg px-2">Following</h1>
 					<p class="px-2 w-max flex items-center gap-1 text-lg">
 						<Icon icon="solar:users-group-rounded-bold" class="text-xl text-dark" />
-						{data?.followings.length}
+						{data?.followings?.length}
 					</p>
 				</button>
 
@@ -403,7 +404,7 @@
 		</article>
 	</div>
 
-	<ImagesGallery imageList={data.images} bind:currentSection />
+	<ImagesGallery {supabase} imageList={data.images} bind:currentSection />
 
 	{#if currentSection === 'videos'}
 		<div class="w-full h-max mb-5 rounded-xl mt-3">

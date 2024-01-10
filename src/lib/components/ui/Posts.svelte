@@ -1,53 +1,33 @@
 <script lang="ts">
 	import { page } from '$app/stores'
 	import { currentUser, type ICurrentUser } from '$lib/store/currentUser'
+	import { LikesRepository } from '$lib/supabase/likes/LikesRepository'
 	import type { IPost } from '$lib/types/post.types'
-	import { handleLikeNotifications } from '$lib/utils/notifications/handleLikeNotifications'
 	import Icon from '@iconify/svelte'
+	import type { SupabaseClient } from '@supabase/supabase-js'
 	import dayjs from 'dayjs'
 	import VerifiedIcon from './VerifiedIcon.svelte'
 	export let posts: IPost[]
+	export let supabase: SupabaseClient
 	let btnLikeDisable = false
 
-	const handleLike = async (
-		post_id: string,
-		uuid_profile: string,
-		username_profile: string,
-		currentUser: ICurrentUser,
-		image_url: string | null
-	) => {
+	const likeRepository = new LikesRepository()
+
+	const handleLike = async (post: IPost) => {
 		btnLikeDisable = true
-		const { data, error } = await $page.data.supabase.from('likes').insert({
-			post_id,
-			like: true,
-			username: currentUser.username,
-			uuid: currentUser.uuid,
-			type: 'post'
-		})
+		const isLiked = await likeRepository.setLike(supabase, post.post_id, $currentUser)
 
-		await handleLikeNotifications(
-			$currentUser,
-			uuid_profile,
-			username_profile,
-			$page.data.supabase,
-			{
-				title: 'Liked your post',
-				description: `<b class="text-primary">${$currentUser.public_name}</b> liked your post`,
-				type: 'post',
-				from_username: currentUser.username,
-				from_uuid: currentUser.uuid,
-				image_url: image_url ? image_url : '',
-				url: `/space/post/${post_id}`
-			}
-		)
+		if (isLiked) {
+			posts.map((item: IPost) => {
+				if (item.post_id === post.post_id) {
+					item.isLiked = true
+					item.totalLikes = Number(item.totalLikes) + 1
+				}
+			})
 
-		posts.map((post) => {
-			if (post.post_id === post_id) {
-				post.isLiked = true
-				post.totalLikes++
-			}
-		})
-		posts = [...posts]
+			posts = [...posts]
+		}
+
 		btnLikeDisable = false
 	}
 
@@ -127,8 +107,7 @@
 						{:else}
 							<button
 								disabled={btnLikeDisable}
-								on:click={() =>
-									handleLike(post.post_id, post.uuid, post.username, $currentUser, post.image_url)}
+								on:click={() => handleLike(post)}
 								type="button"
 								class="outline-none bg-light_gray flex items-center gap-1 active:bg-primary active:text-white transition-all duration-50 pr-4 p-1.5 rounded-md"
 							>

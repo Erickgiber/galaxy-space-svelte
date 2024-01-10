@@ -190,7 +190,7 @@
 		{/if}
 
 		<!-- ? Posts -->
-		<Posts bind:posts />
+		<Posts bind:posts supabase={data.supabase} />
 	</div>
 
 	<section

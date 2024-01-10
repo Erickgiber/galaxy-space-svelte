@@ -26,6 +26,34 @@ export const load: ServerLoad = async (event) => {
 
 		const imagesProfile = await supabase.from('posts').select().eq('uuid', profile.uuid)
 
+		const { data: users, error: errorUsers } = await supabase.from('profiles').select('*')
+		const { data: getLikes, error: errorLikes } = await supabase
+			.from('likes')
+			.select('post_id, like, username, uuid')
+
+		// ? Handle error
+		if (error || errorUsers) {
+			return {
+				status: 500,
+				error: new Error('Error fetching posts')
+			}
+		}
+
+		// ? Map posts and users
+		imagesProfile?.data?.map((post) => {
+			const user = users.find((user) => user.uuid === post.uuid)
+			post.user = user
+		})
+
+		if (getLikes) {
+			imagesProfile?.data?.map((post) => {
+				const likes = getLikes.filter((like) => like.post_id === post.post_id)
+				post.likes = likes
+				post.totalLikes = likes.length
+				post.isLiked = likes.find((like) => like.uuid === dataUser.user.id) || false
+			})
+		}
+
 		return {
 			profile,
 			followers:
