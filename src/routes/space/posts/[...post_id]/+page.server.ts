@@ -24,6 +24,11 @@ export const load: ServerLoad = async ({ locals: { supabase, getSession }, param
 		.eq('username', username)
 		.single()
 
+	// ? Handle error
+	if (!user) {
+		throw redirect(303, '/space')
+	}
+
 	const { data: getLikes, error: errorLikes } = await supabase
 		.from('likes')
 		.select('post_id, like, username, uuid, type')
