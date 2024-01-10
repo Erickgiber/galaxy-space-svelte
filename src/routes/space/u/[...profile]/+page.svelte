@@ -156,6 +156,10 @@
 <svelte:head>
 	{#if $profile}
 		<title>{$profile.public_name} | Galaxy Space</title>
+
+		<meta name="keywords" content={$profile.public_name?.replaceAll(' ', ',')} />
+		<meta name="title" content={$profile.public_name} />
+		<meta name="description" content={$profile.description} />
 	{:else}
 		<title>{data.msg} | Galaxy Space</title>
 	{/if}

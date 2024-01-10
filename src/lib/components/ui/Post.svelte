@@ -39,6 +39,10 @@
 		>{post.text?.slice(0, 10)}
 		{post.text && post.text.length > 10 ? '...' : ''} | Galaxy Space</title
 	>
+
+	<meta name="keywords" content={post.text?.replaceAll(' ', ',')} />
+	<meta name="title" content={post.text} />
+	<meta name="description" content={post.text ?? ''} />
 </svelte:head>
 
 <section class="my-2 flex flex-col gap-3">
