@@ -148,6 +148,7 @@
 					<a
 						class="flex text-dark items-center gap-1 px-2 py-3 font-semibold border-b hover:bg-primary hover:text-white"
 						href="/space/u/{$currentUser.username}"
+						on:click={() => ($isDropdownOpen = false)}
 					>
 						<Icon icon="lucide:user-2" />
 						<span>My Profile</span>
@@ -155,13 +156,17 @@
 					<a
 						class="flex text-dark items-center gap-1 px-2 py-3 font-semibold border-b hover:bg-primary hover:text-white"
 						href="/space/settings"
+						on:click={() => ($isDropdownOpen = false)}
 					>
 						<Icon icon="solar:settings-linear" />
 						<span>Settings</span>
 					</a>
 					<button
 						class="flex w-full text-dark items-center rounded-b-lg gap-1 px-2 py-3 font-semibold hover:bg-primary hover:text-white"
-						on:click={() => handleLogout(supabase)}
+						on:click={() => {
+							handleLogout(supabase)
+							$isDropdownOpen = false
+						}}
 					>
 						<Icon icon="heroicons-outline:logout" />
 						<span>Logout</span>
