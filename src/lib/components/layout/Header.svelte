@@ -4,12 +4,16 @@
 	import { HeaderConfig } from '$lib/config/layout/header.config'
 	import { currentUser } from '$lib/store/currentUser'
 	import type { INotification } from '$lib/types/notification.types'
+	import { handleLogout } from '$lib/utils/logout'
 	import Icon from '@iconify/svelte'
+	import type { SupabaseClient } from '@supabase/supabase-js'
 	import { writable } from 'svelte/store'
 	import { fade, slide } from 'svelte/transition'
 
 	let isNotificationsOpen = writable(false)
+	let isDropdownOpen = writable(false)
 	let notifications: INotification[] = []
+	const supabase = $page.data.supabase as SupabaseClient
 
 	$: notifications = $page.data.user?.notifications as INotification[]
 
@@ -68,7 +72,16 @@
 							if (option.name === 'notifications') {
 								option.onclick({
 									isNotificationsOpen,
-									value: $isNotificationsOpen
+									value: $isNotificationsOpen,
+									isDropdownOpen
+								})
+							}
+
+							if (option.name === 'dropdown') {
+								option.onclick({
+									isDropdownOpen,
+									value: $isDropdownOpen,
+									isNotificationsOpen
 								})
 							}
 						}}
@@ -81,13 +94,13 @@
 
 		{#if $isNotificationsOpen}
 			<div
-				transition:slide
+				transition:slide={{ duration: 150 }}
 				class="absolute scroll-smooth scroll-modern top-16 right-0 bg-white shadow-2xl z-10 rounded-lg w-72 h-52 overflow-y-auto"
 			>
 				<h1 class="text-center font-bold text-black py-2 border-b-2 border-gray-200">
 					Notifications
 				</h1>
-				<div transition:fade class="w-full h-max">
+				<div transition:fade={{ duration: 200 }} class="w-full h-max">
 					{#if notifications.length > 0}
 						{#each notifications as notification}
 							<div class="p-2 border-b-2 border-light_gray">
@@ -121,6 +134,41 @@
 							<p class="text-lg font-semibold text-dark">Ehh.. this is dead</p>
 						</div>
 					{/if}
+				</div>
+			</div>
+		{/if}
+
+		{#if $isDropdownOpen}
+			<div
+				transition:slide={{ duration: 150 }}
+				class="absolute scroll-smooth scroll-modern top-16 right-0 bg-white shadow-2xl z-10 rounded-lg w-52 h-max"
+			>
+				<h1 class="text-center font-bold text-black py-2 border-b-2 border-gray-200">
+					{$currentUser.public_name}
+				</h1>
+				<div transition:fade={{ duration: 200 }} class="w-full h-max">
+					<a
+						class="flex text-dark items-center gap-1 px-2 py-3 font-semibold border-b hover:bg-primary hover:text-white"
+						href="/space/u/{$currentUser.username}"
+					>
+						<Icon icon="lucide:user-2" />
+						<span>My Profile</span>
+					</a>
+					<a
+						class="flex text-dark items-center gap-1 px-2 py-3 font-semibold border-b hover:bg-primary hover:text-white"
+						href="/space/u/{$currentUser.username}"
+					>
+						<Icon icon="solar:settings-linear" />
+						<span>Settings</span>
+					</a>
+					<a
+						class="flex text-dark items-center rounded-b-lg gap-1 px-2 py-3 font-semibold hover:bg-primary hover:text-white"
+						href="#logut"
+						on:click={() => handleLogout(supabase)}
+					>
+						<Icon icon="heroicons-outline:logout" />
+						<span>Logout</span>
+					</a>
 				</div>
 			</div>
 		{/if}
