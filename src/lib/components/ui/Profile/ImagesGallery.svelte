@@ -57,7 +57,7 @@
 				{#if image.image_url}
 					<!-- component -->
 					<div class="w-full h-full shadow-lg bg-white rounded-xl p-2">
-						<a href="/space/posts/{image.id}?username={image.username}">
+						<a href="/space/posts/{image.id}?id={image.user.id}">
 							<img
 								class="w-full h-72 object-cover rounded-xl"
 								src={image.image_url}
