@@ -1,13 +1,10 @@
 <script lang="ts">
-	import Aside from '$lib/components/layout/Aside.svelte'
-	import Header from '$lib/components/layout/Header.svelte'
-	import BackgroundAnimated from '$lib/components/ui/BackgroundAnimated.svelte'
-	import { SvelteToast } from '@zerodevx/svelte-toast'
-	import { currentUser } from '$lib/store/currentUser'
-	import '../app.scss'
-	import { onMount } from 'svelte'
 	import { invalidate } from '$app/navigation'
+	import { currentUser } from '$lib/store/currentUser'
+	import { SvelteToast } from '@zerodevx/svelte-toast'
 	import type { SvelteToastOptions } from '@zerodevx/svelte-toast/stores'
+	import { onMount } from 'svelte'
+	import '../app.scss'
 	export let data
 
 	// Optionally set default options here

@@ -1,11 +1,12 @@
 <script>
-	import Icon from '@iconify/svelte'
-	import LOGO from '$lib/assets/logos/logo.png'
 	import { enhance } from '$app/forms'
-	import { writable } from 'svelte/store'
-	import { resolver } from '$lib/utils/resolver'
-	import { page } from '$app/stores'
+	import LOGO from '$lib/assets/logos/logo.png'
 	import ButtonLoader from '$lib/components/ui/ButtonLoader.svelte'
+	import { currentUser } from '$lib/store/currentUser'
+	import { resolver } from '$lib/utils/resolver'
+	import Icon from '@iconify/svelte'
+	import { onMount } from 'svelte'
+	import { writable } from 'svelte/store'
 
 	// Disable for btn
 	const btnDisabled = writable(false)
@@ -13,6 +14,13 @@
 	const handleSubmit = () => {
 		return resolver(btnDisabled, {})
 	}
+
+	onMount(() => {
+		if ($currentUser) {
+			// @ts-ignore
+			currentUser.set(undefined)
+		}
+	})
 </script>
 
 <svelte:head>
