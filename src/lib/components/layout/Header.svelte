@@ -41,11 +41,31 @@
 		</label>
 
 		<ul class="relative w-full md:w-max justify-evenly md:justify-start flex items-center gap-2">
+			<!-- ? Profile Button -->
+			<li class="sm:hidden flex">
+				<a
+					style="font-family: 'Gabarito', sans-serif;"
+					href="/space/u/{$currentUser.username}"
+					class="text-base font-normal flex items-center gap-1 bg-bg
+							md:pr-3 rounded-full text-dark sm:hover:bg-primary sm:hover:text-white"
+				>
+					<img
+						in:fade
+						class="h-9 w-9 object-cover rounded-full"
+						src={$currentUser.photo_url}
+						alt="Galaxy Space"
+					/>
+					<p class="hidden md:flex">
+						{$currentUser.public_name}
+					</p>
+				</a>
+			</li>
+
 			<li>
 				<a
 					href="/space"
-					class="h-10 w-12 sm:hidden grid place-content-center bg-bg
-		rounded-full text-dark sm:hover:bg-primary sm:hover:text-white"
+					class="h-full grid place-content-center text-2xl bg-bg p-2.5
+                    rounded-full text-dark sm:hover:bg-primary sm:hover:text-white"
 				>
 					<Icon icon="solar:home-smile-linear" class="text-xl" />
 				</a>

@@ -21,7 +21,7 @@ export const HeaderConfig: IHeaderConfig = {
 		// },
 		{
 			name: 'notifications',
-			icon: 'mingcute:notification-line',
+			icon: 'ion:notifications-outline',
 			customClass: '',
 			onclick: (params?: any) => {
 				const { isNotificationsOpen, value, isDropdownOpen } = params
@@ -31,7 +31,7 @@ export const HeaderConfig: IHeaderConfig = {
 		},
 		{
 			name: 'dropdown',
-			icon: 'eva:arrow-down-fill',
+			icon: 'iconamoon:arrow-down-2',
 			customClass: '',
 			onclick: (params?: any) => {
 				const { isDropdownOpen, value, isNotificationsOpen } = params
