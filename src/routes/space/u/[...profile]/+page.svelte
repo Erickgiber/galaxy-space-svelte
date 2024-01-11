@@ -204,7 +204,7 @@
 
 		<!-- ? Photo container -->
 		<div
-			class="w-36 h-36 select-none relative top-16 rounded-full bg-light_gray border-4 border-white shadow-sm"
+			class="w-36 h-36 select-none relative top-16 rounded-full bg-light_gray dark:bg-dark_bg border-4 border-white dark:border-dark_light_gray shadow-sm"
 		>
 			{#if $isPhotoLoading}
 				<div in:fade class="w-full h-full">
@@ -213,7 +213,7 @@
 			{:else}
 				<img
 					in:fade
-					class="rounded-full bg-white w-full h-full object-cover"
+					class="rounded-full bg-white dark:bg-dark_bg w-full h-full object-cover"
 					src={$profile.photo_url}
 					alt=""
 				/>
@@ -239,7 +239,7 @@
 
 	<div class="flex flex-col justify-center text-center mt-[73px]">
 		<p
-			class="text-2xl left-1 relative inline-flex w-max mx-auto items-center justify-center gap-1 font-semibold text-dark leading-tight"
+			class="text-2xl left-1 relative inline-flex w-max mx-auto items-center justify-center gap-1 font-semibold text-dark dark:text-dark_text leading-tight"
 		>
 			{$profile.public_name}
 			<VerifiedIcon isStar={$profile.is_star} />
@@ -295,7 +295,7 @@
 				<!-- ? Buttons right -->
 				<button
 					on:click={HandleShowFollowers}
-					class="bg-white h-max w-max flex flex-col rounded-md shadow-sm p-2.5 outline-primary"
+					class="bg-white dark:bg-dark_white dark:text-white h-max w-max flex flex-col rounded-md shadow-sm p-2.5 outline-primary"
 				>
 					<!-- Followers -->
 					<h1 class="font-semibold text-lg px-2">Followers</h1>
@@ -308,7 +308,7 @@
 				<!-- ? Buttons right -->
 				<button
 					on:click={HandleShowFollowings}
-					class="bg-white h-max w-max flex flex-col rounded-md shadow-sm p-2.5 outline-primary"
+					class="bg-white dark:bg-dark_white dark:text-white h-max w-max flex flex-col rounded-md shadow-sm p-2.5 outline-primary"
 				>
 					<!-- Following -->
 					<h1 class="font-semibold text-lg px-2">Following</h1>
@@ -320,7 +320,7 @@
 
 				<a
 					href="/space/u/{$profile.username}?section=images"
-					class="bg-white h-max w-max flex flex-col rounded-md shadow-sm p-2.5 outline-primary"
+					class="bg-white dark:bg-dark_white dark:text-white h-max w-max flex flex-col rounded-md shadow-sm p-2.5 outline-primary"
 					style={currentSection === 'images'
 						? 'background: var(--primary); color: white; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);'
 						: null}
@@ -339,7 +339,7 @@
 				<!-- ? Buttons right -->
 				<a
 					href="/space/u/{$profile.username}?section=videos"
-					class="bg-white h-max w-max flex flex-col rounded-md shadow-sm p-2.5 outline-primary"
+					class="bg-white dark:bg-dark_white dark:text-white h-max w-max flex flex-col rounded-md shadow-sm p-2.5 outline-primary"
 					style={currentSection === 'videos'
 						? 'background: var(--primary); color: white; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);'
 						: null}
@@ -360,22 +360,25 @@
 				use:enhance={handleSubmitChangeDescription}
 				action="?/changeDescription"
 				method="post"
-				class="bg-white flex flex-col rounded-md shadow-sm p-2.5"
+				class="bg-white dark:bg-dark_white dark:text-white flex flex-col rounded-md shadow-sm p-2.5"
 			>
-				<h1 class="font-semibold px-2 border-b border-light_gray">Description</h1>
+				<h1 class="font-semibold px-2 border-b dark:border-dark_light_gray border-light_gray">
+					Description
+				</h1>
 
 				{#if $isEditableDescription}
 					<textarea
 						bind:this={descriptionHTML}
 						name="description"
-						class="px-2 py-1 mt-1 resize-none bg-bg text-dark h-40 rounded-md outline-primary"
+						class="px-2 py-1 mt-1 resize-none bg-bg text-dark dark:bg-dark_light_gray dark:text-white h-40 rounded-md outline-primary"
 						>{$profile.description.replaceAll('<br>', '\n') || 'Not description'}</textarea
 					>
 				{:else}
 					<div
-						class="px-2 py-1 mt-1 text-dark h-40 overflow-y-auto overflow-x-hidden rounded-md outline-primary"
+						class="px-2 py-1 mt-1 text-dark dark:text-dark_text h-40 overflow-y-auto overflow-x-hidden rounded-md outline-primary"
 					>
-						{@html $profile.description || '<p class="text-dark select-none">Not description</p>'}
+						{@html $profile.description ||
+							'<p class="text-dark dark:text-dark_bg select-none">Not description</p>'}
 					</div>
 				{/if}
 				<div class="flex items-center justify-between gap-2">

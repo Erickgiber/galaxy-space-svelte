@@ -3,3 +3,6 @@
 </svelte:head>
 
 <h1>Settings</h1>
+
+<br />
+<button>Set dark mode</button>

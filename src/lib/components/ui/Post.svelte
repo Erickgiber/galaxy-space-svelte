@@ -53,7 +53,9 @@
 
 <section class="my-2 flex flex-col gap-3">
 	{#if post.text || post.image_url}
-		<article class="relative flex flex-col gap-2 pb-10 bg-white py-2 rounded-lg shadow-sm">
+		<article
+			class="relative flex flex-col gap-2 pb-10 bg-white dark:bg-dark_white py-2 rounded-lg shadow-sm"
+		>
 			<a
 				class="flex ml-2 max-w-max rounded-md gap-1.5 pl-0.5 py-1.5 transition-all"
 				href="/space/u/{post.user?.username}"
@@ -64,15 +66,15 @@
 					alt={post.username}
 				/>
 				<div class="flex flex-col leading-4">
-					<p class="flex items-center gap-1">
+					<p class="flex items-center gap-1 dark:text-dark_text">
 						{post.user.public_name}
 						<VerifiedIcon isStar={post.user.is_star} />
 					</p>
-					<p class="text-sm font-semibold text-gray-500">@{post.username}</p>
+					<p class="text-sm font-semibold text-gray-500 dark:text-dark">@{post.username}</p>
 				</div>
 			</a>
 			{#if post.text}
-				<p class="px-3.5 text-[15px]">
+				<p class="px-3.5 text-[15px] dark:text-dark_text">
 					{@html post.text}
 				</p>
 			{/if}
@@ -89,7 +91,7 @@
 			{/if}
 
 			<!-- Stats -->
-			<div class="mx-2 flex items gap-2 border-b">
+			<div class="mx-3 flex items gap-2 border-b dark:border-dark_light_gray">
 				<button
 					class="relative hover:text-black group star-count-post-{post.id} text-sm text-dark font-semibold"
 				>
@@ -100,13 +102,15 @@
 				</button>
 			</div>
 
-			<div class="flex gap-3 items-center px-2 py-1 border-b-2 border-light_gray">
+			<div
+				class="flex gap-3 items-center px-3 py-1 border-b dark:border-dark_light_gray border-light_gray"
+			>
 				{#if post.isLiked}
 					<button
 						disabled={btnLikeDisable}
 						on:click={() => handleDislike(post)}
 						type="button"
-						class="outline-none flex items-center gap-1 bg-light_gray hover:bg-light_gray transition-all duration-100 pr-4 p-1.5 rounded-md"
+						class="outline-none flex items-center gap-1 dark:bg-dark_bg dark:text-white bg-light_gray hover:bg-light_gray transition-all duration-100 pr-4 p-1.5 rounded-md"
 					>
 						<Icon icon="solar:star-bold-duotone" width="24" color="var(--primary)" />
 						<span class="translate-y-0.5 text-lg font-semibold">{post.totalLikes}</span>
@@ -116,7 +120,7 @@
 						disabled={btnLikeDisable}
 						on:click={() => handleLike(post)}
 						type="button"
-						class="outline-none bg-light_gray flex items-center gap-1 active:bg-primary active:text-white transition-all duration-50 pr-4 p-1.5 rounded-md"
+						class="outline-none bg-light_gray dark:bg-dark_light_gray dark:text-white flex items-center gap-1 active:bg-primary active:text-white transition-all duration-50 pr-4 p-1.5 rounded-md"
 					>
 						<Icon icon="solar:star-line-duotone" width="23" />
 						<span class="translate-y-0.5 text-lg">{post.totalLikes}</span>
@@ -124,9 +128,9 @@
 				{/if}
 
 				<button
-					class="bg-light_gray pr-2 pl-2.5 pb-0.5 h-10 grid place-content-center outline-none transition-all duration-50 rounded-md text-dark
+					class="bg-light_gray dark:bg-dark_light_gray dark:text-white pr-2 pl-2.5 pb-0.5 h-10 grid place-content-center outline-none transition-all duration-50 rounded-md text-dark
 							active:scale-95 active:duration-0 active:bg-primary active:text-white {isActiveModalShare
-						? 'bg-primary text-white shadow-md'
+						? 'bg-primary text-white shadow-md '
 						: ''} "
 					on:click={() => {
 						isActiveModalShare = !isActiveModalShare

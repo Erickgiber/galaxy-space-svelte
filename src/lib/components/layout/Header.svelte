@@ -26,12 +26,12 @@
 
 {#if $currentUser}
 	<header
-		class="relative w-full h-14 px-1 sm:px-3 mb-3 flex items-center justify-evenly md:justify-between bg-white rounded-xl shadow-sm"
+		class="relative w-full h-14 px-1 sm:px-3 mb-3 flex items-center justify-evenly md:justify-between bg-white dark:bg-dark_white rounded-xl shadow-sm"
 	>
 		<!-- ? Searcher -->
 		<label
 			for="searcher"
-			class="hidden items-center px-2 bg-bg md:flex
+			class="hidden items-center px-2 bg-bg md:flex dark:bg-dark_light_gray dark:text-white
 		rounded-xl h-9 gap-1 transition focus-within:text-primary"
 		>
 			<Icon icon="majesticons:search-line" class="text-xl" />
@@ -80,7 +80,7 @@
 				<a
 					style="font-family: 'Gabarito', sans-serif;"
 					href="/space/u/{$currentUser.username}"
-					class="text-base font-normal flex items-center gap-1 bg-bg
+					class="text-base font-normal flex items-center gap-1 bg-bg dark:bg-dark_light_gray dark:text-white
 				md:pr-3 rounded-full text-dark sm:hover:bg-primary sm:hover:text-white"
 				>
 					<img
@@ -98,7 +98,7 @@
 			{#each HeaderConfig.options as option}
 				<li>
 					<button
-						class="h-full grid place-content-center text-2xl bg-bg p-2
+						class="h-full grid place-content-center text-2xl bg-bg p-2 dark:bg-dark_light_gray dark:text-white
                     rounded-full text-dark sm:hover:bg-primary sm:hover:text-white
 					{$isNotificationsOpen && option.name === 'notifications' ? 'bg-primary text-white' : ''}
 					{$isDropdownOpen && option.name === 'dropdown' ? 'bg-primary text-white' : ''}
@@ -130,22 +130,26 @@
 		{#if $isNotificationsOpen}
 			<div
 				transition:slide={{ duration: 150 }}
-				class="absolute scroll-smooth scroll-modern top-16 right-0 bg-white shadow-2xl z-10 rounded-lg w-52 h-52 overflow-y-auto"
+				class="absolute scroll-smooth scroll-modern top-16 right-0 bg-white dark:bg-dark_white shadow-2xl z-10 rounded-lg w-52 h-52 overflow-y-auto"
 			>
-				<h1 class="text-center font-bold text-black py-2 border-b-2 border-gray-200">
+				<h1
+					class="text-center font-bold text-black py-2 border-b-2 border-gray-200 dark:border-dark_light_gray dark:text-dark_text"
+				>
 					Notifications
 				</h1>
 				<div transition:fade={{ duration: 200 }} class="w-full h-max">
 					{#if notifications.length > 0}
 						{#each notifications as notification}
-							<div class="p-2 border-b-2 border-light_gray">
+							<div class="p-2 border-b-2 border-light_gray dark:border-dark_light_gray">
 								{#if notification.type === 'follow'}
 									<h1 class="text-base text-dark font-semibold flex items-center gap-1">
 										<Icon icon="mdi:account-plus" class="text-sm" />
 										{notification.title}
 									</h1>
 								{:else}
-									<h1 class="text-base text-dark font-bold">{notification.title}</h1>
+									<h1 class="text-base text-dark dark:text-dark_text font-bold">
+										{notification.title}
+									</h1>
 								{/if}
 								{#if notification.type === 'follow'}
 									<a
@@ -173,15 +177,19 @@
 			</div>
 		{/if}
 
-		{#if $isDropdownOpen}
+		{#if !$isDropdownOpen}
 			<div
 				transition:slide={{ duration: 150 }}
-				class="absolute scroll-smooth scroll-modern top-16 right-0 bg-white shadow-2xl z-10 rounded-lg w-52 h-max"
+				class="absolute scroll-smooth scroll-modern top-16 right-0 bg-white dark:bg-dark_white shadow-2xl z-10 rounded-lg w-52 h-max"
 			>
-				<h1 class="text-center font-bold text-black py-2 border-b-2 border-gray-200">Menu</h1>
+				<h1
+					class="text-center font-bold text-black dark:text-dark_text py-2 border-b-2 border-gray-200 dark:border-dark_light_gray"
+				>
+					Menu
+				</h1>
 				<div transition:fade={{ duration: 200 }} class="w-full h-max">
 					<a
-						class="flex text-dark items-center gap-1 px-2 py-3 font-semibold border-b hover:bg-primary hover:text-white"
+						class="flex text-dark items-center gap-1 px-2 py-3 font-semibold border-b dark:border-dark_light_gray hover:bg-primary hover:text-white dark:text-dark_text"
 						href="/space/u/{$currentUser.username}"
 						on:click={() => ($isDropdownOpen = false)}
 					>
@@ -189,7 +197,7 @@
 						<span>My Profile</span>
 					</a>
 					<a
-						class="flex text-dark items-center gap-1 px-2 py-3 font-semibold border-b hover:bg-primary hover:text-white"
+						class="flex text-dark items-center gap-1 px-2 py-3 font-semibold border-b dark:border-dark_light_gray hover:bg-primary hover:text-white dark:text-dark_text"
 						href="/space/settings"
 						on:click={() => ($isDropdownOpen = false)}
 					>
@@ -197,7 +205,7 @@
 						<span>Settings</span>
 					</a>
 					<button
-						class="flex w-full text-dark items-center rounded-b-lg gap-1 px-2 py-3 font-semibold hover:bg-primary hover:text-white"
+						class="flex w-full text-dark items-center rounded-b-lg dark:border-dark_light_gray gap-1 px-2 py-3 font-semibold hover:bg-primary hover:text-white dark:text-dark_text"
 						on:click={() => {
 							handleLogout(supabase)
 							$isDropdownOpen = false

@@ -48,9 +48,6 @@
 		}
 		btnLikeDisable = false
 	}
-
-	console.clear()
-	console.log(imageList)
 </script>
 
 <!-- If la lista existe -->
@@ -61,7 +58,7 @@
 			{#each imageList as image}
 				{#if image.image_url}
 					<!-- component -->
-					<div class="w-full h-full shadow-lg bg-white rounded-xl p-2">
+					<div class="w-full h-full shadow-lg bg-white dark:bg-dark_white rounded-xl p-2">
 						<a href="/space/posts/{image.id}?u={image.user.id}">
 							<img
 								class="w-full h-56 sm:h-72 object-cover rounded-xl"
@@ -70,13 +67,13 @@
 							/>
 						</a>
 						<p
-							class="text-[15px] h-6 pl-2 pr-3 mt-2 text-ellipsis overflow-hidden whitespace-nowrap"
+							class="text-[15px] dark:text-dark_text h-6 pl-2 pr-3 mt-2 text-ellipsis overflow-hidden whitespace-nowrap"
 						>
 							{@html image.text}
 						</p>
 
 						<!-- Stats -->
-						<div class="mx-2 flex items gap-2 border-b">
+						<div class="mx-2 flex items gap-2 border-b dark:border-dark_light_gray">
 							<button
 								class="relative hover:text-black group star-count-post-{image.id} text-sm text-dark font-semibold"
 							>
@@ -94,7 +91,7 @@
 										disabled={btnLikeDisable}
 										on:click={() => handleDislike(image)}
 										type="button"
-										class="outline-none flex items-center gap-1 bg-light_gray hover:bg-light_gray transition-all duration-100 pr-4 p-1.5 rounded-md"
+										class="outline-none flex items-center gap-1 bg-light_gray dark:bg-dark_bg dark:text-white hover:bg-light_gray transition-all duration-100 pr-4 p-1.5 rounded-md"
 									>
 										<Icon icon="solar:star-bold-duotone" width="24" color="var(--primary)" />
 										<span class="translate-y-0.5 text-lg font-semibold">{image.totalLikes}</span>
@@ -104,7 +101,7 @@
 										disabled={btnLikeDisable}
 										on:click={() => handleLike(image)}
 										type="button"
-										class="outline-none bg-light_gray flex items-center gap-1 active:bg-primary active:text-white transition-all duration-50 pr-4 p-1.5 rounded-md"
+										class="outline-none bg-light_gray dark:bg-dark_light_gray dark:text-white flex items-center gap-1 active:bg-primary active:text-white transition-all duration-50 pr-4 p-1.5 rounded-md"
 									>
 										<Icon icon="solar:star-line-duotone" width="23" />
 										<span class="translate-y-0.5 text-lg">{image.totalLikes}</span>

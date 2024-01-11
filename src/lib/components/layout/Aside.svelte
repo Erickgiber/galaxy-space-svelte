@@ -21,7 +21,7 @@
 		<a
 			style="font-family: 'Gabarito', sans-serif;"
 			href="/space"
-			class="text-xl font-normal text-[#1D2E79] flex items-center gap-1.5"
+			class="text-xl font-normal text-[#1D2E79] dark:text-white flex items-center gap-1.5"
 		>
 			<img
 				class="h-10 object-cover pointer-events-none select-none"
@@ -37,8 +37,8 @@
 					<a
 						href={route.name === 'Profile' ? `${route.href}/${$currentUser.username}` : route.href}
 						class="flex items-center gap-1.5 text-lg px-1.5 py-2.5 rounded-lg transition-all
-                    hover:bg-black hover:bg-opacity-5
-                    text-[#808080] select-none
+                    hover:bg-black hover:bg-opacity-5 dark:hover:bg-dark_white
+                    text-[#808080] dark:text-dark_text select-none
                     {route.customClass}
                     {$page.url.pathname === route.href
 							? 'link_active'
@@ -57,8 +57,8 @@
 					<a
 						href="/space/statistics"
 						class="flex items-center gap-1.5 text-lg px-1.5 py-2.5 rounded-lg transition-all
-					hover:bg-black hover:bg-opacity-5
-					text-[#808080] select-none
+					hover:bg-black hover:bg-opacity-5 dark:hover:bg-dark_white
+					text-[#808080] dark:text-dark_text select-none
 					{$page.url.pathname === '/space/statistics' ? 'link_active' : ''}"
 					>
 						<Icon icon="nimbus:stats" />
@@ -71,8 +71,8 @@
 				<button
 					on:click={() => handleLogout(supabase)}
 					class="w-full flex items-center gap-1.5 text-lg px-1.5 py-2.5 rounded-lg transition-all
-                    hover:bg-black hover:bg-opacity-5
-                    text-[#808080] select-none"
+                    hover:bg-black hover:bg-opacity-5 dark:hover:bg-dark_white
+                    text-[#808080] dark:text-dark_text select-none"
 				>
 					<Icon icon="heroicons-outline:logout" />
 					<span>Logout</span>

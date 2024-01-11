@@ -119,10 +119,12 @@
 			use:enhance={handleSubmitPost}
 			action="?/new_post"
 			method="post"
-			class="bg-white rounded-lg shadow-sm"
+			class="bg-white dark:bg-dark_white dark:text-dark_text rounded-lg shadow-sm"
 		>
 			<label for="text">
-				<p class="px-3 py-1.5 border-b-2 border-bg flex items-center gap-1.5 text-gray-700">
+				<p
+					class="px-3 py-1.5 border-b-2 border-bg dark:border-dark_light_gray dark:text-dark_text flex items-center gap-1.5 text-gray-700"
+				>
 					<Icon icon="ant-design:edit-outlined" />
 					New post
 				</p>
@@ -141,7 +143,7 @@
 
 			<textarea
 				class="
-			p-2 w-full h-16 bg-white border-b-2
+			p-2 w-full h-16 bg-white dark:bg-dark_white border-b-2 dark:border-b-1 dark:border-dark_light_gray
 			border-transparent outline-none transition-all duration-300 resize-none
 			focus:h-24 focus:border-b-bg
 			"
@@ -207,7 +209,7 @@
 
 	<section
 		style="background-image: linear-gradient(180deg, #5700e4 0%, #3e00a5 100%); background-size: 100% 80px;"
-		class="w-[250px] hidden md:flex md:flex-col bg-white rounded-lg shadow-sm h-full bg-no-repeat"
+		class="w-[250px] hidden md:flex md:flex-col bg-white dark:bg-dark_white dark:text-dark_text rounded-lg shadow-sm h-full bg-no-repeat"
 	>
 		<div class="w-[250px] h-max flex flex-col items-center px-2 pt-7 pb-3">
 			<a
@@ -222,7 +224,9 @@
 			</a>
 
 			<article class="leading-5 mt-1 flex flex-col items-center text-center">
-				<p class="text-base flex items-center text-center gap-1 text-dark font-semibold">
+				<p
+					class="text-base flex items-center text-center gap-1 text-dark dark:text-dark_text font-semibold"
+				>
 					{$currentUser.public_name}
 					{#if $currentUser.is_star}
 						<Icon
@@ -232,7 +236,9 @@
 						/>
 					{/if}
 				</p>
-				<span class="text-sm text font-semibold text-gray-500">@{$currentUser.username}</span>
+				<span class="text-sm text font-semibold text-gray-500 dark:text-dark"
+					>@{$currentUser.username}</span
+				>
 			</article>
 			<article class="mt-2 flex items-center">
 				{#if $currentUser.is_star}
@@ -253,11 +259,6 @@
 		@media (width < 768px) {
 			width: 100%;
 		}
-	}
-
-	#text:focus {
-		background: rgb(93, 35, 206);
-		background: linear-gradient(90deg, rgba(93, 35, 206, 0.05) 0%, rgba(255, 255, 255, 1) 24%);
 	}
 
 	.bg_gradient {

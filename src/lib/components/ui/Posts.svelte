@@ -59,7 +59,9 @@
 	{#if posts && posts.length > 0}
 		{#each posts as post, index}
 			{#if post.text || post.image_url}
-				<article class="relative flex flex-col gap-2 pb-2 bg-white py-2 rounded-lg shadow-sm">
+				<article
+					class="relative flex flex-col gap-2 pb-2 bg-white dark:bg-dark_white dark:text-dark_text py-2 rounded-lg shadow-sm"
+				>
 					<a
 						class="flex ml-2 max-w-max rounded-md gap-1.5 pl-0.5 py-1.5 transition-all"
 						href="/space/u/{post.user?.username}"
@@ -74,11 +76,11 @@
 								{post.user.public_name}
 								<VerifiedIcon isStar={post.user.is_star} />
 							</p>
-							<p class="text-sm font-semibold text-gray-500">@{post.username}</p>
+							<p class="text-sm font-semibold text-gray-500 dark:text-dark">@{post.username}</p>
 						</div>
 					</a>
 					{#if post.text}
-						<p class="px-3.5 text-[15px]">
+						<p class="px-3.5">
 							{@html post.text}
 						</p>
 					{/if}
@@ -100,7 +102,7 @@
 					{/if}
 
 					<!-- Stats -->
-					<div class="mx-2 flex items gap-2 border-b">
+					<div class="mx-3 flex items gap-2 border-b dark:border-dark_light_gray">
 						<button
 							class="relative hover:text-black group star-count-post-{post.id} text-sm text-dark font-semibold"
 						>
@@ -111,13 +113,13 @@
 						</button>
 					</div>
 
-					<div class="flex items-center gap-3 px-2">
+					<div class="flex items-center gap-3 px-3">
 						{#if post.isLiked}
 							<button
 								disabled={btnLikeDisable}
 								on:click={() => handleDislike(post)}
 								type="button"
-								class="outline-none h-10 flex items-center gap-1 bg-light_gray hover:bg-light_gray transition-all duration-100 p-1.5 rounded-md"
+								class="outline-none h-10 flex items-center gap-1 dark:bg-dark_bg dark:text-white bg-light_gray hover:bg-light_gray transition-all duration-100 p-1.5 rounded-md"
 							>
 								<Icon icon="solar:star-bold-duotone" width="24" color="var(--primary)" />
 							</button>
@@ -126,14 +128,14 @@
 								disabled={btnLikeDisable}
 								on:click={() => handleLike(post)}
 								type="button"
-								class="outline-none h-10 bg-light_gray flex items-center gap-1 active:bg-primary active:text-white transition-all duration-50 p-1.5 rounded-md"
+								class="outline-none h-10 bg-light_gray dark:bg-dark_light_gray dark:text-white flex items-center gap-1 active:bg-primary active:text-white transition-all duration-50 p-1.5 rounded-md"
 							>
 								<Icon icon="solar:star-line-duotone" width="23" />
 							</button>
 						{/if}
 
 						<button
-							class="bg-light_gray pr-2 pl-2.5 pb-0.5 h-10 grid place-content-center outline-none transition-all duration-50 rounded-md text-dark
+							class="bg-light_gray dark:bg-dark_light_gray dark:text-white pr-2 pl-2.5 pb-0.5 h-10 grid place-content-center outline-none transition-all duration-50 rounded-md text-dark
 							active:scale-95 active:duration-0 active:bg-primary active:text-white"
 							on:click={() => {
 								isActiveModalShare = !isActiveModalShare
