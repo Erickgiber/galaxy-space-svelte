@@ -13,8 +13,6 @@
 	let btnLikeDisable = false
 	let isActiveModalShare = false
 
-	console.log(post)
-
 	const likeRepository = new LikesRepository()
 
 	const handleLike = async (post: IPost) => {
