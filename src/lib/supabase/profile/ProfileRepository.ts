@@ -98,9 +98,6 @@ export class ProfileRepository {
 					.select()
 					.eq('username', currentUser.username)
 
-				console.clear()
-				console.log('Existe el following: ', oldFollowingCurrent)
-
 				if (oldFollowingCurrent && oldFollowingCurrent.length > 0) {
 					const { data: saveFollowersCurrent, error: errorSaveFollowersCurrent } = await supabase
 						.from('followers')
@@ -164,9 +161,6 @@ export class ProfileRepository {
 					.from('followers')
 					.select()
 					.eq('username', currentUser.username)
-
-				console.clear()
-				console.log('Existe la tabla')
 
 				if (existTableCurrent && existTableCurrent.length > 0) {
 					const { data: saveFollowersCurrent, error: errorSaveFollowersCurrent } = await supabase

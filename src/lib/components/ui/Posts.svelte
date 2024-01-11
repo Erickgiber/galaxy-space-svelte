@@ -2,6 +2,7 @@
 	import { currentUser } from '$lib/store/currentUser'
 	import { LikesRepository } from '$lib/supabase/likes/LikesRepository'
 	import type { IPost } from '$lib/types/post.types'
+	import { likesShower } from '$lib/utils/likesShower'
 	import Icon from '@iconify/svelte'
 	import type { SupabaseClient } from '@supabase/supabase-js'
 	import dayjs from 'dayjs'
@@ -55,7 +56,7 @@
 	{#if posts && posts.length > 0}
 		{#each posts as post, index}
 			{#if post.text || post.image_url}
-				<article class="relative flex flex-col gap-2 pb-10 bg-white py-2 rounded-lg shadow-sm">
+				<article class="relative flex flex-col gap-2 pb-2 bg-white py-2 rounded-lg shadow-sm">
 					<a
 						class="flex ml-2 max-w-max rounded-md gap-1.5 pl-0.5 py-1.5 transition-all"
 						href="/space/u/{post.user?.username}"
@@ -86,35 +87,40 @@
 							style="background-image: url({post.image_url}); background-size: cover; background-position: center;"
 						>
 							<div class="w-full h-max backdrop-blur-md">
-								<img class="w-auto mx-auto h-full max-h-[450px]" src={post.image_url} alt="xd" />
+								<img
+									class="w-auto mx-auto h-full max-h-[450px]"
+									src={post.image_url}
+									alt={post.text ?? post.username}
+								/>
 							</div>
 						</a>
 					{/if}
 
-					<div class="absolute bottom-2 left-3 text-sm text-dark">
-						{dayjs(post.created_at).format('DD/MM/YYYY h:mm A')}
+					<!-- Stats -->
+					<div class="ml-2 flex items gap-2 border-b">
+						<button class="star-count-post-{post.id} text-sm text-dark font-semibold"
+							>{likesShower(post.totalLikes)}</button
+						>
 					</div>
 
-					<div class="flex items-center gap-3 px-2 py-1 border-b-2 border-light_gray">
+					<div class="flex items-center gap-3 px-2">
 						{#if post.isLiked}
 							<button
 								disabled={btnLikeDisable}
 								on:click={() => handleDislike(post)}
 								type="button"
-								class="outline-none h-10 flex items-center gap-1 bg-light_gray hover:bg-light_gray transition-all duration-100 pr-4 p-1.5 rounded-md"
+								class="outline-none h-10 flex items-center gap-1 bg-light_gray hover:bg-light_gray transition-all duration-100 p-1.5 rounded-md"
 							>
 								<Icon icon="solar:star-bold-duotone" width="24" color="var(--primary)" />
-								<span class="translate-y-0.5 text-lg font-semibold">{post.totalLikes}</span>
 							</button>
 						{:else}
 							<button
 								disabled={btnLikeDisable}
 								on:click={() => handleLike(post)}
 								type="button"
-								class="outline-none h-10 bg-light_gray flex items-center gap-1 active:bg-primary active:text-white transition-all duration-50 pr-4 p-1.5 rounded-md"
+								class="outline-none h-10 bg-light_gray flex items-center gap-1 active:bg-primary active:text-white transition-all duration-50 p-1.5 rounded-md"
 							>
 								<Icon icon="solar:star-line-duotone" width="23" />
-								<span class="translate-y-0.5 text-lg">{post.totalLikes}</span>
 							</button>
 						{/if}
 
@@ -138,6 +144,11 @@
 						</button>
 
 						<ModalShare bind:enable={isActiveModalShare} {post} classID={index.toString()} />
+
+						<!-- Date Time -->
+						<div class="absolute bottom-2 right-3 text-xs text-dark">
+							{dayjs(post.created_at).format('DD-MM-YYYY h:mm A')}
+						</div>
 					</div>
 				</article>
 			{/if}

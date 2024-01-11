@@ -85,7 +85,7 @@
 			{/if}
 
 			<div class="absolute bottom-2 left-3 text-sm text-dark">
-				{dayjs(post.created_at).format('DD/MM/YYYY h:mm A')}
+				{dayjs(post.created_at).format('DD-MM-YYYY h:mm A')}
 			</div>
 
 			<div class="flex gap-3 items-center px-2 py-1 border-b-2 border-light_gray">
