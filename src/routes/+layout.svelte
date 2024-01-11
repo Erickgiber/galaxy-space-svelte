@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { invalidate } from '$app/navigation'
 	import { currentUser } from '$lib/store/currentUser'
-	import { loadTheme } from '$lib/utils/loadTheme'
 	import { SvelteToast } from '@zerodevx/svelte-toast'
 	import type { SvelteToastOptions } from '@zerodevx/svelte-toast/stores'
 	import { onMount } from 'svelte'
@@ -32,7 +31,7 @@
 	}
 
 	onMount(() => {
-		loadTheme()
+		// loadTheme()
 		if (session && user) {
 			currentUser.set(user)
 		}

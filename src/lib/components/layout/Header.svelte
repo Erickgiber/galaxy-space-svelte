@@ -177,7 +177,7 @@
 			</div>
 		{/if}
 
-		{#if !$isDropdownOpen}
+		{#if $isDropdownOpen}
 			<div
 				transition:slide={{ duration: 150 }}
 				class="absolute scroll-smooth scroll-modern top-16 right-0 bg-white dark:bg-dark_white shadow-2xl z-10 rounded-lg w-52 h-max"
