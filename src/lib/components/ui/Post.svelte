@@ -2,10 +2,12 @@
 	import { currentUser } from '$lib/store/currentUser'
 	import { LikesRepository } from '$lib/supabase/likes/LikesRepository'
 	import type { IPost } from '$lib/types/post.types'
+	import { likesShower } from '$lib/utils/likesShower'
 	import Icon from '@iconify/svelte'
 	import type { SupabaseClient } from '@supabase/supabase-js'
 	import dayjs from 'dayjs'
 	import ModalShare from './ModalShare.svelte'
+	import TooltipLikes from './TooltipLikes.svelte'
 	import VerifiedIcon from './VerifiedIcon.svelte'
 
 	export let supabase: SupabaseClient
@@ -19,6 +21,7 @@
 		btnLikeDisable = true
 		const isLiked = await likeRepository.setLike(supabase, post.post_id, $currentUser)
 		if (isLiked) {
+			// @ts-ignore
 			post.isLiked = true
 			post.totalLikes++
 		}
@@ -29,6 +32,7 @@
 		btnLikeDisable = true
 		const isNotLiked = await likeRepository.removeLike(supabase, post.post_id, $currentUser)
 		if (isNotLiked) {
+			// @ts-ignore
 			post.isLiked = false
 			post.totalLikes--
 		}
@@ -84,8 +88,16 @@
 				</div>
 			{/if}
 
-			<div class="absolute bottom-2 left-3 text-sm text-dark">
-				{dayjs(post.created_at).format('DD-MM-YYYY h:mm A')}
+			<!-- Stats -->
+			<div class="mx-2 flex items gap-2 border-b">
+				<button
+					class="relative hover:text-black group star-count-post-{post.id} text-sm text-dark font-semibold"
+				>
+					{likesShower(post.totalLikes)}
+					<div class="hidden group-hover:flex text-dark">
+						<TooltipLikes likes={post.likes} />
+					</div>
+				</button>
 			</div>
 
 			<div class="flex gap-3 items-center px-2 py-1 border-b-2 border-light_gray">
@@ -133,6 +145,10 @@
 				</button>
 
 				<ModalShare bind:enable={isActiveModalShare} {post} classID={post.id.toString()} />
+
+				<div class="absolute bottom-2 left-3 text-sm text-dark">
+					{dayjs(post.created_at).format('DD-MM-YYYY h:mm A')}
+				</div>
 			</div>
 		</article>
 	{/if}

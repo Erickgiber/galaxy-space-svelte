@@ -2,9 +2,11 @@
 	import type { TypeLikesPost } from '$lib/types/likesPost.types'
 
 	export let likes: TypeLikesPost[]
+
+	console.log(likes)
 </script>
 
-{#if likes.length > 0}
+{#if likes?.length > 0}
 	<article
 		class="position absolute bottom-5 left-3 w-40 max-h-44 overflow-y-auto pb-1 pt-0 border rounded-lg bg-light_gray flex flex-col"
 	>

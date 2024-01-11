@@ -35,8 +35,12 @@ export const load: ServerLoad = async ({ locals: { supabase, getSession }, param
 		.eq('post_id', post.post_id)
 
 	post.totalLikes = getLikes!.length ?? 0
+	// @ts-ignore
 	post.isLiked = Boolean(getLikes!.find((like) => like.uuid === dataUser.user?.id))
+	// @ts-ignore
 	post.user = user as IProfile
+	// @ts-ignore
+	post.likes = getLikes
 
 	return {
 		post: post as IPost
