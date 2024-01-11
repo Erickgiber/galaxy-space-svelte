@@ -2,8 +2,10 @@
 	import { currentUser } from '$lib/store/currentUser'
 	import { LikesRepository } from '$lib/supabase/likes/LikesRepository'
 	import type { TypeImage } from '$lib/types/image.types'
+	import { likesShower } from '$lib/utils/likesShower'
 	import Icon from '@iconify/svelte'
 	import type { SupabaseClient } from '@supabase/supabase-js'
+	import TooltipLikes from '../TooltipLikes.svelte'
 
 	export let imageList: TypeImage[] = []
 	export let currentSection: string = ''
@@ -46,6 +48,9 @@
 		}
 		btnLikeDisable = false
 	}
+
+	console.clear()
+	console.log(imageList)
 </script>
 
 <!-- If la lista existe -->
@@ -69,6 +74,19 @@
 						>
 							{@html image.text}
 						</p>
+
+						<!-- Stats -->
+						<div class="mx-2 flex items gap-2 border-b">
+							<button
+								class="relative hover:text-black group star-count-post-{image.id} text-sm text-dark font-semibold"
+							>
+								{likesShower(image.totalLikes)}
+								<div class="hidden group-hover:flex text-dark">
+									<TooltipLikes likes={image.likes} />
+								</div>
+							</button>
+						</div>
+
 						<ul class="mt-2 flex items-center justify-between px-2">
 							<li class="flex items-center gap-1 text-sm text-gray-400 hover:text-gray-600">
 								{#if image.isLiked}
