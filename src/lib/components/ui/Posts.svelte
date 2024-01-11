@@ -100,7 +100,7 @@
 					{/if}
 
 					<!-- Stats -->
-					<div class="ml-2 flex items gap-2 border-b">
+					<div class="mx-2 flex items gap-2 border-b">
 						<button
 							class="relative hover:text-black group star-count-post-{post.id} text-sm text-dark font-semibold"
 						>
