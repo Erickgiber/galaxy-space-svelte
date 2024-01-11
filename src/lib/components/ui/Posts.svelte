@@ -54,7 +54,7 @@
 <section class="my-2 flex flex-col gap-3">
 	{#if posts && posts.length > 0}
 		{#each posts as post, index}
-			{#if post.text && post.image_url}
+			{#if post.text || post.image_url}
 				<article class="relative flex flex-col gap-2 pb-10 bg-white py-2 rounded-lg shadow-sm">
 					<a
 						class="flex ml-2 max-w-max rounded-md gap-1.5 pl-0.5 py-1.5 transition-all"
