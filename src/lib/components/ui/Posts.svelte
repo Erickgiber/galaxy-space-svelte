@@ -7,6 +7,7 @@
 	import type { SupabaseClient } from '@supabase/supabase-js'
 	import dayjs from 'dayjs'
 	import ModalShare from './ModalShare.svelte'
+	import TooltipLikes from './TooltipLikes.svelte'
 	import VerifiedIcon from './VerifiedIcon.svelte'
 	export let posts: IPost[]
 	export let supabase: SupabaseClient
@@ -22,6 +23,7 @@
 		if (isLiked) {
 			posts.map((item: IPost) => {
 				if (item.post_id === post.post_id) {
+					// @ts-ignore
 					item.isLiked = true
 					item.totalLikes++
 				}
@@ -40,6 +42,7 @@
 		if (isLiked) {
 			posts.map((item: IPost) => {
 				if (item.post_id === post.post_id) {
+					// @ts-ignore
 					item.isLiked = false
 					item.totalLikes--
 				}
@@ -98,9 +101,14 @@
 
 					<!-- Stats -->
 					<div class="ml-2 flex items gap-2 border-b">
-						<button class="star-count-post-{post.id} text-sm text-dark font-semibold"
-							>{likesShower(post.totalLikes)}</button
+						<button
+							class="relative hover:text-black group star-count-post-{post.id} text-sm text-dark font-semibold"
 						>
+							{likesShower(post.totalLikes)}
+							<div class="hidden group-hover:flex text-dark">
+								<TooltipLikes likes={post.likes} />
+							</div>
+						</button>
 					</div>
 
 					<div class="flex items-center gap-3 px-2">
