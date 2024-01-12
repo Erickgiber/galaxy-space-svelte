@@ -1,13 +1,16 @@
 <script>
 	import { loadTheme } from '$lib/utils/loadTheme'
 	import Icon from '@iconify/svelte'
+	let isDarkModeEnabled = true
 
 	const toggleDarkMode = () => {
 		const storage = localStorage.getItem('theme')
 		if (storage === 'dark') {
 			localStorage.removeItem('theme')
+			isDarkModeEnabled = false
 		} else {
 			localStorage.setItem('theme', 'dark')
+			isDarkModeEnabled = true
 		}
 
 		loadTheme()
@@ -31,6 +34,11 @@
 	type="button"
 	class="bg-white dark:text-white hover:text-white text-dark dark:bg-dark_white flex items-center gap-1 mt-5 bg-text-white px-3 py-2 rounded-xl hover:bg-dark_white active:bg-dark_white focus:outline-none shadow hover:shadow-md transition duration-50"
 >
-	<Icon icon="material-symbols:dark-mode" width="20" />
-	Dark Mode
+	{#if isDarkModeEnabled}
+		<Icon icon="material-symbols:dark-mode" width="20" />
+		Light Mode
+	{:else}
+		<Icon icon="entypo:light-up" width="20" />
+		Dark Mode
+	{/if}
 </button>
