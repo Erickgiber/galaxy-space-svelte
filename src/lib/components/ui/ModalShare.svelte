@@ -24,15 +24,15 @@
 		class="absolute sm:w-96 w-56 -left-1 bottom-28 sm:left-20 sm:bottom-12 hidden modalShare-{classID}"
 	>
 		<!--MODAL ITEM-->
-		<div class="bg-gray-100 mx-4 p-4 pt-0 pb-2 rounded-xl w-full">
+		<div class="bg-gray-100 dark:bg-dark_bg dark:text-white mx-4 p-4 pt-0 pb-2 rounded-xl w-full">
 			<!--MODAL HEADER-->
 			<div class="flex justify-between items center border-b border-gray-200 py-3">
 				<div class="flex items-center justify-center">
-					<p class="text-xl font-bold text-gray-800">Share this post</p>
+					<p class="text-xl font-bold dark:text-gray-400 text-gray-800">Share this post</p>
 				</div>
 
 				<button
-					class="bg-gray-300 grid place-content-center hover:bg-gray-500 cursor-pointer hover:text-gray-300 font-sans text-gray-500 w-8 h-8 rounded-full"
+					class="bg-gray-300 dark:bg-dark_light_gray grid place-content-center hover:bg-gray-500 cursor-pointer hover:text-gray-300 font-sans text-gray-500 w-8 h-8 rounded-full"
 					on:click={() => {
 						enable = false
 					}}
@@ -100,7 +100,9 @@
 
 				<p class="text-sm">Or copy link</p>
 				<!--BOX LINK-->
-				<div class="border-2 border-gray-200 flex justify-between items-center mt-4 py-2">
+				<div
+					class="border-2 border-gray-200 dark:border-dark_light_gray rounded-lg flex justify-between items-center mt-4 py-2"
+				>
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
 						width="24"
