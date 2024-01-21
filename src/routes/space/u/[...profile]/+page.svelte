@@ -5,6 +5,7 @@
 	import ModalFollower from '$lib/components/ui/ModalFollower.svelte'
 	import ModalFollowing from '$lib/components/ui/ModalFollowing.svelte'
 	import PhotoLoader from '$lib/components/ui/PhotoLoader.svelte'
+	import Posts from '$lib/components/ui/Posts.svelte'
 	import ImagesGallery from '$lib/components/ui/Profile/ImagesGallery.svelte'
 	import VerifiedIcon from '$lib/components/ui/VerifiedIcon.svelte'
 	import { currentUser } from '$lib/store/currentUser'
@@ -36,6 +37,10 @@
 	let isModalFollowing = false
 	let followers = [] as IProfile[]
 	let followings = [] as IProfile[]
+	let wordsPosts = data.wordsPosts
+
+	console.clear()
+	console.log(wordsPosts)
 
 	const repository = new ProfileRepository()
 	const supabase = data.supabase
@@ -84,9 +89,7 @@
 		btnFollowLoading = true
 		const request = await repository.follow.remove($currentUser, $profile, data.supabase)
 		isFollowed = request
-		const updateFollowers = data.followers?.filter(
-			(follower: IFollower) => follower.uuid !== $currentUser.uuid
-		)
+		const updateFollowers = data.followers?.filter((follower: IFollower) => follower.uuid !== $currentUser.uuid)
 		data.followers = updateFollowers
 		btnFollowLoading = false
 	}
@@ -183,18 +186,9 @@
 				<button
 					class="
 			absolute text-dark bottom-3 right-3 text-2xl rounded-full bg-white shadow-md p-2 transition-all duration-100 border-2 border-white
-			{!$isPhotoLoading
-						? 'hover:text-white hover:bg-primary hover:p-2.5 hover:duration-200'
-						: 'opacity-0'}
+			{!$isPhotoLoading ? 'hover:text-white hover:bg-primary hover:p-2.5 hover:duration-200' : 'opacity-0'}
 			"
-					on:click={() =>
-						handleChangePhotoCover(
-							$profile,
-							$currentUser,
-							data.supabase,
-							profile,
-							isPhotoCoverLoading
-						)}
+					on:click={() => handleChangePhotoCover($profile, $currentUser, data.supabase, profile, isPhotoCoverLoading)}
 					disabled={$isPhotoLoading}
 				>
 					<Icon icon="line-md:image" />
@@ -211,24 +205,16 @@
 					<PhotoLoader />
 				</div>
 			{:else}
-				<img
-					in:fade
-					class="rounded-full bg-white dark:bg-dark_bg w-full h-full object-cover"
-					src={$profile.photo_url}
-					alt=""
-				/>
+				<img in:fade class="rounded-full bg-white dark:bg-dark_bg w-full h-full object-cover" src={$profile.photo_url} alt="" />
 			{/if}
 
 			{#if data.isUserAuth}
 				<button
 					class="
 				absolute text-dark bottom-0 right-0 text-2xl rounded-full bg-white shadow-md p-2 transition-all duration-100 border-2 border-white
-				{!$isPhotoLoading
-						? 'hover:text-white hover:bg-primary hover:p-2.5 hover:duration-200'
-						: 'opacity-0'}
+				{!$isPhotoLoading ? 'hover:text-white hover:bg-primary hover:p-2.5 hover:duration-200' : 'opacity-0'}
 				"
-					on:click={() =>
-						handleChangePhoto($profile, $currentUser, data.supabase, profile, isPhotoLoading)}
+					on:click={() => handleChangePhoto($profile, $currentUser, data.supabase, profile, isPhotoLoading)}
 					disabled={$isPhotoLoading}
 				>
 					<Icon icon="tabler:photo-up" />
@@ -319,6 +305,21 @@
 				</button>
 
 				<a
+					href="/space/u/{$profile.username}?section=words"
+					class="bg-white dark:bg-dark_white dark:text-white h-max w-max flex flex-col rounded-md shadow-sm p-2.5 outline-primary"
+					style={currentSection === 'words'
+						? 'background: var(--primary); color: white; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);'
+						: null}
+				>
+					<!-- Images -->
+					<h1 class="font-semibold text-lg px-2">Words</h1>
+					<p class="px-2 w-max flex items-center gap-1 text-lg">
+						<Icon icon="simple-line-icons:speech" class="text-xl {currentSection === 'words' ? 'text-white' : 'text-primary'}" />
+						{data.wordsPosts?.length}
+					</p>
+				</a>
+
+				<a
 					href="/space/u/{$profile.username}?section=images"
 					class="bg-white dark:bg-dark_white dark:text-white h-max w-max flex flex-col rounded-md shadow-sm p-2.5 outline-primary"
 					style={currentSection === 'images'
@@ -328,10 +329,7 @@
 					<!-- Images -->
 					<h1 class="font-semibold text-lg px-2">Images</h1>
 					<p class="px-2 w-max flex items-center gap-1 text-lg">
-						<Icon
-							icon="ph:image-duotone"
-							class="text-xl {currentSection === 'images' ? 'text-white' : 'text-primary'}"
-						/>
+						<Icon icon="ph:image-duotone" class="text-xl {currentSection === 'images' ? 'text-white' : 'text-primary'}" />
 						{data?.images?.length}
 					</p>
 				</a>
@@ -347,10 +345,7 @@
 					<!-- Images -->
 					<h1 class="font-semibold text-lg px-2">Videos</h1>
 					<p class="px-2 w-max flex items-center gap-1 text-lg">
-						<Icon
-							icon="bxs:videos"
-							class="text-xl {currentSection === 'videos' ? 'text-white' : 'text-primary'}"
-						/>
+						<Icon icon="bxs:videos" class="text-xl {currentSection === 'videos' ? 'text-white' : 'text-primary'}" />
 						{0}
 					</p>
 				</a>
@@ -362,9 +357,7 @@
 				method="post"
 				class="bg-white dark:bg-dark_white dark:text-white flex flex-col rounded-md shadow-sm p-2.5"
 			>
-				<h1 class="font-semibold px-2 border-b dark:border-dark_light_gray border-light_gray">
-					Description
-				</h1>
+				<h1 class="font-semibold px-2 border-b dark:border-dark_light_gray border-light_gray">Description</h1>
 
 				{#if $isEditableDescription}
 					<textarea
@@ -374,19 +367,14 @@
 						>{$profile.description.replaceAll('<br>', '\n') || 'Not description'}</textarea
 					>
 				{:else}
-					<div
-						class="px-2 py-1 mt-1 text-dark dark:text-dark_text h-40 overflow-y-auto overflow-x-hidden rounded-md outline-primary"
-					>
-						{@html $profile.description ||
-							'<p class="text-dark dark:text-dark_bg select-none">Not description</p>'}
+					<div class="px-2 py-1 mt-1 text-dark dark:text-dark_text h-40 overflow-y-auto overflow-x-hidden rounded-md outline-primary">
+						{@html $profile.description || '<p class="text-dark dark:text-dark_bg select-none">Not description</p>'}
 					</div>
 				{/if}
 				<div class="flex items-center justify-between gap-2">
 					{#if data.isUserAuth}
 						<button
-							on:click={!$isEditableDescription
-								? () => handleEditDescription()
-								: () => handleEditDescription('cancel')}
+							on:click={!$isEditableDescription ? () => handleEditDescription() : () => handleEditDescription('cancel')}
 							type="button"
 							class="{$isEditableDescription
 								? 'bg-red-600'
@@ -396,10 +384,7 @@
 						</button>
 
 						{#if $isEditableDescription}
-							<button
-								type="submit"
-								class="bg-primary w-max text-white rounded-md px-4 py-1.5 mt-2.5 transition-all duration-100 hover:bg-opacity-80"
-							>
+							<button type="submit" class="bg-primary w-max text-white rounded-md px-4 py-1.5 mt-2.5 transition-all duration-100 hover:bg-opacity-80">
 								Save
 							</button>
 						{/if}
@@ -410,6 +395,10 @@
 	</div>
 
 	<ImagesGallery {supabase} imageList={data.images} bind:currentSection />
+
+	{#if data.wordsPosts && currentSection === 'words'}
+		<Posts posts={data.wordsPosts} {supabase} />
+	{/if}
 
 	{#if currentSection === 'videos'}
 		<div class="w-full h-max mb-5 rounded-xl mt-3">

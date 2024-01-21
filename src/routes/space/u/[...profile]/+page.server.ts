@@ -7,29 +7,22 @@ export const load: ServerLoad = async (event) => {
 	const { supabase } = event.locals
 	const { profile } = event.params
 
-	const { data, error } = await supabase.from('profiles').select().eq('username', profile)
+	const { data } = await supabase.from('profiles').select().eq('username', profile)
 
 	if (data && data.length > 0) {
 		const profile = data![0] as IProfile
 		const { data: dataUser, error } = await supabase.auth.getUser()
-		const { data: dataFollowers, error: errorFollowers } = await supabase
-			.from('followers')
-			.select()
-			.eq('username', profile.username)
+		const { data: dataFollowers, error: errorFollowers } = await supabase.from('followers').select().eq('username', profile.username)
 
 		const isFollowing: boolean =
 			dataFollowers && dataFollowers.length > 0
-				? dataFollowers[0].followers.find(
-						(follower: IFollower) => follower.uuid === dataUser?.user?.id
-				  )
+				? dataFollowers[0].followers.find((follower: IFollower) => follower.uuid === dataUser?.user?.id)
 				: false
 
-		const imagesProfile = await supabase.from('posts').select().eq('uuid', profile.uuid)
+		const { data: imagesProfile } = await supabase.from('posts').select().eq('uuid', profile.uuid)
 
 		const { data: users, error: errorUsers } = await supabase.from('profiles').select('*')
-		const { data: getLikes, error: errorLikes } = await supabase
-			.from('likes')
-			.select('post_id, like, username, uuid')
+		const { data: getLikes } = await supabase.from('likes').select('post_id, like, username, uuid')
 
 		// ? Handle error
 		if (error || errorUsers) {
@@ -40,13 +33,13 @@ export const load: ServerLoad = async (event) => {
 		}
 
 		// ? Map posts and users
-		imagesProfile?.data?.map((post) => {
+		imagesProfile?.map((post) => {
 			const user = users.find((user) => user.uuid === post.uuid)
 			post.user = user
 		})
 
 		if (getLikes) {
-			imagesProfile?.data?.map((post) => {
+			imagesProfile?.map((post) => {
 				const likes = getLikes.filter((like) => like.post_id === post.post_id)
 				post.likes = likes
 				post.totalLikes = likes.length
@@ -56,19 +49,12 @@ export const load: ServerLoad = async (event) => {
 
 		return {
 			profile,
-			followers:
-				dataFollowers && dataFollowers.length > 0
-					? (dataFollowers[0].followers as IFollower[])
-					: ([] as IFollower[]),
-			followings:
-				dataFollowers && dataFollowers.length > 0
-					? (dataFollowers[0].following as IFollower[])
-					: ([] as IFollower[]),
+			followers: dataFollowers && dataFollowers.length > 0 ? (dataFollowers[0].followers as IFollower[]) : ([] as IFollower[]),
+			followings: dataFollowers && dataFollowers.length > 0 ? (dataFollowers[0].following as IFollower[]) : ([] as IFollower[]),
 			isUserAuth: dataUser?.user ? dataUser.user.id === profile.uuid : false,
 			isFollowing: isFollowing,
-			images: imagesProfile
-				? (imagesProfile.data?.filter((obj: TypeImage) => obj.image_url) as TypeImage[])
-				: [],
+			images: imagesProfile ? (imagesProfile?.filter((obj: TypeImage) => obj.image_url) as TypeImage[]) : [],
+			wordsPosts: imagesProfile?.filter((post: TypeImage) => post.image_url === '' || post.image_url === '{}'),
 			status: 200,
 			msg: 'Profile found'
 		}
