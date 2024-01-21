@@ -1,6 +1,5 @@
 import type { ICurrentUser } from '$lib/store/currentUser'
 import type { INotification } from '$lib/types/notification.types'
-import type { IProfile } from '$lib/types/profile.types'
 import type { SupabaseClient } from '@supabase/supabase-js'
 
 export const handleLikeNotifications = async (
@@ -21,6 +20,4 @@ export const handleLikeNotifications = async (
 		type: data.type,
 		url: data.url
 	})
-
-	// console.log(InserNotifications, error)
 }

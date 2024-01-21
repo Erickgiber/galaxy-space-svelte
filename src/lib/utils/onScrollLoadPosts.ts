@@ -13,7 +13,6 @@ export const onScrollLoadPosts = async (
 	const clientHeight = document.documentElement.clientHeight
 	const scrollTop = document.documentElement.scrollTop
 	const scrollBottom = Math.ceil(scrollTop + clientHeight)
-	console.log('totalPosts: ', totalPosts)
 
 	if (scrollBottom >= scrollHeight) {
 		const repository = new PostsRepository()
@@ -37,8 +36,6 @@ export const onScrollLoadPosts = async (
 				post.isLiked = likes.find((like) => like.uuid === currentUser.uuid) || false
 			}
 		})
-
-		console.log(posts.length)
 
 		posts.slice(totalPosts, totalPosts + 5)
 		loadPosts(posts)

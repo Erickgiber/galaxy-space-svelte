@@ -19,6 +19,4 @@ export const handleNotifications = async (
 		description: data.description,
 		type: data.type
 	})
-
-	// console.log(InserNotifications, error)
 }

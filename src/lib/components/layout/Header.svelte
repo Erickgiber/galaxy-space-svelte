@@ -63,12 +63,13 @@
 				</a>
 			</li>
 
+			<!-- HOME ICON -->
 			<li class="sm:hidden inline-block">
 				<a
 					href="/space"
-					class="h-full grid place-content-center text-2xl bg-bg p-2.5
+					class="h-full grid place-content-center text-2xl bg-bg p-2.5 dark:bg-dark_light_gray dark:text-white
                     rounded-full text-dark sm:hover:bg-primary sm:hover:text-white
-					{isHome ? 'bg-primary text-white' : ''}
+					{isHome ? 'bg-primary dark:bg-primary text-white dark:text-white' : ''}
 					"
 				>
 					<Icon icon="solar:home-smile-linear" class="text-xl" />
@@ -100,8 +101,12 @@
 					<button
 						class="h-full grid place-content-center text-2xl bg-bg p-2 dark:bg-dark_light_gray dark:text-white
                     rounded-full text-dark sm:hover:bg-primary sm:hover:text-white
-					{$isNotificationsOpen && option.name === 'notifications' ? 'bg-primary text-white' : ''}
-					{$isDropdownOpen && option.name === 'dropdown' ? 'bg-primary text-white' : ''}
+					{$isNotificationsOpen && option.name === 'notifications'
+							? 'bg-primary dark:bg-primary text-white dark:text-white'
+							: ''}
+					{$isDropdownOpen && option.name === 'dropdown'
+							? 'bg-primary dark:bg-primary text-white dark:text-white '
+							: ''}
 					"
 						on:click={() => {
 							if (option.name === 'notifications') {

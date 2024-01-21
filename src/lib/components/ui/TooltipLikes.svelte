@@ -2,8 +2,6 @@
 	import type { TypeLikesPost } from '$lib/types/likesPost.types'
 
 	export let likes: TypeLikesPost[]
-
-	console.log(likes)
 </script>
 
 {#if likes?.length > 0}
