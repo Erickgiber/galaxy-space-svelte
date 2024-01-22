@@ -93,6 +93,8 @@
 	const HandleShowFollowers = async () => {
 		isModalFollowers = true
 		followers = []
+		const followersGetted: IProfile[] = []
+
 		for (const follower of data.followers as IProfile[]) {
 			const getFollowers = await handleGetFollowers(data.supabase, follower.uuid)
 			if (getFollowers && getFollowers.uuid === follower.uuid) {
@@ -101,9 +103,11 @@
 				follower.username = getFollowers.username
 				follower.is_star = getFollowers.is_star
 
-				followers = [...followers, follower]
+				followersGetted.push(follower)
 			}
 		}
+
+		followers = followersGetted
 	}
 
 	const HandleShowFollowings = async () => {
