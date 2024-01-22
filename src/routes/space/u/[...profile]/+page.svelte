@@ -267,7 +267,7 @@
 
 				<button
 					class="flex h-9 items-center gap-1 text-base bg-dark border text-white px-3 py-1 rounded-lg shadow-md
-				hover:bg-opacity-80 transition-all duration-100
+				hover:bg-opacity-80 transition-all duration-100 dark:border-dark_white
 				"
 					type="button"
 				>
