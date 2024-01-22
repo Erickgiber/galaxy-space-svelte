@@ -25,7 +25,7 @@
 
 	export let data
 	let currentSection = ''
-	$: currentSection = $page.url.searchParams.get('section') ?? 'images'
+	$: currentSection = $page.url.searchParams.get('section') ?? 'words'
 	let profile = writable(data.profile as IProfile)
 	let isPhotoLoading = writable(false)
 	let isPhotoCoverLoading = writable(false)
@@ -37,10 +37,6 @@
 	let isModalFollowing = false
 	let followers = [] as IProfile[]
 	let followings = [] as IProfile[]
-	let wordsPosts = data.wordsPosts
-
-	console.clear()
-	console.log(wordsPosts)
 
 	const repository = new ProfileRepository()
 	const supabase = data.supabase
