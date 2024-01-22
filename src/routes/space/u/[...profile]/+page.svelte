@@ -242,7 +242,7 @@
 					<button
 						on:click={handleFollow}
 						class="text-base h-9 bg-primary border flex items-center gap-1 text-white px-3 py-1 rounded-lg shadow-md
-				hover:bg-opacity-80 transition-all duration-100
+				hover:bg-opacity-80 transition-all duration-100 dark:border-dark_white
 				"
 						type="button"
 					>
@@ -372,7 +372,7 @@
 					>
 				{:else}
 					<div class="px-2 py-1 mt-1 text-dark dark:text-dark_text h-40 overflow-y-auto overflow-x-hidden rounded-md outline-primary">
-						{@html $profile.description || '<p class="text-dark dark:text-dark_bg select-none">Not description</p>'}
+						{@html $profile.description || '<p class="text-dark dark:text-white select-none">Not description</p>'}
 					</div>
 				{/if}
 				<div class="flex items-center justify-between gap-2">

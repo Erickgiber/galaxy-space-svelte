@@ -59,18 +59,9 @@
 	{#if posts && posts.length > 0}
 		{#each posts as post, index}
 			{#if post.text || post.image_url}
-				<article
-					class="relative flex flex-col gap-2 pb-2 bg-white dark:bg-dark_white dark:text-dark_text py-2 rounded-lg shadow-sm"
-				>
-					<a
-						class="flex ml-2 max-w-max rounded-md gap-1.5 pl-0.5 py-1.5 transition-all"
-						href="/space/u/{post.user?.username}"
-					>
-						<img
-							class="w-10 h-10 rounded-full object-cover"
-							src={post.user.photo_url}
-							alt={post.username}
-						/>
+				<article class="relative flex flex-col gap-2 pb-2 bg-white dark:bg-dark_white dark:text-dark_text py-2 rounded-lg shadow-sm">
+					<a class="flex ml-2 max-w-max rounded-md gap-1.5 pl-0.5 py-1.5 transition-all" href="/space/u/{post.user?.username}">
+						<img class="w-10 h-10 rounded-full object-cover" src={post.user.photo_url} alt={post.username} />
 						<div class="flex flex-col leading-4">
 							<p class="flex items-center gap-1">
 								{post.user.public_name}
@@ -92,20 +83,14 @@
 							style="background-image: url({post.image_url}); background-size: cover; background-position: center;"
 						>
 							<div class="w-full h-max backdrop-blur-md">
-								<img
-									class="w-auto mx-auto h-full max-h-[450px]"
-									src={post.image_url}
-									alt={post.text ?? post.username}
-								/>
+								<img class="w-auto mx-auto h-full max-h-[450px]" src={post.image_url} alt={post.text ?? post.username} />
 							</div>
 						</a>
 					{/if}
 
 					<!-- Stats -->
 					<div class="mx-3 flex items gap-2 border-b dark:border-dark_light_gray">
-						<button
-							class="relative hover:text-black group star-count-post-{post.id} text-sm text-dark font-semibold"
-						>
+						<button class="relative hover:text-black group star-count-post-{post.id} text-sm text-dark font-semibold">
 							{likesShower(post.totalLikes)}
 							<div class="hidden group-hover:flex text-dark">
 								<TooltipLikes likes={post.likes} />
@@ -165,13 +150,8 @@
 		{/each}
 	{:else}
 		<div class="mx-auto my-5 flex flex-col items-center">
-			<lord-icon
-				src="https://cdn.lordicon.com/nmipallp.json"
-				trigger="loop"
-				delay="2000"
-				style="width:250px;height:250px"
-			/>
-			<b class="text-xl">This is dead x.x</b>
+			<lord-icon src="https://cdn.lordicon.com/nmipallp.json" trigger="loop" delay="2000" style="width:250px;height:250px" />
+			<b class="text-xl dark:text-white">This is dead x.x</b>
 		</div>
 	{/if}
 </section>
