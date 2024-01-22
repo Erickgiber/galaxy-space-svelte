@@ -113,6 +113,8 @@
 	const HandleShowFollowings = async () => {
 		isModalFollowing = true
 		followings = []
+		const followingsGetted: IProfile[] = []
+
 		for (const following of data.followings as IProfile[]) {
 			const getFollowings = await handleGetFollowings(data.supabase, following.uuid)
 			if (getFollowings && getFollowings.uuid === following.uuid) {
@@ -121,9 +123,11 @@
 				following.username = getFollowings.username
 				following.is_star = getFollowings.is_star
 
-				followings = [...followings, following]
+				followingsGetted.push(following)
 			}
 		}
+
+		followings = followingsGetted
 	}
 
 	const handleCloseModalFollowers = (event: KeyboardEvent) => {
