@@ -12,15 +12,9 @@ type IFormPost = {
 
 export const load: ServerLoad = async ({ locals }) => {
 	const { supabase } = locals
-	const { data: posts, error } = await supabase
-		.from('posts')
-		.select('*')
-		.order('created_at', { ascending: false })
-
+	const { data: posts, error } = await supabase.from('posts').select('*').order('created_at', { ascending: false })
 	const { data: users, error: errorUsers } = await supabase.from('profiles').select('*')
-	const { data: getLikes, error: errorLikes } = await supabase
-		.from('likes')
-		.select('post_id, like, username, uuid')
+	const { data: getLikes } = await supabase.from('likes').select('post_id, like, username, uuid')
 
 	// ? Handle error
 	if (error || errorUsers) {
@@ -81,9 +75,7 @@ export const actions: Actions = {
 				}
 			}
 
-			const { data, error } = await supabase.storage
-				.from('photos')
-				.upload(`/posts_img/${locals.user.username}/${v4()}.png`, postData.image_url as File)
+			const { data } = await supabase.storage.from('photos').upload(`/posts_img/${locals.user.username}/${v4()}.png`, postData.image_url as File)
 
 			if (data) {
 				const path = `https://ufcvvchllbhbkfekutmt.supabase.co/storage/v1/object/public/photos/${data.path}`

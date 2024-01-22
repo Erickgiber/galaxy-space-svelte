@@ -17,7 +17,7 @@
 	const supabase = $page.data.supabase as SupabaseClient
 
 	$: isHome = $page.url.pathname === '/space'
-	$: notifications = $page.data.user?.notifications as INotification[]
+	$: notifications = $page.data.user?.notifications ?? $currentUser.notifications
 
 	$: if (!$currentUser) {
 		goto('/login')
@@ -35,11 +35,7 @@
 		rounded-xl h-9 gap-1 transition focus-within:text-primary"
 		>
 			<Icon icon="majesticons:search-line" class="text-xl" />
-			<input
-				class="h-full text-base bg-transparent outline-none transition-all text-dark focus-within:pl-1"
-				type="search"
-				placeholder="Search"
-			/>
+			<input class="h-full text-base bg-transparent outline-none transition-all text-dark focus-within:pl-1" type="search" placeholder="Search" />
 		</label>
 
 		<ul class="relative w-full md:w-max justify-evenly md:justify-start flex items-center gap-2">
@@ -51,12 +47,7 @@
 					class="text-base font-normal flex items-center gap-1 bg-bg
 							md:pr-3 rounded-full text-dark sm:hover:bg-primary sm:hover:text-white"
 				>
-					<img
-						in:fade
-						class="h-9 w-9 object-cover rounded-full"
-						src={$currentUser.photo_url}
-						alt="Galaxy Space"
-					/>
+					<img in:fade class="h-9 w-9 object-cover rounded-full" src={$currentUser.photo_url} alt="Galaxy Space" />
 					<p class="hidden md:flex">
 						{$currentUser.public_name}
 					</p>
@@ -84,12 +75,7 @@
 					class="text-base font-normal flex items-center gap-1 bg-bg dark:bg-dark_light_gray dark:text-white
 				md:pr-3 rounded-full text-dark sm:hover:bg-primary sm:hover:text-white"
 				>
-					<img
-						in:fade
-						class="h-9 w-9 object-cover rounded-full"
-						src={$currentUser.photo_url}
-						alt="Galaxy Space"
-					/>
+					<img in:fade class="h-9 w-9 object-cover rounded-full" src={$currentUser.photo_url} alt="Galaxy Space" />
 					<p class="hidden md:flex">
 						{$currentUser.public_name}
 					</p>
@@ -101,12 +87,8 @@
 					<button
 						class="h-full grid place-content-center text-2xl bg-bg p-2 dark:bg-dark_light_gray dark:text-white
                     rounded-full text-dark sm:hover:bg-primary sm:hover:text-white
-					{$isNotificationsOpen && option.name === 'notifications'
-							? 'bg-primary dark:bg-primary text-white dark:text-white'
-							: ''}
-					{$isDropdownOpen && option.name === 'dropdown'
-							? 'bg-primary dark:bg-primary text-white dark:text-white '
-							: ''}
+					{$isNotificationsOpen && option.name === 'notifications' ? 'bg-primary dark:bg-primary text-white dark:text-white' : ''}
+					{$isDropdownOpen && option.name === 'dropdown' ? 'bg-primary dark:bg-primary text-white dark:text-white ' : ''}
 					"
 						on:click={() => {
 							if (option.name === 'notifications') {
@@ -137,9 +119,7 @@
 				transition:slide={{ duration: 150 }}
 				class="absolute scroll-smooth scroll-modern top-16 right-0 bg-white dark:bg-dark_white shadow-2xl z-10 rounded-lg w-52 h-52 overflow-y-auto"
 			>
-				<h1
-					class="text-center font-bold text-black py-2 border-b-2 border-gray-200 dark:border-dark_light_gray dark:text-dark_text"
-				>
+				<h1 class="text-center font-bold text-black py-2 border-b-2 border-gray-200 dark:border-dark_light_gray dark:text-dark_text">
 					Notifications
 				</h1>
 				<div transition:fade={{ duration: 200 }} class="w-full h-max">
@@ -157,10 +137,8 @@
 									</h1>
 								{/if}
 								{#if notification.type === 'follow'}
-									<a
-										on:click={() => ($isNotificationsOpen = false)}
-										href="/space/u/{notification.from_username}"
-										class="text-sm">{@html notification.description}</a
+									<a on:click={() => ($isNotificationsOpen = false)} href="/space/u/{notification.from_username}" class="text-sm"
+										>{@html notification.description}</a
 									>
 								{:else}
 									<p class="text-sm py-2">{@html notification.description}</p>
@@ -169,12 +147,7 @@
 						{/each}
 					{:else}
 						<div class="mx-auto my-5 flex flex-col items-center">
-							<lord-icon
-								src="https://cdn.lordicon.com/nmipallp.json"
-								trigger="loop"
-								delay="2000"
-								style="width:90px;height:90px"
-							/>
+							<lord-icon src="https://cdn.lordicon.com/nmipallp.json" trigger="loop" delay="2000" style="width:90px;height:90px" />
 							<p class="text-lg font-semibold text-dark">Ehh.. this is dead</p>
 						</div>
 					{/if}
@@ -187,11 +160,7 @@
 				transition:slide={{ duration: 150 }}
 				class="absolute scroll-smooth scroll-modern top-16 right-0 bg-white dark:bg-dark_white shadow-2xl z-10 rounded-lg w-52 h-max"
 			>
-				<h1
-					class="text-center font-bold text-black dark:text-dark_text py-2 border-b-2 border-gray-200 dark:border-dark_light_gray"
-				>
-					Menu
-				</h1>
+				<h1 class="text-center font-bold text-black dark:text-dark_text py-2 border-b-2 border-gray-200 dark:border-dark_light_gray">Menu</h1>
 				<div transition:fade={{ duration: 200 }} class="w-full h-max">
 					<a
 						class="flex text-dark items-center gap-1 px-2 py-3 font-semibold border-b dark:border-dark_light_gray hover:bg-primary hover:text-white dark:text-dark_text"

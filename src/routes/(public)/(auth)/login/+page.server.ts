@@ -19,20 +19,11 @@ export const actions: Actions = {
 			}
 		}
 
-		const { data: getUserData, error: errorUserData } = await locals.supabase
-			.from('register')
-			.select()
-			.eq('email', data.user.email)
+		const { data: getUserData } = await locals.supabase.from('register').select().eq('email', data.user.email)
 
-		const { data: getProfileData, error: errorProfileData } = await locals.supabase
-			.from('profiles')
-			.select()
-			.eq('uuid', getUserData![0].uuid)
+		const { data: getProfileData } = await locals.supabase.from('profiles').select().eq('uuid', getUserData![0].uuid)
 
-		const { data: getNotifications, error: errorNOtifications } = await locals.supabase
-			.from('notifications')
-			.select()
-			.eq('uuid', getUserData![0].uuid)
+		const { data: getNotifications } = await locals.supabase.from('notifications').select().eq('uuid', getUserData![0].uuid)
 
 		// * Saving data in variable
 		const user: ICurrentUser = {
@@ -52,6 +43,7 @@ export const actions: Actions = {
 		return {
 			user,
 			session: data.session,
+			notifications: getNotifications,
 			invalidate: false,
 			location: '/space/'
 		}

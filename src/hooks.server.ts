@@ -21,30 +21,20 @@ export const handle: Handle = async ({ event, resolve }) => {
 	}
 
 	const {
-		data: { user },
-		error
+		data: { user }
 	} = await event.locals.supabase.auth.getUser()
 
 	if (user) {
-		const { data: getUserData, error: errorUserData } = await event.locals.supabase
-			.from('register')
-			.select()
-			.eq('uuid', user.id)
+		const { data: getUserData, error: errorUserData } = await event.locals.supabase.from('register').select().eq('uuid', user.id)
 
 		if (errorUserData) {
 			await event.locals.supabase.auth.signOut()
 			throw redirect(303, '/login')
 		}
 
-		const { data: getProfileData, error: errorProfileData } = await event.locals.supabase
-			.from('profiles')
-			.select()
-			.eq('uuid', user.id)
+		const { data: getProfileData } = await event.locals.supabase.from('profiles').select().eq('uuid', user.id)
 
-		const { data: getNotifications, error: errorNOtifications } = await event.locals.supabase
-			.from('notifications')
-			.select()
-			.eq('uuid', user.id)
+		const { data: getNotifications } = await event.locals.supabase.from('notifications').select().eq('uuid', user.id)
 
 		const session = await event.locals.getSession()
 
