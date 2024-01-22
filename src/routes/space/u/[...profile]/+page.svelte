@@ -402,6 +402,7 @@
 
 	{#if data.wordsPosts && currentSection === 'words'}
 		<Posts posts={data.wordsPosts} {supabase} />
+		<br />
 	{/if}
 
 	{#if currentSection === 'videos'}
