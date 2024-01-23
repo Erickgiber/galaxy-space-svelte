@@ -25,7 +25,7 @@
 
 	export let data
 	let currentSection = ''
-	$: currentSection = $page.url.searchParams.get('section') ?? 'words'
+	$: currentSection = $page.url.searchParams.get('section') ?? ''
 	let profile = writable(data.profile as IProfile)
 	let isPhotoLoading = writable(false)
 	let isPhotoCoverLoading = writable(false)
@@ -309,16 +309,16 @@
 				</button>
 
 				<a
-					href="/space/u/{$profile.username}?section=words"
+					href="/space/u/{$profile.username}"
 					class="bg-white dark:bg-dark_white dark:text-white h-max w-max flex flex-col rounded-md shadow-sm p-2.5 outline-primary"
-					style={currentSection === 'words'
+					style={currentSection === ''
 						? 'background: var(--primary); color: white; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);'
 						: null}
 				>
 					<!-- Images -->
 					<h1 class="font-semibold text-lg px-2">Words</h1>
 					<p class="px-2 w-max flex items-center gap-1 text-lg">
-						<Icon icon="simple-line-icons:speech" class="text-xl {currentSection === 'words' ? 'text-white' : 'text-primary'}" />
+						<Icon icon="simple-line-icons:speech" class="text-xl {currentSection === '' ? 'text-white' : 'text-primary'}" />
 						{data.wordsPosts?.length}
 					</p>
 				</a>
@@ -400,8 +400,8 @@
 
 	<ImagesGallery {supabase} imageList={data.images} bind:currentSection />
 
-	{#if data.wordsPosts && currentSection === 'words'}
-		<Posts posts={data.wordsPosts} {supabase} />
+	{#if data.wordsPosts && currentSection === ''}
+		<Posts posts={data.wordsPosts.reverse()} {supabase} />
 		<br />
 	{/if}
 
