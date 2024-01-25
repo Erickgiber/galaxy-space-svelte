@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { invalidate } from '$app/navigation'
+	import Spinner from '$lib/components/ui/Spinner.svelte'
 	import { currentUser } from '$lib/store/currentUser'
 	import { loadTheme } from '$lib/utils/loadTheme'
 	import { SvelteToast } from '@zerodevx/svelte-toast'
@@ -48,6 +49,7 @@
 	})
 </script>
 
+<Spinner />
 <SvelteToast {options} />
 <slot />
 <!-- <a href="https://www.flaticon.com/free-icons/deploy" title="deploy icons">Deploy icons created by Freepik - Flaticon</a> -->
