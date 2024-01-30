@@ -35,6 +35,12 @@ export const AsideConfig = {
 			icon: 'ph:wallet',
 			customClass: '',
 			href: '/space/wallet'
+		},
+		{
+			name: 'Learning',
+			icon: 'icon-park-outline:book-one',
+			customClass: '',
+			href: '/space/learning'
 		}
 	]
 }
