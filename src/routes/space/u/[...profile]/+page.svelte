@@ -281,8 +281,7 @@
 	<div class="flex flex-col gap-2 sm:flex-row sm:gap-0 justify-between mt-5">
 		<!-- ? Content Left -->
 		<article class="w-full">
-			<!-- ? Followers -->
-			<div class="flex md:justify-start md:flex-nowrap gap-3 mb-2 overflow-x-auto pb-1">
+			<div class="flex items-center gap-3 mb-3">
 				<!-- ? Buttons right -->
 				<button
 					on:click={HandleShowFollowers}
@@ -308,7 +307,50 @@
 						{data?.followings?.length}
 					</p>
 				</button>
+			</div>
+			<form
+				use:enhance={handleSubmitChangeDescription}
+				action="?/changeDescription"
+				method="post"
+				class="bg-white dark:bg-dark_white dark:text-white flex flex-col rounded-md shadow-sm p-2.5 sm:h-auto h-52"
+			>
+				<h1 class="font-semibold px-2 border-b dark:border-dark_light_gray border-light_gray">Description</h1>
 
+				{#if $isEditableDescription}
+					<textarea
+						bind:this={descriptionHTML}
+						name="description"
+						class="px-2 py-1 mt-1 resize-none bg-bg text-dark dark:bg-dark_light_gray dark:text-white h-40 rounded-md outline-primary"
+						>{$profile.description.replaceAll('<br>', '\n') || 'Not description'}</textarea
+					>
+				{:else}
+					<div class="px-2 py-1 mt-1 text-dark dark:text-dark_text h-40 overflow-y-auto overflow-x-hidden rounded-md outline-primary">
+						{@html $profile.description || '<p class="text-dark dark:text-white select-none">Not description</p>'}
+					</div>
+				{/if}
+				<div class="flex items-center justify-between gap-2">
+					{#if data.isUserAuth}
+						<button
+							on:click={!$isEditableDescription ? () => handleEditDescription() : () => handleEditDescription('cancel')}
+							type="button"
+							class="{$isEditableDescription
+								? 'bg-red-600'
+								: 'bg-primary'} w-max text-white rounded-md px-3 text-sm sm:text-base py-1 mt-2.5 transition-all duration-100 hover:bg-opacity-80"
+						>
+							{!$isEditableDescription ? 'Edit' : 'Cancel'}
+						</button>
+
+						{#if $isEditableDescription}
+							<button type="submit" class="bg-primary w-max text-white rounded-md px-4 py-1.5 mt-2.5 transition-all duration-100 hover:bg-opacity-80">
+								Save
+							</button>
+						{/if}
+					{/if}
+				</div>
+			</form>
+
+			<!-- ? Followers -->
+			<div class="flex md:justify-start md:flex-nowrap gap-3 mt-2 overflow-x-auto py-1">
 				<a
 					href="/space/u/{$profile.username}"
 					class="bg-white dark:bg-dark_white dark:text-white h-max w-max flex flex-col rounded-md shadow-sm p-2.5 outline-primary"
@@ -355,47 +397,6 @@
 					</p>
 				</a>
 			</div>
-
-			<form
-				use:enhance={handleSubmitChangeDescription}
-				action="?/changeDescription"
-				method="post"
-				class="bg-white dark:bg-dark_white dark:text-white flex flex-col rounded-md shadow-sm p-2.5 sm:h-auto h-52"
-			>
-				<h1 class="font-semibold px-2 border-b dark:border-dark_light_gray border-light_gray">Description</h1>
-
-				{#if $isEditableDescription}
-					<textarea
-						bind:this={descriptionHTML}
-						name="description"
-						class="px-2 py-1 mt-1 resize-none bg-bg text-dark dark:bg-dark_light_gray dark:text-white h-40 rounded-md outline-primary"
-						>{$profile.description.replaceAll('<br>', '\n') || 'Not description'}</textarea
-					>
-				{:else}
-					<div class="px-2 py-1 mt-1 text-dark dark:text-dark_text h-40 overflow-y-auto overflow-x-hidden rounded-md outline-primary">
-						{@html $profile.description || '<p class="text-dark dark:text-white select-none">Not description</p>'}
-					</div>
-				{/if}
-				<div class="flex items-center justify-between gap-2">
-					{#if data.isUserAuth}
-						<button
-							on:click={!$isEditableDescription ? () => handleEditDescription() : () => handleEditDescription('cancel')}
-							type="button"
-							class="{$isEditableDescription
-								? 'bg-red-600'
-								: 'bg-primary'} w-max text-white rounded-md px-3 text-sm sm:text-base py-1 mt-2.5 transition-all duration-100 hover:bg-opacity-80"
-						>
-							{!$isEditableDescription ? 'Edit' : 'Cancel'}
-						</button>
-
-						{#if $isEditableDescription}
-							<button type="submit" class="bg-primary w-max text-white rounded-md px-4 py-1.5 mt-2.5 transition-all duration-100 hover:bg-opacity-80">
-								Save
-							</button>
-						{/if}
-					{/if}
-				</div>
-			</form>
 		</article>
 	</div>
 
