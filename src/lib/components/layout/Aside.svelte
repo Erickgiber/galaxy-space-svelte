@@ -16,18 +16,14 @@
 </script>
 
 {#if $currentUser}
-	<aside class="w-52 min-w-[208px] h-screen hidden sm:flex flex-col px-5 py-5 gap-8 select-none">
+	<aside class="w-52 min-w-[208px] h-screen hidden md:flex flex-col px-5 py-5 gap-8 select-none">
 		<!-- ? Profile btn -->
 		<a
 			style="font-family: 'Gabarito', sans-serif;"
 			href="/space"
 			class="text-xl font-normal text-[#1D2E79] dark:text-white flex items-center gap-1.5"
 		>
-			<img
-				class="h-10 object-cover pointer-events-none select-none"
-				src={LOGO}
-				alt="Galaxy Space"
-			/>
+			<img class="h-10 object-cover pointer-events-none select-none" src={LOGO} alt="Galaxy Space" />
 			Galaxy Space
 		</a>
 
@@ -36,7 +32,7 @@
 				<li>
 					<a
 						href={route.name === 'Profile' ? `${route.href}/${$currentUser.username}` : route.href}
-						class="flex items-center gap-1.5 text-lg px-1.5 py-2.5 rounded-lg transition-all
+						class="active:scale-95 active:transition-none flex items-center gap-1.5 text-lg px-1.5 py-2.5 rounded-lg transition-all
                     hover:bg-black hover:bg-opacity-5 dark:hover:bg-dark_white
                     text-[#808080] dark:text-dark_text select-none
                     {route.customClass}
@@ -56,7 +52,7 @@
 				<li>
 					<a
 						href="/space/statistics"
-						class="flex items-center gap-1.5 text-lg px-1.5 py-2.5 rounded-lg transition-all
+						class="active:transition-none flex items-center gap-1.5 text-lg px-1.5 py-2.5 rounded-lg transition-all
 					hover:bg-black hover:bg-opacity-5 dark:hover:bg-dark_white
 					text-[#808080] dark:text-dark_text select-none
 					{$page.url.pathname === '/space/statistics' ? 'link_active' : ''}"
@@ -70,7 +66,7 @@
 			<li>
 				<button
 					on:click={() => handleLogout(supabase)}
-					class="w-full flex items-center gap-1.5 text-lg px-1.5 py-2.5 rounded-lg transition-all
+					class="active:transition-none w-full flex items-center gap-1.5 text-lg px-1.5 py-2.5 rounded-lg transition-all
                     hover:bg-black hover:bg-opacity-5 dark:hover:bg-dark_white
                     text-[#808080] dark:text-dark_text select-none"
 				>

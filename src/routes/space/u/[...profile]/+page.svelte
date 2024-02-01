@@ -37,6 +37,7 @@
 	let isModalFollowing = false
 	let followers = [] as IProfile[]
 	let followings = [] as IProfile[]
+	$: isFollowed = data.isFollowing as boolean
 
 	const repository = new ProfileRepository()
 	const supabase = data.supabase
@@ -281,14 +282,14 @@
 		<!-- ? Content Left -->
 		<article class="w-full">
 			<!-- ? Followers -->
-			<div class="flex gap-3 mb-2 overflow-x-auto pb-1">
+			<div class="flex md:justify-start md:flex-nowrap gap-3 mb-2 overflow-x-auto pb-1">
 				<!-- ? Buttons right -->
 				<button
 					on:click={HandleShowFollowers}
 					class="bg-white dark:bg-dark_white dark:text-white h-max w-max flex flex-col rounded-md shadow-sm p-2.5 outline-primary"
 				>
 					<!-- Followers -->
-					<h1 class="font-semibold text-lg px-2">Followers</h1>
+					<h1 class="font-semibold text-lg px-2 hidden md:inline-flex">Followers</h1>
 					<p class="px-2 w-max flex items-center gap-1 text-lg">
 						<Icon icon="solar:users-group-rounded-bold-duotone" class="text-xl text-primary" />
 						{data?.followers?.length}
@@ -301,7 +302,7 @@
 					class="bg-white dark:bg-dark_white dark:text-white h-max w-max flex flex-col rounded-md shadow-sm p-2.5 outline-primary"
 				>
 					<!-- Following -->
-					<h1 class="font-semibold text-lg px-2">Following</h1>
+					<h1 class="font-semibold text-lg px-2 hidden md:inline-flex">Following</h1>
 					<p class="px-2 w-max flex items-center gap-1 text-lg">
 						<Icon icon="solar:users-group-rounded-bold" class="text-xl text-dark" />
 						{data?.followings?.length}
@@ -316,7 +317,7 @@
 						: null}
 				>
 					<!-- Images -->
-					<h1 class="font-semibold text-lg px-2">Words</h1>
+					<h1 class="font-semibold text-lg px-2 hidden md:inline-flex">Words</h1>
 					<p class="px-2 w-max flex items-center gap-1 text-lg">
 						<Icon icon="simple-line-icons:speech" class="text-xl {currentSection === '' ? 'text-white' : 'text-primary'}" />
 						{data.wordsPosts?.length}
@@ -331,7 +332,7 @@
 						: null}
 				>
 					<!-- Images -->
-					<h1 class="font-semibold text-lg px-2">Images</h1>
+					<h1 class="font-semibold text-lg px-2 hidden md:inline-flex">Images</h1>
 					<p class="px-2 w-max flex items-center gap-1 text-lg">
 						<Icon icon="ph:image-duotone" class="text-xl {currentSection === 'images' ? 'text-white' : 'text-primary'}" />
 						{data?.images?.length}
@@ -347,7 +348,7 @@
 						: null}
 				>
 					<!-- Images -->
-					<h1 class="font-semibold text-lg px-2">Videos</h1>
+					<h1 class="font-semibold text-lg px-2 hidden md:inline-flex">Videos</h1>
 					<p class="px-2 w-max flex items-center gap-1 text-lg">
 						<Icon icon="bxs:videos" class="text-xl {currentSection === 'videos' ? 'text-white' : 'text-primary'}" />
 						{0}
@@ -359,7 +360,7 @@
 				use:enhance={handleSubmitChangeDescription}
 				action="?/changeDescription"
 				method="post"
-				class="bg-white dark:bg-dark_white dark:text-white flex flex-col rounded-md shadow-sm p-2.5"
+				class="bg-white dark:bg-dark_white dark:text-white flex flex-col rounded-md shadow-sm p-2.5 sm:h-auto h-52"
 			>
 				<h1 class="font-semibold px-2 border-b dark:border-dark_light_gray border-light_gray">Description</h1>
 
@@ -382,7 +383,7 @@
 							type="button"
 							class="{$isEditableDescription
 								? 'bg-red-600'
-								: 'bg-primary'} w-max text-white rounded-md px-4 py-1.5 mt-2.5 transition-all duration-100 hover:bg-opacity-80"
+								: 'bg-primary'} w-max text-white rounded-md px-3 text-sm sm:text-base py-1 mt-2.5 transition-all duration-100 hover:bg-opacity-80"
 						>
 							{!$isEditableDescription ? 'Edit' : 'Cancel'}
 						</button>

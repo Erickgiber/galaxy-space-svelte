@@ -249,7 +249,7 @@
 							<a
 								on:click={() => isBars.set(false)}
 								href={route.name === 'Profile' ? `${route.href}/${$currentUser.username}` : route.href}
-								class="flex items-center gap-1.5 text-lg px-1.5 py-2.5 rounded-lg transition-all
+								class="active:transition-none flex items-center gap-1.5 text-lg px-1.5 py-2.5 rounded-lg transition-all
 							hover:bg-black hover:bg-opacity-5 dark:hover:bg-dark_white
 							text-[#808080] dark:text-dark_text select-none
 							{route.customClass}
@@ -269,7 +269,7 @@
 						<li>
 							<a
 								href="/space/statistics"
-								class="flex items-center gap-1.5 text-lg px-1.5 py-2.5 rounded-lg transition-all
+								class="active:transition-none flex items-center gap-1.5 text-lg px-1.5 py-2.5 rounded-lg transition-all
 							hover:bg-black hover:bg-opacity-5 dark:hover:bg-dark_white
 							text-[#808080] dark:text-dark_text select-none
 							{$page.url.pathname === '/space/statistics' ? 'link_active' : ''}"
@@ -283,7 +283,7 @@
 					<li>
 						<button
 							on:click={() => handleLogout(supabase)}
-							class="w-full flex items-center gap-1.5 text-lg px-1.5 py-2.5 rounded-lg transition-all
+							class="active:transition-none w-full flex items-center gap-1.5 text-lg px-1.5 py-2.5 rounded-lg transition-all
 							hover:bg-black hover:bg-opacity-5 dark:hover:bg-dark_white
 							text-[#808080] dark:text-dark_text select-none"
 						>
