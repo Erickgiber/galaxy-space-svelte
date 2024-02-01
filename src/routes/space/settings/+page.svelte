@@ -16,15 +16,14 @@
 
 <svelte:head>
 	<title>Settings | Galaxy Space</title>
+	<meta name="keywords" content="settings,galaxy,space,galaxyspace,carupano,guayana,venezuela,social" />
+	<meta name="description" content="Config your Galaxy Space account" />
 </svelte:head>
 
-<h1
-	class="text-dark dark:text-dark_text text-xl border-b pb-1
-	dark:border-dark_light_gray
-"
->
-	Settings
-</h1>
+<article class="flex items-center gap-1 border-b border-gray-300 text-xl dark:border-dark_light_gray pb-1">
+	<Icon icon="solar:settings-linear" class="text-primary text-2xl" />
+	<h1 class="font-semibold dark:text-white">Settings</h1>
+</article>
 
 <button
 	on:click={toggleDarkMode}
