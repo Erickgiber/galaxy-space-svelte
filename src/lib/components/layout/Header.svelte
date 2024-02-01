@@ -31,7 +31,17 @@
 	} else if (!$isBars && typeof window !== 'undefined') {
 		window.document.body.style.overflow = 'auto'
 	}
+
+	function handleResize(): void {
+		const width = document.documentElement.clientWidth
+
+		if (width > 767) {
+			isBars.set(false)
+		}
+	}
 </script>
+
+<svelte:window on:resize={handleResize} />
 
 {#if $currentUser}
 	<header
@@ -95,7 +105,7 @@
 				<li>
 					<button
 						class="h-full grid place-content-center text-2xl bg-bg p-2 dark:bg-dark_light_gray dark:text-white
-                    rounded-full text-dark sm:hover:bg-primary sm:hover:text-white
+                    rounded-full text-dark sm:hover:bg-primary sm:hover:text-white {option.customClass}
 					{$isNotificationsOpen && option.name === 'notifications' ? 'bg-primary dark:bg-primary text-white dark:text-white' : ''}
 					{$isDropdownOpen && option.name === 'dropdown' ? 'bg-primary dark:bg-primary text-white dark:text-white ' : ''}
 					{$isBars && option.name === 'bars' ? 'bg-primary dark:bg-primary text-white dark:text-white ' : ''}

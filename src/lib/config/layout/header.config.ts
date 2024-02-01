@@ -42,7 +42,7 @@ export const HeaderConfig: IHeaderConfig = {
 		{
 			name: 'bars',
 			icon: 'uil:bars',
-			customClass: '',
+			customClass: 'md:hidden',
 			onclick: (params?: any) => {
 				const { isBars, value, isNotificationsOpen, isDropdownOpen } = params
 				isBars.set(!value)
