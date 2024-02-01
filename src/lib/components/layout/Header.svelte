@@ -223,8 +223,7 @@
 
 		{#if $isBars}
 			<div
-				in:slide={{ axis: 'x', duration: 400 }}
-				out:fade={{ duration: 100 }}
+				in:slide={{ axis: 'x', duration: 250 }}
 				class="fixed p-3 scroll-smooth scroll-modern top-0 right-0 bg-white dark:text-white dark:bg-dark_white shadow-2xl z-10 w-screen h-screen"
 			>
 				<button type="button" in:slide={{ duration: 1300 }} on:click={() => isBars.set(false)} class="absolute top-3 right-3 text-2xl p-1">
@@ -233,7 +232,6 @@
 
 				<!-- ? Profile btn -->
 				<a
-					in:fade={{ duration: 500 }}
 					on:click={() => isBars.set(false)}
 					style="font-family: 'Gabarito', sans-serif;"
 					href="/space"
@@ -243,7 +241,7 @@
 					Galaxy Space
 				</a>
 
-				<ul in:fade={{ duration: 500 }} class="flex flex-col w-full gap-2">
+				<ul class="flex flex-col w-full gap-2">
 					{#each AsideConfig.routes as route}
 						<li>
 							<a
