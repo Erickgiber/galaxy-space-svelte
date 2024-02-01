@@ -1,5 +1,5 @@
 type IHeaderOption = {
-	name: 'notifications' | 'menu' | 'dropdown'
+	name: 'notifications' | 'menu' | 'dropdown' | 'bars'
 	icon: string
 	customClass: string
 	onclick: (params?: any) => void
@@ -37,6 +37,17 @@ export const HeaderConfig: IHeaderConfig = {
 				const { isDropdownOpen, value, isNotificationsOpen } = params
 				isDropdownOpen.set(!value)
 				isNotificationsOpen.set(false)
+			}
+		},
+		{
+			name: 'bars',
+			icon: 'uil:bars',
+			customClass: '',
+			onclick: (params?: any) => {
+				const { isBars, value, isNotificationsOpen, isDropdownOpen } = params
+				isBars.set(!value)
+				isNotificationsOpen.set(false)
+				isDropdownOpen.set(false)
 			}
 		}
 	]

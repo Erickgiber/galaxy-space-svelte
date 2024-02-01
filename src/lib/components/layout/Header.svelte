@@ -1,6 +1,8 @@
 <script lang="ts">
 	import { goto } from '$app/navigation'
 	import { page } from '$app/stores'
+	import LOGO from '$lib/assets/logos/logo.png'
+	import { AsideConfig } from '$lib/config/layout/aside.config'
 	import { HeaderConfig } from '$lib/config/layout/header.config'
 	import { currentUser } from '$lib/store/currentUser'
 	import type { INotification } from '$lib/types/notification.types'
@@ -12,6 +14,7 @@
 
 	let isNotificationsOpen = writable(false)
 	let isDropdownOpen = writable(false)
+	let isBars = writable(false)
 	let notifications: INotification[] = []
 	let isHome = false
 	const supabase = $page.data.supabase as SupabaseClient
@@ -21,6 +24,12 @@
 
 	$: if (!$currentUser) {
 		goto('/login')
+	}
+
+	$: if ($isBars && typeof window !== 'undefined') {
+		window.document.body.style.overflow = 'hidden'
+	} else if (!$isBars && typeof window !== 'undefined') {
+		window.document.body.style.overflow = 'auto'
 	}
 </script>
 
@@ -89,6 +98,7 @@
                     rounded-full text-dark sm:hover:bg-primary sm:hover:text-white
 					{$isNotificationsOpen && option.name === 'notifications' ? 'bg-primary dark:bg-primary text-white dark:text-white' : ''}
 					{$isDropdownOpen && option.name === 'dropdown' ? 'bg-primary dark:bg-primary text-white dark:text-white ' : ''}
+					{$isBars && option.name === 'bars' ? 'bg-primary dark:bg-primary text-white dark:text-white ' : ''}
 					"
 						on:click={() => {
 							if (option.name === 'notifications') {
@@ -104,6 +114,15 @@
 									isDropdownOpen,
 									value: $isDropdownOpen,
 									isNotificationsOpen
+								})
+							}
+
+							if (option.name === 'bars') {
+								option.onclick({
+									isBars,
+									value: $isBars,
+									isNotificationsOpen,
+									isDropdownOpen
 								})
 							}
 						}}
@@ -191,5 +210,93 @@
 				</div>
 			</div>
 		{/if}
+
+		{#if $isBars}
+			<div
+				in:slide={{ axis: 'x', duration: 400 }}
+				out:fade={{ duration: 100 }}
+				class="fixed p-3 scroll-smooth scroll-modern top-0 right-0 bg-white dark:text-white dark:bg-dark_white shadow-2xl z-10 w-screen h-screen"
+			>
+				<button type="button" in:slide={{ duration: 1300 }} on:click={() => isBars.set(false)} class="absolute top-3 right-3 text-2xl p-1">
+					<Icon icon="mingcute:close-fill" />
+				</button>
+
+				<!-- ? Profile btn -->
+				<a
+					in:fade={{ duration: 500 }}
+					on:click={() => isBars.set(false)}
+					style="font-family: 'Gabarito', sans-serif;"
+					href="/space"
+					class="text-xl w-max mb-3 font-normal text-[#1D2E79] dark:text-white flex items-center gap-2"
+				>
+					<img class="h-10 object-cover pointer-events-none select-none" src={LOGO} alt="Galaxy Space" />
+					Galaxy Space
+				</a>
+
+				<ul in:fade={{ duration: 500 }} class="flex flex-col w-full gap-2">
+					{#each AsideConfig.routes as route}
+						<li>
+							<a
+								on:click={() => isBars.set(false)}
+								href={route.name === 'Profile' ? `${route.href}/${$currentUser.username}` : route.href}
+								class="flex items-center gap-1.5 text-lg px-1.5 py-2.5 rounded-lg transition-all
+							hover:bg-black hover:bg-opacity-5 dark:hover:bg-dark_white
+							text-[#808080] dark:text-dark_text select-none
+							{route.customClass}
+							{$page.url.pathname === route.href
+									? 'link_active'
+									: $page.url.pathname.includes($currentUser.username) && route.href.includes('/u')
+									? 'link_active'
+									: ''}"
+							>
+								<Icon icon={route.icon} />
+								<span>{route.name}</span>
+							</a>
+						</li>
+					{/each}
+
+					{#if $currentUser.role === 'admin'}
+						<li>
+							<a
+								href="/space/statistics"
+								class="flex items-center gap-1.5 text-lg px-1.5 py-2.5 rounded-lg transition-all
+							hover:bg-black hover:bg-opacity-5 dark:hover:bg-dark_white
+							text-[#808080] dark:text-dark_text select-none
+							{$page.url.pathname === '/space/statistics' ? 'link_active' : ''}"
+							>
+								<Icon icon="nimbus:stats" />
+								<span>Statistics</span>
+							</a>
+						</li>
+					{/if}
+
+					<li>
+						<button
+							on:click={() => handleLogout(supabase)}
+							class="w-full flex items-center gap-1.5 text-lg px-1.5 py-2.5 rounded-lg transition-all
+							hover:bg-black hover:bg-opacity-5 dark:hover:bg-dark_white
+							text-[#808080] dark:text-dark_text select-none"
+						>
+							<Icon icon="heroicons-outline:logout" />
+							<span>Logout</span>
+						</button>
+					</li>
+				</ul>
+			</div>
+		{/if}
 	</header>
 {/if}
+
+<style lang="scss">
+	.link_active {
+		border-radius: 10px;
+		background: linear-gradient(180deg, #5700e4 0%, #3e00a5 100%);
+		box-shadow: 0px 3px 10px 0px rgba(0, 0, 0, 0.2);
+		color: white;
+		padding-left: 15px;
+	}
+
+	li > a {
+		font-weight: 400;
+	}
+</style>
