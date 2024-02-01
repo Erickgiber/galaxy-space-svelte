@@ -34,6 +34,7 @@
 
 	onMount(() => {
 		loadTheme()
+
 		if (session && user) {
 			currentUser.set(user)
 		}
