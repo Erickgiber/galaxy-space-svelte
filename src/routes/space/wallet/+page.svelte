@@ -4,6 +4,9 @@
 
 <svelte:head>
 	<title>Wallet | Galaxy Space</title>
+
+	<meta name="keywords" content="wallet,galaxy,space,galaxyspace,carupano,guayana,venezuela,social" />
+	<meta name="description" content="See your balance in your wallet of your Galaxy Space account" />
 </svelte:head>
 
 <article class="flex items-center gap-1 border-b border-gray-300 text-xl dark:border-dark_light_gray pb-1">
