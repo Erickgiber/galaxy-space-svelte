@@ -279,29 +279,26 @@
 	</div>
 
 	<div class="flex flex-col gap-2 sm:flex-row sm:gap-0 justify-between mt-5">
-		<!-- ? Content Left -->
 		<article class="w-full">
 			<div class="flex items-center gap-3 mb-3">
-				<!-- ? Buttons right -->
 				<button
 					on:click={HandleShowFollowers}
 					class="bg-white dark:bg-dark_white dark:text-white h-max w-max flex flex-col rounded-md shadow-sm p-2.5 outline-primary"
 				>
 					<!-- Followers -->
-					<h1 class="font-semibold text-lg px-2 hidden md:inline-flex">Followers</h1>
+					<h1 class="font-semibold px-2 hidden md:inline-flex">Followers</h1>
 					<p class="px-2 w-max flex items-center gap-1 text-lg">
 						<Icon icon="solar:users-group-rounded-bold-duotone" class="text-xl text-primary" />
 						{data?.followers?.length}
 					</p>
 				</button>
 
-				<!-- ? Buttons right -->
 				<button
 					on:click={HandleShowFollowings}
 					class="bg-white dark:bg-dark_white dark:text-white h-max w-max flex flex-col rounded-md shadow-sm p-2.5 outline-primary"
 				>
 					<!-- Following -->
-					<h1 class="font-semibold text-lg px-2 hidden md:inline-flex">Following</h1>
+					<h1 class="font-semibold px-2 hidden md:inline-flex">Following</h1>
 					<p class="px-2 w-max flex items-center gap-1 text-lg">
 						<Icon icon="solar:users-group-rounded-bold" class="text-xl text-dark" />
 						{data?.followings?.length}
@@ -353,13 +350,13 @@
 			<div class="flex md:justify-start md:flex-nowrap gap-3 mt-2 overflow-x-auto py-1">
 				<a
 					href="/space/u/{$profile.username}"
-					class="bg-white dark:bg-dark_white dark:text-white h-max w-max flex flex-col rounded-md shadow-sm p-2.5 outline-primary"
+					class="bg-white dark:bg-dark_white dark:text-white h-max w-max flex flex-col rounded-md shadow-sm p-1.5 outline-primary"
 					style={currentSection === ''
 						? 'background: var(--primary); color: white; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);'
 						: null}
 				>
 					<!-- Images -->
-					<h1 class="font-semibold text-lg px-2 hidden md:inline-flex">Words</h1>
+					<h1 class="font-semibold px-2 hidden md:inline-flex">Words</h1>
 					<p class="px-2 w-max flex items-center gap-1 text-lg">
 						<Icon icon="simple-line-icons:speech" class="text-xl {currentSection === '' ? 'text-white' : 'text-primary'}" />
 						{data.wordsPosts?.length}
@@ -368,13 +365,13 @@
 
 				<a
 					href="/space/u/{$profile.username}?section=images"
-					class="bg-white dark:bg-dark_white dark:text-white h-max w-max flex flex-col rounded-md shadow-sm p-2.5 outline-primary"
+					class="bg-white dark:bg-dark_white dark:text-white h-max w-max flex flex-col rounded-md shadow-sm p-1.5 outline-primary"
 					style={currentSection === 'images'
 						? 'background: var(--primary); color: white; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);'
 						: null}
 				>
 					<!-- Images -->
-					<h1 class="font-semibold text-lg px-2 hidden md:inline-flex">Images</h1>
+					<h1 class="font-semibold px-2 hidden md:inline-flex">Images</h1>
 					<p class="px-2 w-max flex items-center gap-1 text-lg">
 						<Icon icon="ph:image-duotone" class="text-xl {currentSection === 'images' ? 'text-white' : 'text-primary'}" />
 						{data?.images?.length}
@@ -384,13 +381,13 @@
 				<!-- ? Buttons right -->
 				<a
 					href="/space/u/{$profile.username}?section=videos"
-					class="bg-white dark:bg-dark_white dark:text-white h-max w-max flex flex-col rounded-md shadow-sm p-2.5 outline-primary"
+					class="bg-white dark:bg-dark_white dark:text-white h-max w-max flex flex-col rounded-md shadow-sm p-1.5 outline-primary"
 					style={currentSection === 'videos'
 						? 'background: var(--primary); color: white; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);'
 						: null}
 				>
 					<!-- Images -->
-					<h1 class="font-semibold text-lg px-2 hidden md:inline-flex">Videos</h1>
+					<h1 class="font-semibold px-2 hidden md:inline-flex">Videos</h1>
 					<p class="px-2 w-max flex items-center gap-1 text-lg">
 						<Icon icon="bxs:videos" class="text-xl {currentSection === 'videos' ? 'text-white' : 'text-primary'}" />
 						{0}

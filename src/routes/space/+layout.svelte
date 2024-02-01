@@ -10,7 +10,7 @@
 </script>
 
 {#if $currentUser}
-	<main class="flex mx-auto max-w-[1280px]">
+	<main class="flex mx-auto max-w-[1336px]">
 		<Aside />
 
 		<div class="w-full py-5 px-3">
