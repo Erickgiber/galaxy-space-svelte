@@ -6,6 +6,7 @@
 	import Icon from '@iconify/svelte'
 	import type { SupabaseClient } from '@supabase/supabase-js'
 	import dayjs from 'dayjs'
+	import CommentPost from './CommentPost.svelte'
 	import ModalShare from './ModalShare.svelte'
 	import TooltipLikes from './TooltipLikes.svelte'
 	import VerifiedIcon from './VerifiedIcon.svelte'
@@ -14,6 +15,7 @@
 	export let post: IPost
 	let btnLikeDisable = false
 	let isActiveModalShare = false
+	let isComment = true
 
 	const likeRepository = new LikesRepository()
 
@@ -38,6 +40,23 @@
 		}
 		btnLikeDisable = false
 	}
+
+	function handleToggleComment(post_id: number | string) {
+		isComment = !isComment
+		if (isComment) {
+			if (typeof window !== 'undefined') {
+				setTimeout(() => {
+					const modal = document.querySelector(`.comment-box-post-${post_id}`)
+					const btn = document.querySelector(`.btn-comment-post-${post_id}`)
+
+					if (modal) {
+						// @ts-ignore
+						modal.style.display = 'flex'
+					}
+				}, 10)
+			}
+		}
+	}
 </script>
 
 <svelte:head>
@@ -53,18 +72,9 @@
 
 <section class="my-2 flex flex-col gap-3">
 	{#if post.text || post.image_url}
-		<article
-			class="relative flex flex-col gap-2 pb-10 bg-white dark:bg-dark_white py-2 rounded-lg shadow-sm"
-		>
-			<a
-				class="flex ml-2 max-w-max rounded-md gap-1.5 pl-0.5 py-1.5 transition-all"
-				href="/space/u/{post.user?.username}"
-			>
-				<img
-					class="w-10 h-10 rounded-full object-cover"
-					src={post.user.photo_url}
-					alt={post.username}
-				/>
+		<article class="relative flex flex-col gap-2 pb-10 bg-white dark:bg-dark_white py-2 rounded-lg shadow-sm">
+			<a class="flex ml-2 max-w-max rounded-md gap-1.5 pl-0.5 py-1.5 transition-all" href="/space/u/{post.user?.username}">
+				<img class="w-10 h-10 rounded-full object-cover" src={post.user.photo_url} alt={post.username} />
 				<div class="flex flex-col leading-4">
 					<p class="flex items-center gap-1 dark:text-dark_text">
 						{post.user.public_name}
@@ -80,10 +90,7 @@
 			{/if}
 
 			{#if post.image_url}
-				<div
-					class="w-full h-max mt-1"
-					style="background-image: url({post.image_url}); background-size: cover; background-position: center;"
-				>
+				<div class="w-full h-max mt-1" style="background-image: url({post.image_url}); background-size: cover; background-position: center;">
 					<div class="w-full h-max backdrop-blur-md">
 						<img class="w-auto mx-auto h-full max-h-[450px]" src={post.image_url} alt="xd" />
 					</div>
@@ -92,9 +99,7 @@
 
 			<!-- Stats -->
 			<div class="mx-3 flex items gap-2 border-b dark:border-dark_light_gray">
-				<button
-					class="relative hover:text-black group star-count-post-{post.id} text-sm text-dark font-semibold"
-				>
+				<button class="relative hover:text-black group star-count-post-{post.id} text-sm text-dark font-semibold">
 					{likesShower(post.totalLikes)}
 					<div class="hidden group-hover:flex text-dark">
 						<TooltipLikes likes={post.likes} />
@@ -102,9 +107,7 @@
 				</button>
 			</div>
 
-			<div
-				class="flex gap-3 items-center px-3 py-1 border-b dark:border-dark_light_gray border-light_gray"
-			>
+			<div class="flex gap-3 items-center px-3 py-1 border-b dark:border-dark_light_gray border-light_gray">
 				{#if post.isLiked}
 					<button
 						disabled={btnLikeDisable}
@@ -129,9 +132,7 @@
 
 				<button
 					class="bg-light_gray dark:bg-dark_light_gray dark:text-white pr-2 pl-2.5 pb-0.5 h-10 grid place-content-center outline-none transition-all duration-50 rounded-md text-dark
-							active:scale-95 active:duration-0 active:bg-primary active:text-white {isActiveModalShare
-						? 'bg-primary text-white shadow-md '
-						: ''} "
+							active:scale-95 active:duration-0 active:bg-primary active:text-white {isActiveModalShare ? 'bg-primary text-white shadow-md ' : ''} "
 					on:click={() => {
 						isActiveModalShare = !isActiveModalShare
 						if (isActiveModalShare) {
@@ -150,10 +151,24 @@
 
 				<ModalShare bind:enable={isActiveModalShare} {post} classID={post.id.toString()} />
 
+				<button
+					class="bg-light_gray dark:bg-dark_light_gray dark:text-white pr-2 pl-2.5 pb-0.5 h-10 grid place-content-center outline-none transition-all duration-50 rounded-md text-dark
+							active:scale-95 active:duration-0 active:bg-primary active:text-white {isComment ? 'bg-primary text-white' : ''}"
+					on:click={() => handleToggleComment(post.post_id)}
+				>
+					<Icon class="text-inherit" icon="fluent:comment-note-20-regular" width="24" />
+				</button>
+
+				<!-- Date Time -->
 				<div class="absolute bottom-2 left-3 text-sm text-dark">
 					{dayjs(post.created_at).format('DD-MM-YYYY h:mm A')}
 				</div>
 			</div>
+
+			<!-- ? Comments -->
+			{#if isComment}
+				<CommentPost isActive={isComment} comments={post.comments} {supabase} post_id={post.post_id} />
+			{/if}
 		</article>
 	{/if}
 </section>

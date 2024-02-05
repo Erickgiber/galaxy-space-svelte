@@ -8,7 +8,8 @@
 
 	export let supabase: SupabaseClient
 	export let post_id: number | string
-	export let comments: IComment[]
+	export let comments: IComment[] = []
+	export let isActive = false
 	let commentsStore = writable<IComment[]>(comments)
 	let comment = writable('')
 	let postRepository: PostsRepository
@@ -18,10 +19,8 @@
 	}
 </script>
 
-<div class="w-full hidden flex-col h-60 overflow-auto mt-2 comment-box-post-{post_id}">
-	<h1 class="dark:text-white py-2 px-3 border-b dark:border-dark_light_gray font-medium">New Comment</h1>
-
-	<article class="flex flex-col gap-2 w-full p-3">
+<div class="w-full {isActive ? 'flex' : 'hidden'} flex-col h-60 overflow-auto mt-2 comment-box-post-{post_id}">
+	<article class="flex flex-col gap-2 w-full p-3 sticky top-0">
 		<a href="/space/u/{$currentUser.username}" class="w-max flex gap-2 items-center pb-0">
 			<img class="w-10 h-10 rounded-full" src={$currentUser.photo_url} alt={$currentUser.public_name} />
 
@@ -54,7 +53,7 @@
 	<h1 class="dark:text-white py-2 px-3 border-b dark:border-dark_light_gray font-medium">Comments</h1>
 
 	{#each $commentsStore.reverse() as { profile, text }}
-		<article class="flex flex-col mb-2 gap-2 w-full p-3 border-l-2 border-primary">
+		<article class="flex flex-col gap-2 w-full p-3 border-l-2 border-primary">
 			<a href="/space/u/{profile.username}" class="w-max flex gap-2 items-center pb-0">
 				<img class="w-10 h-10 rounded-full" src={profile.photo_url} alt={profile.public_name} />
 
@@ -64,7 +63,7 @@
 				</p>
 			</a>
 
-			<p>
+			<p class="px-1">
 				{text}
 			</p>
 		</article>

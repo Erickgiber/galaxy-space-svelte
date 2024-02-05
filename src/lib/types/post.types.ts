@@ -13,7 +13,8 @@ export interface IPost {
 	likes: IsLiked[]
 	totalLikes: number
 	isLiked: IsLiked
-	comments: []
+	comments: IComment[]
+	totalComments: number
 }
 
 export type IsLiked = {

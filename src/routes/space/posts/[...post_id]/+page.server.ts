@@ -1,4 +1,4 @@
-import type { IPost } from '$lib/types/post.types'
+import type { IComment, IPost } from '$lib/types/post.types'
 import type { IProfile } from '$lib/types/profile.types'
 import { redirect, type ServerLoad } from '@sveltejs/kit'
 
@@ -18,21 +18,15 @@ export const load: ServerLoad = async ({ locals: { supabase, getSession }, param
 	}
 
 	const { data: dataUser, error } = await supabase.auth.getUser()
-	const { data: user, error: errorUser } = await supabase
-		.from('profiles')
-		.select()
-		.eq('id', id)
-		.single()
+	const { data: user, error: errorUser } = await supabase.from('profiles').select().eq('id', id).single()
 
 	// ? Handle error
 	if (!user) {
 		throw redirect(303, '/space')
 	}
 
-	const { data: getLikes, error: errorLikes } = await supabase
-		.from('likes')
-		.select('post_id, like, username, uuid, type')
-		.eq('post_id', post.post_id)
+	const { data: getLikes, error: errorLikes } = await supabase.from('likes').select('post_id, like, username, uuid, type').eq('post_id', post.post_id)
+	const { data: getComments } = await await supabase.from('comments').select('post_id, username, uuid, text, image_url').eq('post_id', post.post_id)
 
 	post.totalLikes = getLikes!.length ?? 0
 	// @ts-ignore
@@ -41,6 +35,17 @@ export const load: ServerLoad = async ({ locals: { supabase, getSession }, param
 	post.user = user as IProfile
 	// @ts-ignore
 	post.likes = getLikes
+
+	if (getComments) {
+		const comments = getComments.filter((comment) => comment.post_id === post.post_id) as IComment[]
+		post.comments = comments
+		post.totalComments = comments.length
+
+		for (let i = 0; i < post.comments.length; i++) {
+			const profile = await supabase.from('profiles').select().eq('username', post.comments[i].username).single()
+			post.comments[i] = { ...post.comments[i], profile: profile.data as IProfile }
+		}
+	}
 
 	return {
 		post: post as IPost
