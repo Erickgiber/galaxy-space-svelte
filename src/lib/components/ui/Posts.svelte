@@ -6,6 +6,7 @@
 	import Icon from '@iconify/svelte'
 	import type { SupabaseClient } from '@supabase/supabase-js'
 	import dayjs from 'dayjs'
+	import CommentPost from './CommentPost.svelte'
 	import ModalShare from './ModalShare.svelte'
 	import TooltipLikes from './TooltipLikes.svelte'
 	import VerifiedIcon from './VerifiedIcon.svelte'
@@ -13,6 +14,7 @@
 	export let supabase: SupabaseClient
 	let btnLikeDisable = false
 	let isActiveModalShare = false
+	let isComment = false
 
 	const likeRepository = new LikesRepository()
 
@@ -52,6 +54,34 @@
 		}
 
 		btnLikeDisable = false
+	}
+
+	function handleToggleComment(post_id: number | string) {
+		isComment = !isComment
+		if (isComment) {
+			if (typeof window !== 'undefined') {
+				setTimeout(() => {
+					const modal = document.querySelector(`.comment-box-post-${post_id}`)
+					const btn = document.querySelector(`.btn-comment-post-${post_id}`)
+
+					if (modal) {
+						// @ts-ignore
+						modal.style.display = 'flex'
+					}
+					if (btn) {
+						btn.classList.add('bg-primary')
+						btn.classList.add('text-white')
+					}
+				}, 10)
+			}
+		} else {
+			const btn = document.querySelector(`.btn-comment-post-${post_id}`)
+
+			if (btn) {
+				btn.classList.remove('bg-primary')
+				btn.classList.remove('text-white')
+			}
+		}
 	}
 </script>
 
@@ -140,11 +170,24 @@
 
 						<ModalShare bind:enable={isActiveModalShare} {post} classID={index.toString()} />
 
+						<button
+							class="btn-comment-post-{index} bg-light_gray dark:bg-dark_light_gray dark:text-white pr-2 pl-2.5 pb-0.5 h-10 grid place-content-center outline-none transition-all duration-50 rounded-md text-dark
+							active:scale-95 active:duration-0 active:bg-primary active:text-white"
+							on:click={() => handleToggleComment(post.post_id)}
+						>
+							<Icon class="text-inherit" icon="fluent:comment-note-20-regular" width="24" />
+						</button>
+
 						<!-- Date Time -->
 						<div class="absolute bottom-2 right-3 text-xs text-dark">
 							{dayjs(post.created_at).format('DD-MM-YYYY h:mm A')}
 						</div>
 					</div>
+
+					<!-- ? Comments -->
+					{#if isComment}
+						<CommentPost comments={post.comments} {supabase} post_id={post.post_id} />
+					{/if}
 				</article>
 			{/if}
 		{/each}

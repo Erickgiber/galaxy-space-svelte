@@ -28,11 +28,7 @@ export const actions: Actions = {
 		}
 
 		// ? Get usernames information
-		const { data: usernames, error: errorUsernames } = await supabase
-			.from('register')
-			.select('username')
-			.eq('username', userData.username)
-			.single()
+		const { data: usernames, error: errorUsernames } = await supabase.from('register').select('username').eq('username', userData.username).single()
 
 		if (usernames?.username) {
 			return {
@@ -62,14 +58,12 @@ export const actions: Actions = {
 		})
 
 		// * Saving photo in table profiles
-		const { data: inserDataProfile, error: errorInsertProfile } = await supabase
-			.from('profiles')
-			.insert({
-				photo_url: PUBLIC_PHOTO_DEFAULT,
-				email: userData.email,
-				username: userData.username,
-				public_name: userData.public_name
-			})
+		const { data: inserDataProfile, error: errorInsertProfile } = await supabase.from('profiles').insert({
+			photo_url: PUBLIC_PHOTO_DEFAULT,
+			email: userData.email,
+			username: userData.username,
+			public_name: userData.public_name
+		})
 
 		if (errorInsert) {
 			return {

@@ -1,8 +1,8 @@
 // src/routes/+layout.ts
-import { PUBLIC_SUPABASE_URL, PUBLIC_SUPABASE_ANON_KEY } from '$env/static/public'
+import { PUBLIC_SUPABASE_ANON_KEY, PUBLIC_SUPABASE_URL } from '$env/static/public'
 import { createSupabaseLoadClient } from '@supabase/auth-helpers-sveltekit'
-import type { Database } from '../DatabaseDefinitions.js'
 import type { Load } from '@sveltejs/kit'
+import type { Database } from '../DatabaseDefinitions.js'
 
 export const load: Load = async ({ fetch, data, depends }) => {
 	depends('supabase:auth')

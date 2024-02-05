@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { navigating } from '$app/stores'
+	import { loaderStore } from '$lib/store/loader'
 	import { fade } from 'svelte/transition'
 
 	let isNavigating = $navigating
@@ -19,7 +20,7 @@
 	}
 </script>
 
-{#if isNavigating}
+{#if isNavigating || $loaderStore}
 	<div
 		transition:fade
 		class="w-full h-0.5 bg-primary fixed top-0 left-0 {animation ? 'w-2/6' : ''}

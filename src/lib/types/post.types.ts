@@ -1,3 +1,5 @@
+import type { IProfile } from './profile.types'
+
 export interface IPost {
 	id: number
 	created_at: Date
@@ -11,6 +13,7 @@ export interface IPost {
 	likes: IsLiked[]
 	totalLikes: number
 	isLiked: IsLiked
+	comments: []
 }
 
 export type IsLiked = {
@@ -33,4 +36,13 @@ export interface User {
 	public_name: string
 	is_star: boolean
 	description: string
+}
+
+export interface IComment {
+	image_url: string
+	post_id: string
+	username: string
+	uuid: string
+	profile: IProfile
+	text: string
 }
