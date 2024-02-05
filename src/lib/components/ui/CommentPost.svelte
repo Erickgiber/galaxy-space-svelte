@@ -74,4 +74,8 @@
 			</p>
 		</article>
 	{/each}
+
+	{#if $commentsStore.length === 0}
+		<span class="p-3">Be the first to comment! 🚀</span>
+	{/if}
 </div>
