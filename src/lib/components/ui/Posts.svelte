@@ -189,7 +189,7 @@
 						<ModalShare bind:enable={isActiveModalShare} {post} classID={index.toString()} />
 
 						<!-- Date Time -->
-						<div class="absolute bottom-2 right-3 text-xs text-dark">
+						<div class="absolute bg-white dark:bg-dark_white bottom-2 right-3 text-xs text-dark">
 							{dayjs(post.created_at).format('DD-MM-YYYY h:mm A')}
 						</div>
 					</div>

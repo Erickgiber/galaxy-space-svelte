@@ -71,6 +71,7 @@ export const load: ServerLoad = async (event) => {
 			isFollowing: isFollowing,
 			images: imagesProfile ? (imagesProfile?.filter((obj: TypeImage) => obj.image_url) as TypeImage[]) : [],
 			wordsPosts: imagesProfile?.filter((post: TypeImage) => post.image_url === '' || post.image_url === '{}'),
+			posts: imagesProfile?.reverse(),
 			status: 200,
 			msg: 'Profile found'
 		}

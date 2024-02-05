@@ -312,10 +312,23 @@
 						? 'background: var(--primary); color: white; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);'
 						: null}
 				>
-					<!-- Images -->
+					<h1 class="font-semibold px-2">Everything</h1>
+					<p class="px-2 w-max flex items-center gap-1 text-lg">
+						<Icon icon="material-symbols:feed-outline" class="text-xl {currentSection === '' ? 'text-white' : 'text-primary'}" />
+						{data.posts?.length}
+					</p>
+				</a>
+
+				<a
+					href="/space/u/{$profile.username}?section=words"
+					class="bg-white dark:bg-dark_white dark:text-white h-max w-full sm:w-max flex flex-col rounded-md shadow-sm p-1.5 outline-primary"
+					style={currentSection === 'words'
+						? 'background: var(--primary); color: white; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);'
+						: null}
+				>
 					<h1 class="font-semibold px-2">Words</h1>
 					<p class="px-2 w-max flex items-center gap-1 text-lg">
-						<Icon icon="simple-line-icons:speech" class="text-xl {currentSection === '' ? 'text-white' : 'text-primary'}" />
+						<Icon icon="simple-line-icons:speech" class="text-xl {currentSection === 'words' ? 'text-white' : 'text-primary'}" />
 						{data.wordsPosts?.length}
 					</p>
 				</a>
@@ -397,7 +410,12 @@
 
 	<ImagesGallery {supabase} imageList={data.images?.reverse()} bind:currentSection />
 
-	{#if data.wordsPosts && currentSection === ''}
+	{#if data.posts && currentSection === ''}
+		<Posts posts={data.posts} {supabase} />
+		<br />
+	{/if}
+
+	{#if data.wordsPosts && currentSection === 'words'}
 		<Posts posts={data.wordsPosts.reverse()} {supabase} />
 		<br />
 	{/if}

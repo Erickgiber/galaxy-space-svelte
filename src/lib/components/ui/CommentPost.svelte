@@ -53,7 +53,7 @@
 	<h1 class="dark:text-white py-2 px-3 border-b dark:border-dark_light_gray font-medium">Comments</h1>
 
 	{#each $commentsStore.reverse() as { profile, text }}
-		<article class="flex flex-col gap-2 w-full p-3 border-l-2 border-primary mb-1">
+		<article class="flex flex-col gap-2 w-full p-3 border-l-2 border-l-primary mb-1 border-b border-b-light_gray dark:border-b-dark_light_gray">
 			<a href="/space/u/{profile.username}" class="relative w-max flex gap-2 items-center pb-0">
 				<img class="w-10 h-10 rounded-full" src={profile.photo_url} alt={profile.public_name} />
 

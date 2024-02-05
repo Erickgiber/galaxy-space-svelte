@@ -60,23 +60,15 @@
 					<!-- component -->
 					<div class="w-full h-full shadow-lg bg-white dark:bg-dark_white rounded-xl p-2">
 						<a href="/space/posts/{image.id}?u={image.user.id}">
-							<img
-								class="w-full h-56 sm:h-72 object-cover rounded-xl"
-								src={image.image_url}
-								alt={image.text}
-							/>
+							<img class="w-full h-56 sm:h-72 object-cover rounded-xl" src={image.image_url} alt={image.text} />
 						</a>
-						<p
-							class="text-[15px] dark:text-dark_text h-6 pl-2 pr-3 mt-2 text-ellipsis overflow-hidden whitespace-nowrap"
-						>
+						<p class="text-[15px] dark:text-dark_text h-6 pl-2 pr-3 mt-2 text-ellipsis overflow-hidden whitespace-nowrap">
 							{@html image.text}
 						</p>
 
 						<!-- Stats -->
 						<div class="mx-2 flex items gap-2 border-b dark:border-dark_light_gray">
-							<button
-								class="relative hover:text-black group star-count-post-{image.id} text-sm text-dark font-semibold"
-							>
+							<button class="relative hover:text-black group star-count-post-{image.id} text-sm text-dark font-semibold">
 								{likesShower(image.totalLikes)}
 								<div class="hidden group-hover:flex text-dark">
 									<TooltipLikes likes={image.likes} />
@@ -84,7 +76,7 @@
 							</button>
 						</div>
 
-						<ul class="mt-2 flex items-center justify-between px-2">
+						<ul class="mt-2 flex items-center gap-2 px-2">
 							<li class="flex items-center gap-1 text-sm text-gray-400 hover:text-gray-600">
 								{#if image.isLiked}
 									<button
@@ -107,6 +99,16 @@
 										<span class="translate-y-0.5 text-lg">{image.totalLikes}</span>
 									</button>
 								{/if}
+							</li>
+
+							<li>
+								<a
+									href="/space/posts/{image.id}?u={image.user.id}"
+									class="w-10 h-10 bg-light_gray dark:bg-dark_light_gray dark:text-white pr-2 pl-2.5 pb-0.5 grid place-content-center outline-none transition-all duration-50 rounded-md text-dark
+							active:scale-95 active:duration-0 active:bg-primary active:text-white"
+								>
+									<Icon class="text-inherit" icon="fluent:comment-note-20-regular" width="24" />
+								</a>
 							</li>
 						</ul>
 					</div>
