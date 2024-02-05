@@ -90,7 +90,7 @@
 	{#if posts && posts.length > 0}
 		{#each posts as post, index}
 			{#if post.text || post.image_url}
-				<article class="relative flex flex-col gap-2 pb-2 bg-white dark:bg-dark_white dark:text-dark_text py-2 rounded-lg shadow-sm">
+				<article class="relative flex flex-col gap-2 pb-2 bg-white dark:bg-dark_white dark:text-dark_text py-2 sm:rounded-lg shadow-sm">
 					<a class="flex ml-2 max-w-max rounded-md gap-1.5 pl-0.5 py-1.5 transition-all" href="/space/u/{post.user?.username}">
 						<img class="w-10 h-10 rounded-full object-cover" src={post.user.photo_url} alt={post.username} />
 						<div class="flex flex-col leading-4">

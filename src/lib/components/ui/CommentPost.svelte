@@ -26,7 +26,7 @@
 
 			<p class="flex flex-col leading-none">
 				<span class="dark:text-white">{$currentUser.public_name}</span>
-				<span class="dark:text-dark_text">@{$currentUser.username}</span>
+				<span class="dark:text-dark_text text-sm">@{$currentUser.username}</span>
 			</p>
 		</a>
 
@@ -55,21 +55,21 @@
 	{#each $commentsStore.reverse() as { profile, text }}
 		<article class="flex flex-col gap-2 w-full p-3 border-l-2 border-l-primary mb-1 border-b border-b-light_gray dark:border-b-dark_light_gray">
 			<a href="/space/u/{profile.username}" class="relative w-max flex gap-2 items-center pb-0">
-				<img class="w-10 h-10 rounded-full" src={profile.photo_url} alt={profile.public_name} />
+				<img class="w-9 h-9 sm:w-10 sm:h-10 rounded-full" src={profile.photo_url} alt={profile.public_name} />
 
 				<p class="flex flex-col leading-none">
 					<span class="dark:text-white">{profile.public_name}</span>
-					<span class="text-dark_text">@{profile.username}</span>
+					<span class="text-dark_text text-sm">@{profile.username}</span>
 				</p>
 
 				{#if $currentUser.username === profile.username}
-					<span class="flex self-start items-center gap-1 relative top-0.5">
+					<span class="flex self-start items-center gap-1 relative -top-0.5 sm:top-0">
 						<b class="text-dark_text text-sm">You</b>
 					</span>
 				{/if}
 			</a>
 
-			<p class="px-1 text-black dark:text-white">
+			<p class="px-1 sm:text-base text-sm text-black dark:text-white">
 				{text}
 			</p>
 		</article>

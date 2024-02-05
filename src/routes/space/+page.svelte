@@ -97,10 +97,7 @@
 
 	<meta name="title" content="Galaxy Space" />
 	<meta name="description" content="Welcome to Galaxy Space the programmer universe!" />
-	<meta
-		name="keywords"
-		content="programming, social, network, spaces, universal, erickgiber, chat, group, post, posts, posting"
-	/>
+	<meta name="keywords" content="programming, social, network, spaces, universal, erickgiber, chat, group, post, posts, posting" />
 	<meta name="robots" content="index, follow" />
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="language" content="English" />
@@ -119,12 +116,10 @@
 			use:enhance={handleSubmitPost}
 			action="?/new_post"
 			method="post"
-			class="bg-white dark:bg-dark_white dark:text-dark_text rounded-lg shadow-sm"
+			class="bg-white dark:bg-dark_white dark:text-dark_text sm:rounded-lg shadow-sm"
 		>
 			<label for="text">
-				<p
-					class="px-3 py-1.5 border-b-2 border-bg dark:border-dark_light_gray dark:text-dark_text flex items-center gap-1.5 text-gray-700"
-				>
+				<p class="px-3 py-1.5 border-b-2 border-bg dark:border-dark_light_gray dark:text-dark_text flex items-center gap-1.5 text-gray-700">
 					<Icon icon="ant-design:edit-outlined" />
 					New post
 				</p>
@@ -194,10 +189,7 @@
 					<img class="w-auto mx-auto h-80" src={imgExists.src} alt="xd" />
 				</div>
 
-				<button
-					on:click={handleCleanImage}
-					class="absolute top-2 right-2 p-0.5 rounded-md bg-red-500 shadow-xl"
-				>
+				<button on:click={handleCleanImage} class="absolute top-2 right-2 p-0.5 rounded-md bg-red-500 shadow-xl">
 					<Icon icon="solar:trash-bin-2-bold" width="20" height="20" color="white" />
 				</button>
 			</div>
@@ -212,10 +204,7 @@
 		class="w-[250px] hidden md:flex md:flex-col bg-white dark:bg-dark_white dark:text-dark_text rounded-lg shadow-sm h-full bg-no-repeat"
 	>
 		<div class="w-[250px] h-max flex flex-col items-center px-2 pt-7 pb-3">
-			<a
-				href="/space/u/{$currentUser.username}"
-				class="rounded-full transition-all hover:duration-75 hover:scale-95 hover:shadow-xl"
-			>
+			<a href="/space/u/{$currentUser.username}" class="rounded-full transition-all hover:duration-75 hover:scale-95 hover:shadow-xl">
 				<img
 					class="w-28 h-28 rounded-full object-cover bg-light_gray shadow-md border-2 border-white"
 					src={$currentUser.photo_url}
@@ -224,21 +213,13 @@
 			</a>
 
 			<article class="leading-5 mt-1 flex flex-col items-center text-center">
-				<p
-					class="text-base flex items-center text-center gap-1 text-dark dark:text-dark_text font-semibold"
-				>
+				<p class="text-base flex items-center text-center gap-1 text-dark dark:text-dark_text font-semibold">
 					{$currentUser.public_name}
 					{#if $currentUser.is_star}
-						<Icon
-							class="grid place-content-center text-xl"
-							icon="material-symbols:verified-rounded"
-							color="#5d23ce"
-						/>
+						<Icon class="grid place-content-center text-xl" icon="material-symbols:verified-rounded" color="#5d23ce" />
 					{/if}
 				</p>
-				<span class="text-sm text font-semibold text-gray-500 dark:text-dark"
-					>@{$currentUser.username}</span
-				>
+				<span class="text-sm text font-semibold text-gray-500 dark:text-dark">@{$currentUser.username}</span>
 			</article>
 			<article class="mt-2 flex items-center">
 				{#if $currentUser.is_star}

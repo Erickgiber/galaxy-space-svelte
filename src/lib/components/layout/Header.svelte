@@ -45,7 +45,7 @@
 
 {#if $currentUser}
 	<header
-		class="relative w-full h-14 px-1 sm:px-3 mb-3 flex items-center justify-evenly md:justify-between bg-white dark:bg-dark_white rounded-xl shadow-sm"
+		class="relative w-full h-14 px-1 sm:px-3 mb-3 flex items-center justify-evenly md:justify-between bg-white dark:bg-dark_white sm:rounded-xl shadow-sm"
 	>
 		<!-- ? Searcher -->
 		<label

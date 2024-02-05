@@ -72,7 +72,7 @@
 
 <section class="my-2 flex flex-col gap-3">
 	{#if post.text || post.image_url}
-		<article class="relative flex flex-col gap-2 pb-10 bg-white dark:bg-dark_white py-2 rounded-lg shadow-sm">
+		<article class="relative flex flex-col gap-2 pb-10 bg-white dark:bg-dark_white py-2 sm:rounded-lg shadow-sm">
 			<a class="flex ml-2 max-w-max rounded-md gap-1.5 pl-0.5 py-1.5 transition-all" href="/space/u/{post.user?.username}">
 				<img class="w-10 h-10 rounded-full object-cover" src={post.user.photo_url} alt={post.username} />
 				<div class="flex flex-col leading-4">
@@ -107,7 +107,7 @@
 				</button>
 			</div>
 
-			<div class="flex gap-3 items-center px-3 py-1 border-b dark:border-dark_light_gray border-light_gray">
+			<div class="flex gap-3 items-center px-3 py-1 dark:border-dark_light_gray border-light_gray">
 				{#if post.isLiked}
 					<button
 						disabled={btnLikeDisable}
