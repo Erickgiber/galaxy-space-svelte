@@ -10,18 +10,14 @@
 	export let classID: string
 
 	const valueLink = `${$page.url.host}/space/posts/${post.id}?u=${post.user.id}`
-	const twitterLink =
-		`https://twitter.com/intent/tweet?text=Hey! this post is so cool! ${valueLink}`.replaceAll(
-			' ',
-			'%20'
-		)
+	const twitterLink = `https://twitter.com/intent/tweet?text=Hey! this post is so cool! ${valueLink}`.replaceAll(' ', '%20')
 </script>
 
 {#if enable}
 	<!-- CONTAINER MODAL-->
 	<div
 		transition:fade={{ duration: 100 }}
-		class="absolute sm:w-96 w-56 -left-1 bottom-28 sm:left-20 sm:bottom-12 hidden modalShare-{classID}"
+		class="absolute sm:w-96 w-56 -left-1 bottom-28 sm:left-20 sm:bottom-12 hidden modalShare-{classID} z-[100]"
 	>
 		<!--MODAL ITEM-->
 		<div class="bg-gray-100 dark:bg-dark_bg dark:text-white mx-4 p-4 pt-0 pb-2 rounded-xl w-full">
@@ -100,16 +96,8 @@
 
 				<p class="text-sm">Or copy link</p>
 				<!--BOX LINK-->
-				<div
-					class="border-2 border-gray-200 dark:border-dark_light_gray rounded-lg flex justify-between items-center mt-4 py-2"
-				>
-					<svg
-						xmlns="http://www.w3.org/2000/svg"
-						width="24"
-						height="24"
-						viewBox="0 0 24 24"
-						class="fill-gray-500 ml-2"
-					>
+				<div class="border-2 border-gray-200 dark:border-dark_light_gray rounded-lg flex justify-between items-center mt-4 py-2">
+					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" class="fill-gray-500 ml-2">
 						<path
 							d="M8.465 11.293c1.133-1.133 3.109-1.133 4.242 0l.707.707 1.414-1.414-.707-.707c-.943-.944-2.199-1.465-3.535-1.465s-2.592.521-3.535 1.465L4.929 12a5.008 5.008 0 0 0 0 7.071 4.983 4.983 0 0 0 3.535 1.462A4.982 4.982 0 0 0 12 19.071l.707-.707-1.414-1.414-.707.707a3.007 3.007 0 0 1-4.243 0 3.005 3.005 0 0 1 0-4.243l2.122-2.121z"
 						/>
@@ -118,12 +106,7 @@
 						/>
 					</svg>
 
-					<input
-						class="w-full text-sm outline-none bg-transparent pr-7 text-ellipsis"
-						type="text"
-						placeholder="link"
-						value={valueLink}
-					/>
+					<input class="w-full text-sm outline-none bg-transparent pr-7 text-ellipsis" type="text" placeholder="link" value={valueLink} />
 
 					<button
 						on:click={async () => {
