@@ -79,6 +79,6 @@
 	{/each}
 
 	{#if $commentsStore.length === 0}
-		<span class="p-3">Be the first to comment! 🚀</span>
+		<span class="p-3 dark:text-white">Be the first to comment! 🚀</span>
 	{/if}
 </div>
