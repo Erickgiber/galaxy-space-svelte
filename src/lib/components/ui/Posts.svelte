@@ -2,6 +2,7 @@
 	import { currentUser } from '$lib/store/currentUser'
 	import { LikesRepository } from '$lib/supabase/likes/LikesRepository'
 	import type { IPost } from '$lib/types/post.types'
+	import { commentsShower } from '$lib/utils/commentsShower'
 	import { likesShower } from '$lib/utils/likesShower'
 	import Icon from '@iconify/svelte'
 	import type { SupabaseClient } from '@supabase/supabase-js'
@@ -69,6 +70,7 @@
 						modal.style.display = 'flex'
 					}
 					if (btn) {
+						console.warn('Encontrado')
 						btn.classList.add('bg-primary')
 						btn.classList.add('text-white')
 					}
@@ -126,6 +128,13 @@
 								<TooltipLikes likes={post.likes} />
 							</div>
 						</button>
+
+						<button
+							on:click={() => handleToggleComment(post.post_id)}
+							class="relative hover:text-black group star-count-post-{post.id} text-sm text-dark font-semibold"
+						>
+							{commentsShower(post.totalComments)}
+						</button>
 					</div>
 
 					<div class="flex items-center gap-3 px-3">
@@ -171,7 +180,7 @@
 						<ModalShare bind:enable={isActiveModalShare} {post} classID={index.toString()} />
 
 						<button
-							class="btn-comment-post-{index} bg-light_gray dark:bg-dark_light_gray dark:text-white pr-2 pl-2.5 pb-0.5 h-10 grid place-content-center outline-none transition-all duration-50 rounded-md text-dark
+							class="btn-comment-post-{post.post_id} bg-light_gray dark:bg-dark_light_gray dark:text-white pr-2 pl-2.5 pb-0.5 h-10 grid place-content-center outline-none transition-all duration-50 rounded-md text-dark
 							active:scale-95 active:duration-0 active:bg-primary active:text-white"
 							on:click={() => handleToggleComment(post.post_id)}
 						>
