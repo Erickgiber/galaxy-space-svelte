@@ -19,7 +19,7 @@
 	}
 </script>
 
-<div class="w-full {isActive ? 'flex' : 'hidden'} flex-col h-60 overflow-auto mt-2 comment-box-post-{post_id}">
+<div class="w-full {isActive ? 'flex' : 'hidden'} flex-col h-60 overflow-auto mt-2 comment-box-post-{post_id} comment-box">
 	<article class="flex flex-col gap-2 w-full p-3 sticky top-0 bg-white dark:bg-dark_white z-10">
 		<a href="/space/u/{$currentUser.username}" class="w-max flex gap-2 items-center pb-0">
 			<img class="w-10 h-10 rounded-full" src={$currentUser.photo_url} alt={$currentUser.public_name} />

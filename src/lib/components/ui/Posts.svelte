@@ -59,18 +59,36 @@
 
 	function handleToggleComment(post_id: number | string) {
 		isComment = !isComment
+
+		const btns = document.querySelectorAll<HTMLButtonElement>(`.btn-comment`)
+		const boxs = document.querySelectorAll<HTMLDivElement>(`.comment-box`)
+
+		btns.forEach((btn) => {
+			if (btn) {
+				btn.classList.remove('bg-primary')
+				btn.classList.remove('dark:bg-primary')
+				btn.classList.remove('text-white')
+			}
+		})
+
+		boxs.forEach((box) => {
+			if (box) {
+				box.style.display = 'flex'
+			}
+		})
+
 		if (isComment) {
 			if (typeof window !== 'undefined') {
 				setTimeout(() => {
-					const modal = document.querySelector(`.comment-box-post-${post_id}`)
-					const btn = document.querySelector(`.btn-comment-post-${post_id}`)
+					const box = document.querySelector<HTMLDivElement>(`.comment-box-post-${post_id}`)
+					const btn = document.querySelector<HTMLButtonElement>(`.btn-comment-post-${post_id}`)
 
-					if (modal) {
-						// @ts-ignore
-						modal.style.display = 'flex'
+					if (box) {
+						box.style.display = 'flex'
 					}
 					if (btn) {
 						btn.classList.add('bg-primary')
+						btn.classList.add('dark:bg-primary')
 						btn.classList.add('text-white')
 					}
 				}, 10)
@@ -80,8 +98,15 @@
 
 			if (btn) {
 				btn.classList.remove('bg-primary')
+				btn.classList.remove('dark:bg-primary')
 				btn.classList.remove('text-white')
 			}
+
+			boxs.forEach((box) => {
+				if (box) {
+					box.style.display = 'flex'
+				}
+			})
 		}
 	}
 </script>
@@ -160,7 +185,7 @@
 						{/if}
 
 						<button
-							class="btn-comment-post-{post.post_id} w-10 h-10 bg-light_gray dark:bg-dark_light_gray dark:text-white pr-2 pl-2.5 pb-0.5 grid place-content-center outline-none transition-all duration-50 rounded-md text-dark
+							class="btn-comment btn-comment-post-{post.post_id} w-10 h-10 bg-light_gray dark:bg-dark_light_gray dark:text-white pr-2 pl-2.5 pb-0.5 grid place-content-center outline-none transition-all duration-50 rounded-md text-dark
 							active:scale-95 active:duration-0 active:bg-primary active:text-white"
 							on:click={() => handleToggleComment(post.post_id)}
 						>
