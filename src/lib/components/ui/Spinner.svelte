@@ -30,6 +30,6 @@
 
 <style lang="scss">
 	div {
-		z-index: 99999 m !important;
+		z-index: 99999 !important;
 	}
 </style>
