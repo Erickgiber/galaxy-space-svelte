@@ -132,6 +132,14 @@
 
 				<button
 					class="bg-light_gray dark:bg-dark_light_gray dark:text-white pr-2 pl-2.5 pb-0.5 h-10 grid place-content-center outline-none transition-all duration-50 rounded-md text-dark
+						active:scale-95 active:duration-0 active:bg-primary active:text-white {isComment ? 'bg-primary text-white' : ''}"
+					on:click={() => handleToggleComment(post.post_id)}
+				>
+					<Icon class="text-inherit" icon="fluent:comment-note-20-regular" width="24" />
+				</button>
+
+				<button
+					class="bg-light_gray dark:bg-dark_light_gray dark:text-white pr-2 pl-2.5 pb-0.5 h-10 grid place-content-center outline-none transition-all duration-50 rounded-md text-dark
 							active:scale-95 active:duration-0 active:bg-primary active:text-white {isActiveModalShare ? 'bg-primary text-white shadow-md ' : ''} "
 					on:click={() => {
 						isActiveModalShare = !isActiveModalShare
@@ -150,14 +158,6 @@
 				</button>
 
 				<ModalShare bind:enable={isActiveModalShare} {post} classID={post.id.toString()} />
-
-				<button
-					class="bg-light_gray dark:bg-dark_light_gray dark:text-white pr-2 pl-2.5 pb-0.5 h-10 grid place-content-center outline-none transition-all duration-50 rounded-md text-dark
-							active:scale-95 active:duration-0 active:bg-primary active:text-white {isComment ? 'bg-primary text-white' : ''}"
-					on:click={() => handleToggleComment(post.post_id)}
-				>
-					<Icon class="text-inherit" icon="fluent:comment-note-20-regular" width="24" />
-				</button>
 
 				<!-- Date Time -->
 				<div class="absolute bottom-2 left-3 text-sm text-dark">
