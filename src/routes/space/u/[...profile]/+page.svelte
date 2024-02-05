@@ -282,7 +282,7 @@
 		<article class="w-full">
 			<div class="flex items-center justify-center gap-2 mb-2">
 				<button
-					on:click={HandleShowFollowers}
+					on:click={data?.followers?.length !== 0 ? HandleShowFollowers : null}
 					class="active:scale-95 active:transition-none transition-all w-16 hover:bg-white hover:dark:bg-dark_white dark:text-white h-max flex flex-col rounded-md p-2.5 outline-primary"
 				>
 					<!-- Followers -->
@@ -293,7 +293,7 @@
 				</button>
 
 				<button
-					on:click={HandleShowFollowings}
+					on:click={data?.followings?.length !== 0 ? HandleShowFollowings : null}
 					class="active:scale-95 active:transition-none transition-all w-16 hover:bg-white hover:dark:bg-dark_white dark:text-white h-max flex flex-col rounded-md p-2.5 outline-primary"
 				>
 					<!-- Following -->
