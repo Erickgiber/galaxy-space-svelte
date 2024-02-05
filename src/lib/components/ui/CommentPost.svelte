@@ -20,19 +20,19 @@
 </script>
 
 <div class="w-full {isActive ? 'flex' : 'hidden'} flex-col h-60 overflow-auto mt-2 comment-box-post-{post_id}">
-	<article class="flex flex-col gap-2 w-full p-3 sticky top-0">
+	<article class="flex flex-col gap-2 w-full p-3 sticky top-0 bg-white dark:bg-dark_white z-10">
 		<a href="/space/u/{$currentUser.username}" class="w-max flex gap-2 items-center pb-0">
 			<img class="w-10 h-10 rounded-full" src={$currentUser.photo_url} alt={$currentUser.public_name} />
 
 			<p class="flex flex-col leading-none">
-				<span>{$currentUser.public_name}</span>
-				<span>@{$currentUser.username}</span>
+				<span class="dark:text-white">{$currentUser.public_name}</span>
+				<span class="dark:text-dark_text">@{$currentUser.username}</span>
 			</p>
 		</a>
 
 		<label class="flex gap-1 rounded-md dark:text-white" for="comment-post-{post_id}">
 			<textarea
-				class="w-full bg-light_gray p-2 pb-1 text-sm resize-none h-10 rounded-lg outline-none border border-transparent
+				class="w-full bg-light_gray dark:bg-dark_light_gray dark:text-white p-2 pb-1 text-sm resize-none h-10 rounded-lg outline-none border border-transparent
             focus:border-primary focus:text-base transition-all"
 				name="comment-post-{post_id}"
 				id="comment-post-{post_id}"
@@ -53,17 +53,23 @@
 	<h1 class="dark:text-white py-2 px-3 border-b dark:border-dark_light_gray font-medium">Comments</h1>
 
 	{#each $commentsStore.reverse() as { profile, text }}
-		<article class="flex flex-col gap-2 w-full p-3 border-l-2 border-primary">
-			<a href="/space/u/{profile.username}" class="w-max flex gap-2 items-center pb-0">
+		<article class="flex flex-col gap-2 w-full p-3 border-l-2 border-primary mb-1">
+			<a href="/space/u/{profile.username}" class="relative w-max flex gap-2 items-center pb-0">
 				<img class="w-10 h-10 rounded-full" src={profile.photo_url} alt={profile.public_name} />
 
 				<p class="flex flex-col leading-none">
-					<span>{profile.public_name}</span>
-					<span>@{profile.username}</span>
+					<span class="dark:text-white">{profile.public_name}</span>
+					<span class="text-dark_text">@{profile.username}</span>
 				</p>
+
+				{#if $currentUser.username === profile.username}
+					<span class="flex self-start items-center gap-1 relative top-0.5">
+						<b class="text-dark_text text-sm">You</b>
+					</span>
+				{/if}
 			</a>
 
-			<p class="px-1">
+			<p class="px-1 text-black dark:text-white">
 				{text}
 			</p>
 		</article>
