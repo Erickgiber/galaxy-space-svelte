@@ -23,7 +23,13 @@
 {#if isNavigating || $loaderStore}
 	<div
 		transition:fade
-		class="w-full h-0.5 bg-primary fixed top-0 left-0 {animation ? 'w-2/6' : ''}
+		class="w-full h-0.5 bg-primary dark:bg-primary fixed top-0 left-0 {animation ? 'w-2/6' : ''}
         transition-all duration-200 rounded-2xl"
 	/>
 {/if}
+
+<style lang="scss">
+	div {
+		z-index: 99999 m !important;
+	}
+</style>

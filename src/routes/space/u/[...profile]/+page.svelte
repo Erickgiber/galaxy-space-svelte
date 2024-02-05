@@ -176,7 +176,7 @@
 {#if $profile}
 	<div
 		id="cover_photo"
-		class="w-full relative flex items-end justify-center h-full max-h-56 bg-white shadow-sm rounded-xl"
+		class="w-full relative flex items-end justify-center h-full max-h-56 bg-white shadow-sm sm:rounded-xl"
 		style={$profile.cover_photo_url
 			? `background-image: url(${$profile.cover_photo_url}); background-size: cover; background-position: center;`
 			: null}
@@ -304,7 +304,7 @@
 				</button>
 			</div>
 
-			<div class="flex md:flex-nowrap gap-3 mb-1 overflow-x-auto pb-1">
+			<div class="flex px-2 sm:px-0 md:flex-nowrap gap-3 mb-1 overflow-x-auto pb-1">
 				<a
 					href="/space/u/{$profile.username}"
 					class="bg-white dark:bg-dark_white dark:text-white h-max w-full sm:w-max flex flex-col rounded-md shadow-sm p-1.5 outline-primary"
@@ -369,7 +369,7 @@
 				use:enhance={handleSubmitChangeDescription}
 				action="?/changeDescription"
 				method="post"
-				class="bg-white dark:bg-dark_white dark:text-white flex flex-col rounded-md shadow-sm p-2.5 sm:h-auto h-52"
+				class="bg-white dark:bg-dark_white dark:text-white flex flex-col sm:rounded-md shadow-sm p-2.5 sm:h-auto h-52"
 			>
 				<h1 class="font-semibold px-2 border-b dark:border-dark_light_gray border-light_gray">Description</h1>
 
@@ -421,7 +421,7 @@
 	{/if}
 
 	{#if currentSection === 'videos'}
-		<div class="w-full h-max mb-5 rounded-xl mt-3">
+		<div class="w-full px-2 sm:p-0 h-max mb-5 rounded-xl mt-3 dark:text-white">
 			<h1>No videos found</h1>
 		</div>
 	{/if}

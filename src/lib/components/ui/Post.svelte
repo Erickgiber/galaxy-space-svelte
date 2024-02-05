@@ -166,7 +166,7 @@
 
 			<!-- ? Comments -->
 			{#if isComment}
-				<CommentPost isActive={isComment} comments={post.comments} {supabase} post_id={post.post_id} />
+				<CommentPost fullHeight={true} isActive={isComment} comments={post.comments} {supabase} post_id={post.post_id} />
 			{/if}
 		</article>
 	{/if}

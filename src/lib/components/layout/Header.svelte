@@ -45,7 +45,7 @@
 
 {#if $currentUser}
 	<header
-		class="relative w-full h-14 px-1 sm:px-3 mb-3 flex items-center justify-evenly md:justify-between bg-white dark:bg-dark_white sm:rounded-xl shadow-sm"
+		class="relative w-full h-14 px-1 sm:px-3 sm:mb-3 flex items-center justify-evenly md:justify-between bg-white dark:bg-dark_white sm:rounded-xl shadow-sm"
 	>
 		<!-- ? Searcher -->
 		<label
@@ -224,7 +224,7 @@
 		{#if $isBars}
 			<div
 				in:slide={{ axis: 'x', duration: 250 }}
-				class="fixed p-3 scroll-smooth scroll-modern top-0 right-0 bg-white dark:text-white dark:bg-dark_white shadow-2xl z-10 w-screen h-screen"
+				class="fixed p-3 scroll-smooth scroll-modern top-0 right-0 bg-white dark:text-white dark:bg-dark_white shadow-2xl z-50 w-screen h-screen"
 			>
 				<button type="button" in:slide={{ duration: 1300 }} on:click={() => isBars.set(false)} class="absolute top-3 right-3 text-2xl p-1">
 					<Icon icon="mingcute:close-fill" />
