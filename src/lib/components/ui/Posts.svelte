@@ -70,7 +70,6 @@
 						modal.style.display = 'flex'
 					}
 					if (btn) {
-						console.warn('Encontrado')
 						btn.classList.add('bg-primary')
 						btn.classList.add('text-white')
 					}
