@@ -15,6 +15,8 @@
 
 	$: if (isLoadingApp && typeof window !== 'undefined') {
 		window.document.body.style.cssText = `overflow: hidden !important;`
+	} else if (!isLoadingApp && typeof window !== 'undefined') {
+		window.document.body.style.cssText = `overflow: auto !important;`
 	}
 
 	onMount(() => {
