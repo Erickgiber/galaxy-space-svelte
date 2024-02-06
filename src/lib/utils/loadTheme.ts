@@ -5,8 +5,10 @@ export const loadTheme = () => {
 	if (storage === 'dark') {
 		document.documentElement.classList.add('dark')
 		document.documentElement.style.background = '#090909'
+		;(document.querySelector('#theme') as HTMLMetaElement).content = '#151515'
 	} else {
 		document.documentElement.classList.remove('dark')
 		document.documentElement.style.background = '#f9f6ff'
+		;(document.querySelector('#theme') as HTMLMetaElement).content = '#ffffff'
 	}
 }
