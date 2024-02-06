@@ -75,10 +75,6 @@
 			btnPostDisabled.set(true)
 		}
 	}
-
-	const loadNewPosts = (postsResponse: any[]) => {
-		//
-	}
 </script>
 
 <svelte:head>
@@ -108,7 +104,9 @@
 			class="bg-white dark:bg-dark_white dark:text-dark_text sm:rounded-lg shadow-sm"
 		>
 			<label for="text">
-				<p class="px-3 py-1.5 border-b-2 border-bg dark:border-dark_light_gray dark:text-dark_text flex items-center gap-1.5 text-gray-700">
+				<p
+					class="px-3 py-1.5 border-b-2 dark:border-b border-bg dark:border-dark_light_gray dark:text-dark_text flex items-center gap-1.5 text-gray-700"
+				>
 					<Icon icon="ant-design:edit-outlined" />
 					New post
 				</p>
@@ -127,10 +125,9 @@
 
 			<textarea
 				class="
-			p-2 w-full h-16 bg-white dark:bg-dark_white border-b-2 dark:border-b-1 dark:border-dark_light_gray
+			p-2 w-full h-24 sm::h-16 bg-white dark:bg-dark_white border-b-2 dark:border-b dark:border-dark_light_gray
 			border-transparent outline-none transition-all duration-300 resize-none
-			focus:h-24 focus:border-b-bg
-			"
+			focus:h-24 focus:border-b-bg"
 				name="text"
 				id="text"
 				placeholder="{username}, What's on your mind?"
