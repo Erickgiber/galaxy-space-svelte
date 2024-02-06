@@ -16,9 +16,9 @@
 
 {#if isEnable}
 	<!-- CONTAINER MODAL-->
-	<div transition:fade={{ duration: 100 }} class="absolute flex sm:w-96 w-56 left-0 bottom-28 sm:bottom-12 z-[100]">
+	<article transition:fade={{ duration: 100 }} class="absolute flex sm:w-96 -left-[134px] w-[96vw] sm:left-0 bottom-12 z-[100]">
 		<!--MODAL ITEM-->
-		<div class="bg-gray-100 dark:bg-dark_white dark:shadow-2xl dark:border dark:border-dark_bg dark:text-white mx-4 p-4 pt-0 pb-2 rounded-xl w-full">
+		<div class="bg-gray-100 dark:bg-dark_white dark:shadow-2xl dark:border dark:border-dark_bg dark:text-white p-4 pt-0 pb-2 rounded-xl w-full">
 			<!--MODAL HEADER-->
 			<div class="flex justify-between items center border-b border-gray-200 py-3">
 				<div class="flex items-center justify-center">
@@ -119,5 +119,5 @@
 				</div>
 			</div>
 		</div>
-	</div>
+	</article>
 {/if}
