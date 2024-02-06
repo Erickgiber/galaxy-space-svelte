@@ -161,7 +161,7 @@
 										{notification.title}
 									</h1>
 								{:else}
-									<h1 class="text-base text-dark dark:text-dark_text font-bold">
+									<h1 class="text-base text-dark dark:text-white font-bold">
 										{notification.title}
 									</h1>
 								{/if}
@@ -170,7 +170,7 @@
 										>{@html notification.description}</a
 									>
 								{:else}
-									<p class="text-sm py-2">{@html notification.description}</p>
+									<p class="text-sm py-2 dark:text-gray-400">{@html notification.description}</p>
 								{/if}
 							</div>
 						{/each}
