@@ -62,7 +62,7 @@
 		if (isComment.includes(index)) {
 			isComment = isComment.filter((id) => id !== index)
 		} else {
-			isComment = [...isComment, index]
+			isComment = [index]
 		}
 	}
 
@@ -70,7 +70,7 @@
 		if (isShare.includes(index)) {
 			isShare = isShare.filter((id) => id !== index)
 		} else {
-			isShare = [...isShare, index]
+			isShare = [index]
 		}
 	}
 </script>
