@@ -3,6 +3,7 @@
 	import LOGO from '$lib/assets/logos/logo.png'
 	import ButtonLoader from '$lib/components/ui/ButtonLoader.svelte'
 	import { currentUser } from '$lib/store/currentUser'
+	import { loadTheme } from '$lib/utils/loadTheme'
 	import { resolver } from '$lib/utils/resolver'
 	import Icon from '@iconify/svelte'
 	import { onMount } from 'svelte'
@@ -21,11 +22,22 @@
 		return resolver(btnDisabled, {})
 	}
 
+	const removeDarkMode = () => {
+		const storage = localStorage.getItem('theme')
+		if (storage === 'dark') {
+			localStorage.removeItem('theme')
+		}
+
+		loadTheme()
+	}
+
 	onMount(() => {
 		if ($currentUser) {
 			// @ts-ignore
 			currentUser.set(undefined)
 		}
+
+		removeDarkMode()
 	})
 </script>
 
@@ -33,9 +45,7 @@
 	<title>Sign up | Galaxy Space</title>
 </svelte:head>
 
-<div
-	class="w-full h-screen sm:w-[500px] py-10 sm:py-7 px-5 sm:px-10 sm:h-max sm:rounded-xl shadow-2xl max-w-3xl bg-white"
->
+<div class="w-full h-screen sm:w-[500px] py-10 sm:py-7 px-5 sm:px-10 sm:h-max sm:rounded-xl shadow-2xl max-w-3xl bg-white">
 	<article class="flex items-center gap-2">
 		<img class="w-14 h-14" src={LOGO} alt="Logo" />
 		<div>
@@ -50,9 +60,7 @@
 		<!-- ? Name -->
 		<label for="name" class="flex flex-col">
 			<span>Public name</span>
-			<div
-				class="flex items-center bg-light_gray px-2 rounded-lg border border-transparent focus-within:border-primary"
-			>
+			<div class="flex items-center bg-light_gray px-2 rounded-lg border border-transparent focus-within:border-primary">
 				<Icon icon="icon-park-outline:edit-name" />
 				<input
 					class="w-60 px-2 py-2 bg-transparent outline-none"
@@ -67,9 +75,7 @@
 		<!-- ? Username -->
 		<label for="username" class="flex flex-col">
 			<span>Username</span>
-			<div
-				class="flex items-center bg-light_gray px-2 rounded-lg border border-transparent focus-within:border-primary"
-			>
+			<div class="flex items-center bg-light_gray px-2 rounded-lg border border-transparent focus-within:border-primary">
 				<Icon icon="lucide:at-sign" />
 				<input
 					class="w-60 px-2 py-2 bg-transparent outline-none"
@@ -85,44 +91,25 @@
 		<!-- ? Email -->
 		<label for="email" class="flex flex-col">
 			<span>Email</span>
-			<div
-				class="flex items-center bg-light_gray px-2 rounded-lg border border-transparent focus-within:border-primary"
-			>
+			<div class="flex items-center bg-light_gray px-2 rounded-lg border border-transparent focus-within:border-primary">
 				<Icon icon="clarity:email-line" />
-				<input
-					class="w-60 px-2 py-2 bg-transparent outline-none"
-					id="email"
-					name="email"
-					type="text"
-					placeholder="example@example.com"
-				/>
+				<input class="w-60 px-2 py-2 bg-transparent outline-none" id="email" name="email" type="text" placeholder="example@example.com" />
 			</div>
 		</label>
 
 		<!-- ? Password -->
 		<label for="password" class="flex flex-col">
 			<span>Password</span>
-			<div
-				class="flex items-center bg-light_gray px-2 rounded-lg border border-transparent focus-within:border-primary"
-			>
+			<div class="flex items-center bg-light_gray px-2 rounded-lg border border-transparent focus-within:border-primary">
 				<Icon icon="carbon:password" />
-				<input
-					class="w-60 px-2 py-2 bg-transparent outline-none"
-					id="password"
-					name="password"
-					type="password"
-					placeholder="********"
-					required
-				/>
+				<input class="w-60 px-2 py-2 bg-transparent outline-none" id="password" name="password" type="password" placeholder="********" required />
 			</div>
 		</label>
 
 		<!-- ? Password -->
 		<label for="confirm_password" class="flex flex-col">
 			<span>Confirm Password</span>
-			<div
-				class="flex items-center bg-light_gray px-2 rounded-lg border border-transparent focus-within:border-primary"
-			>
+			<div class="flex items-center bg-light_gray px-2 rounded-lg border border-transparent focus-within:border-primary">
 				<Icon icon="carbon:password" />
 				<input
 					class="w-60 px-2 py-2 bg-transparent outline-none"
@@ -145,9 +132,7 @@
 				<span
 					class="absolute w-64 h-0 transition-all duration-300 origin-center rotate-45 -translate-x-20 bg-indigo-600 top-1/2 group-hover:h-64 group-hover:-translate-y-32 ease"
 				/>
-				<span class="relative text-indigo-600 transition duration-300 group-hover:text-white ease"
-					>Sign up</span
-				>
+				<span class="relative text-indigo-600 transition duration-300 group-hover:text-white ease">Sign up</span>
 			</button>
 		{:else}
 			<ButtonLoader />
