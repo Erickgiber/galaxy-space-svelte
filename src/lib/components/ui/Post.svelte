@@ -47,7 +47,7 @@
 		if (isComment.includes(index)) {
 			isComment = isComment.filter((id) => id !== index)
 		} else {
-			isComment = [index]
+			isComment = [...isComment, index]
 		}
 	}
 
@@ -122,7 +122,7 @@
 						disabled={btnLikeDisable}
 						on:click={() => handleDislike(post)}
 						type="button"
-						class="outline-none flex items-center gap-1 dark:bg-dark_bg dark:text-white bg-light_gray hover:bg-light_gray transition-all duration-100 pr-4 p-1.5 rounded-md"
+						class="active:scale-95 active:duration-0 outline-none flex items-center gap-1 dark:bg-dark_bg dark:text-white bg-light_gray hover:bg-light_gray transition-all duration-100 pr-4 p-1.5 rounded-md"
 					>
 						<Icon icon="solar:star-bold-duotone" width="24" color="var(--primary)" />
 						<span class="translate-y-0.5 text-lg font-semibold">{post.totalLikes}</span>
@@ -132,7 +132,7 @@
 						disabled={btnLikeDisable}
 						on:click={() => handleLike(post)}
 						type="button"
-						class="outline-none bg-light_gray dark:bg-dark_light_gray dark:text-white flex items-center gap-1 active:bg-primary active:text-white transition-all duration-50 pr-4 p-1.5 rounded-md"
+						class="active:scale-95 active:duration-0 outline-none bg-light_gray dark:bg-dark_light_gray dark:text-white flex items-center gap-1 active:bg-primary active:text-white transition-all duration-50 pr-4 p-1.5 rounded-md"
 					>
 						<Icon icon="solar:star-line-duotone" width="23" />
 						<span class="translate-y-0.5 text-lg">{post.totalLikes}</span>
@@ -146,6 +146,14 @@
 				>
 					<Icon class="text-inherit" icon="fluent:comment-note-20-regular" width="24" />
 				</button>
+
+				<a
+					class="w-10 h-10 bg-primary dark:bg-primary px-2 py-0.5 grid place-content-center outline-none transition-all duration-50 rounded-md text-white dark:text-white
+						active:scale-95 active:duration-0"
+					href="/space"
+				>
+					<Icon icon="carbon:scale" width={25} />
+				</a>
 
 				<div class="relative">
 					<button
