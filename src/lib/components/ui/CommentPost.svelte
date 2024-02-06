@@ -80,7 +80,13 @@
 		{/each}
 
 		{#if $commentsStore.length === 0}
-			<span class="p-3 dark:text-white">Be the first to comment! 🚀</span>
+			<label
+				for="comment-post-{post_id}"
+				class="flex items-center gap-1 py-1.5 px-3 ml-2 mt-2 dark:text-white border-l border-primary w-max rounded-md bg-primary bg-opacity-20 font-semibold cursor-pointer active:scale-95 active:transition-none transition-all select-none"
+			>
+				<Icon icon="lucide:info" class="text-primary" />
+				<span>Be the first to comment! 🚀</span>
+			</label>
 		{/if}
 	</div>
 {/if}

@@ -119,38 +119,37 @@
 						disabled={btnLikeDisable}
 						on:click={() => handleDislike(post)}
 						type="button"
-						class="active:scale-95 active:duration-0 outline-none flex items-center gap-1 dark:bg-dark_bg dark:text-white bg-light_gray hover:bg-light_gray transition-all duration-100 pr-4 p-1.5 rounded-md"
+						class="active:scale-95 active:duration-0 outline-none flex items-center gap-1 dark:bg-dark_bg dark:text-white bg-light_gray hover:bg-light_gray transition-all duration-100 p-2 pt-1.5 rounded-md"
 					>
 						<Icon icon="solar:star-bold-duotone" width="24" color="var(--primary)" />
-						<span class="translate-y-0.5 text-lg font-semibold">{post.totalLikes}</span>
 					</button>
 				{:else}
 					<button
 						disabled={btnLikeDisable}
 						on:click={() => handleLike(post)}
 						type="button"
-						class="active:scale-95 active:duration-0 outline-none bg-light_gray dark:bg-dark_light_gray dark:text-white flex items-center gap-1 active:bg-primary active:text-white transition-all duration-50 pr-4 p-1.5 rounded-md"
+						class="active:scale-95 active:duration-0 outline-none bg-light_gray dark:bg-dark_light_gray dark:text-white flex items-center gap-1 active:bg-primary active:text-white transition-all duration-50 p-2 pt-1.5 rounded-md"
 					>
 						<Icon icon="solar:star-line-duotone" width="23" />
-						<span class="translate-y-0.5 text-lg">{post.totalLikes}</span>
 					</button>
 				{/if}
 
 				<button
-					class="bg-light_gray dark:bg-dark_light_gray dark:text-white pr-2 pl-2.5 pb-0.5 h-10 grid place-content-center outline-none transition-all duration-50 rounded-md text-dark
-						active:scale-95 active:duration-0 active:bg-primary active:text-white {isComment.includes(index) ? 'bg-primary dark:bg-primary text-white' : ''}"
+					class="w-10 h-10 bg-light_gray dark:bg-dark_light_gray dark:text-white pr-2 pl-2.5 pb-0.5 grid place-content-center outline-none transition-all duration-50 rounded-md text-dark
+				active:scale-95 active:duration-0 active:bg-primary active:text-white
+				{isComment.includes(index) ? 'bg-primary dark:bg-primary text-white dark:text-white' : ''}"
 					on:click={() => handleToggleComment(index)}
 				>
 					<Icon class="text-inherit" icon="fluent:comment-note-20-regular" width="24" />
 				</button>
 
-				<a
-					class="w-10 h-10 bg-primary dark:bg-primary px-2 py-0.5 grid place-content-center outline-none transition-all duration-50 rounded-md text-white dark:text-white
-						active:scale-95 active:duration-0"
-					href="/space"
+				<button
+					on:click={() => history.back()}
+					class="w-10 h-10 bg-primary dark:bg-primary dark:text-white text-white px-2 py-0.5 grid place-content-center outline-none transition-all duration-50 rounded-md
+						active:scale-95 active:duration-0 active:bg-primary active:text-white"
 				>
 					<Icon icon="carbon:scale" width={25} />
-				</a>
+				</button>
 
 				<div class="relative">
 					<button

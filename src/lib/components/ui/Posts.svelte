@@ -132,20 +132,18 @@
 								disabled={btnLikeDisable}
 								on:click={() => handleDislike(post)}
 								type="button"
-								class="active:scale-95 active:duration-0 outline-none flex items-center gap-1 dark:bg-dark_bg dark:text-white bg-light_gray hover:bg-light_gray transition-all duration-100 pr-3 p-1.5 rounded-md"
+								class="active:scale-95 active:duration-0 outline-none flex items-center gap-1 dark:bg-dark_bg dark:text-white bg-light_gray hover:bg-light_gray transition-all duration-100 p-2 pt-1.5 rounded-md"
 							>
 								<Icon icon="solar:star-bold-duotone" width="24" color="var(--primary)" />
-								<span class="translate-y-0.5 text-lg font-semibold">{post.totalLikes}</span>
 							</button>
 						{:else}
 							<button
 								disabled={btnLikeDisable}
 								on:click={() => handleLike(post)}
 								type="button"
-								class="active:scale-95 active:duration-0 outline-none bg-light_gray dark:bg-dark_light_gray dark:text-white flex items-center gap-1 active:bg-primary active:text-white transition-all duration-50 pr-3 p-1.5 rounded-md"
+								class="active:scale-95 active:duration-0 outline-none bg-light_gray dark:bg-dark_light_gray dark:text-white flex items-center gap-1 active:bg-primary active:text-white transition-all duration-50 p-2 pt-1.5 rounded-md"
 							>
 								<Icon icon="solar:star-line-duotone" width="23" />
-								<span class="translate-y-0.5 text-lg">{post.totalLikes}</span>
 							</button>
 						{/if}
 

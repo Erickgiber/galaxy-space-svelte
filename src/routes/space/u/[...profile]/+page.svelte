@@ -325,7 +325,7 @@
 			<div class="flex px-2 sm:px-0 md:flex-nowrap gap-3 mb-1 overflow-x-auto pb-1.5">
 				<a
 					href="/space/u/{$profile.username}"
-					class="bg-white dark:bg-dark_white dark:text-white w-16 h-11 grid place-content-center rounded-md shadow-sm p-1.5 outline-primary"
+					class="bg-white dark:bg-dark_white dark:text-white w-14 h-11 grid place-content-center rounded-md shadow-sm p-1.5 outline-primary"
 					style={currentSection === ''
 						? 'background: var(--primary); color: white; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);'
 						: null}
@@ -337,7 +337,7 @@
 
 				<a
 					href="/space/u/{$profile.username}?section=words"
-					class="bg-white dark:bg-dark_white dark:text-white w-16 h-11 grid place-content-center rounded-md shadow-sm p-1.5 outline-primary"
+					class="bg-white dark:bg-dark_white dark:text-white w-14 h-11 grid place-content-center rounded-md shadow-sm p-1.5 outline-primary"
 					style={currentSection === 'words'
 						? 'background: var(--primary); color: white; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);'
 						: null}
@@ -349,7 +349,7 @@
 
 				<a
 					href="/space/u/{$profile.username}?section=images"
-					class="bg-white dark:bg-dark_white dark:text-white w-16 h-11 grid place-content-center rounded-md shadow-sm p-1.5 outline-primary"
+					class="bg-white dark:bg-dark_white dark:text-white w-14 h-11 grid place-content-center rounded-md shadow-sm p-1.5 outline-primary"
 					style={currentSection === 'images'
 						? 'background: var(--primary); color: white; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);'
 						: null}
@@ -361,7 +361,7 @@
 
 				<a
 					href="/space/u/{$profile.username}?section=videos"
-					class="bg-white dark:bg-dark_white dark:text-white w-16 h-11 grid place-content-center rounded-md shadow-sm p-1.5 outline-primary"
+					class="bg-white dark:bg-dark_white dark:text-white w-14 h-11 grid place-content-center rounded-md shadow-sm p-1.5 outline-primary"
 					style={currentSection === 'videos'
 						? 'background: var(--primary); color: white; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);'
 						: null}
