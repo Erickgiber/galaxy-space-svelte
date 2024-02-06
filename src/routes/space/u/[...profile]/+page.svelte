@@ -376,7 +376,7 @@
 				use:enhance={handleSubmitChangeDescription}
 				action="?/changeDescription"
 				method="post"
-				class="bg-white mt-5 sm:mt-0 dark:bg-dark_white dark:text-white flex flex-col sm:rounded-md shadow-sm p-2.5 sm:h-auto"
+				class="bg-white mt-1 sm:mt-0 dark:bg-dark_white dark:text-white flex flex-col sm:rounded-md shadow-sm p-2.5 sm:h-auto"
 			>
 				<h1 class="font-semibold px-1 border-b dark:border-dark_light_gray border-light_gray">Description</h1>
 
