@@ -322,63 +322,52 @@
 				</button>
 			</div>
 
-			<div class="flex px-2 sm:px-0 md:flex-nowrap gap-3 mb-1 overflow-x-auto pb-1">
+			<div class="flex px-2 sm:px-0 md:flex-nowrap gap-3 mb-1 overflow-x-auto pb-1.5">
 				<a
 					href="/space/u/{$profile.username}"
-					class="bg-white dark:bg-dark_white dark:text-white h-max w-full sm:w-max flex flex-col rounded-md shadow-sm p-1.5 outline-primary"
+					class="bg-white dark:bg-dark_white dark:text-white w-16 h-11 grid place-content-center rounded-md shadow-sm p-1.5 outline-primary"
 					style={currentSection === ''
 						? 'background: var(--primary); color: white; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);'
 						: null}
 				>
-					<h1 class="font-semibold px-2">Everything</h1>
-					<p class="px-2 w-max flex items-center gap-1 text-lg">
-						<Icon icon="material-symbols:feed-outline" class="text-xl {currentSection === '' ? 'text-white' : 'text-primary'}" />
-						{data.posts?.length}
+					<p class="flex items-center gap-1 text-xl">
+						<Icon icon="material-symbols:feed-outline" class={currentSection === '' ? 'text-white' : 'text-primary'} />
 					</p>
 				</a>
 
 				<a
 					href="/space/u/{$profile.username}?section=words"
-					class="bg-white dark:bg-dark_white dark:text-white h-max w-full sm:w-max flex flex-col rounded-md shadow-sm p-1.5 outline-primary"
+					class="bg-white dark:bg-dark_white dark:text-white w-16 h-11 grid place-content-center rounded-md shadow-sm p-1.5 outline-primary"
 					style={currentSection === 'words'
 						? 'background: var(--primary); color: white; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);'
 						: null}
 				>
-					<h1 class="font-semibold px-2">Words</h1>
-					<p class="px-2 w-max flex items-center gap-1 text-lg">
-						<Icon icon="simple-line-icons:speech" class="text-xl {currentSection === 'words' ? 'text-white' : 'text-primary'}" />
-						{data.wordsPosts?.length}
+					<p class="flex items-center gap-1 text-xl">
+						<Icon icon="simple-line-icons:speech" class={currentSection === 'words' ? 'text-white' : 'text-primary'} />
 					</p>
 				</a>
 
 				<a
 					href="/space/u/{$profile.username}?section=images"
-					class="bg-white dark:bg-dark_white dark:text-white h-max w-full sm:w-max flex flex-col rounded-md shadow-sm p-1.5 outline-primary"
+					class="bg-white dark:bg-dark_white dark:text-white w-16 h-11 grid place-content-center rounded-md shadow-sm p-1.5 outline-primary"
 					style={currentSection === 'images'
 						? 'background: var(--primary); color: white; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);'
 						: null}
 				>
-					<!-- Images -->
-					<h1 class="font-semibold px-2">Images</h1>
-					<p class="px-2 w-max flex items-center gap-1 text-lg">
-						<Icon icon="ph:image-duotone" class="text-xl {currentSection === 'images' ? 'text-white' : 'text-primary'}" />
-						{data?.images?.length}
+					<p class="flex items-center gap-1 text-xl">
+						<Icon icon="ph:image-duotone" class={currentSection === 'images' ? 'text-white' : 'text-primary'} />
 					</p>
 				</a>
 
-				<!-- ? Buttons right -->
 				<a
 					href="/space/u/{$profile.username}?section=videos"
-					class="bg-white dark:bg-dark_white dark:text-white h-max w-full sm:w-max flex flex-col rounded-md shadow-sm p-1.5 outline-primary"
+					class="bg-white dark:bg-dark_white dark:text-white w-16 h-11 grid place-content-center rounded-md shadow-sm p-1.5 outline-primary"
 					style={currentSection === 'videos'
 						? 'background: var(--primary); color: white; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);'
 						: null}
 				>
-					<!-- Images -->
-					<h1 class="font-semibold px-2">Videos</h1>
-					<p class="px-2 w-max flex items-center gap-1 text-lg">
-						<Icon icon="bxs:videos" class="text-xl {currentSection === 'videos' ? 'text-white' : 'text-primary'}" />
-						{0}
+					<p class="flex items-center gap-1 text-xl">
+						<Icon icon="bxs:videos" class={currentSection === 'videos' ? 'text-white' : 'text-primary'} />
 					</p>
 				</a>
 			</div>
@@ -387,9 +376,9 @@
 				use:enhance={handleSubmitChangeDescription}
 				action="?/changeDescription"
 				method="post"
-				class="bg-white dark:bg-dark_white dark:text-white flex flex-col sm:rounded-md shadow-sm p-2.5 sm:h-auto"
+				class="bg-white mt-5 sm:mt-0 dark:bg-dark_white dark:text-white flex flex-col sm:rounded-md shadow-sm p-2.5 sm:h-auto"
 			>
-				<h1 class="font-semibold px-2 border-b dark:border-dark_light_gray border-light_gray">Description</h1>
+				<h1 class="font-semibold px-1 border-b dark:border-dark_light_gray border-light_gray">Description</h1>
 
 				{#if $isEditableDescription}
 					<textarea
@@ -400,7 +389,7 @@
 					>
 				{:else}
 					<div
-						class="px-2 py-1 mt-1 text-dark dark:text-dark_text h-40 sm:h-auto text-sm sm:text-base overflow-y-auto overflow-x-hidden rounded-md outline-primary"
+						class="px-1 py-1 mt-1 text-dark dark:text-dark_text h-40 sm:h-auto text-sm sm:text-base overflow-y-auto overflow-x-hidden rounded-md outline-primary"
 					>
 						{@html $profile.description || '<p class="text-dark dark:text-white select-none">Not description</p>'}
 					</div>
@@ -441,9 +430,11 @@
 	{/if}
 
 	{#if currentSection === 'videos'}
-		<div class="w-full px-2 sm:p-0 h-max mb-5 rounded-xl mt-3 dark:text-white">
-			<h1>No videos found</h1>
+		<div class="mx-auto my-5 flex flex-col items-center">
+			<lord-icon src="https://cdn.lordicon.com/nmipallp.json" trigger="loop" delay="2000" style="width:250px;height:250px" />
+			<b class="text-xl dark:text-white">This is dead x.x</b>
 		</div>
+		<br />
 	{/if}
 
 	<!-- ! Followers Modal -->
