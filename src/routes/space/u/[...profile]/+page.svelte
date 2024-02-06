@@ -18,6 +18,7 @@
 	import { handleGetFollowings } from '$lib/utils/profile/handleGetFollowings.js'
 	import { resolver } from '$lib/utils/resolver.js'
 	import Icon from '@iconify/svelte'
+	import { toast } from '@zerodevx/svelte-toast'
 	import dayjs from 'dayjs'
 	import { onDestroy, onMount } from 'svelte'
 	import { writable } from 'svelte/store'
@@ -66,9 +67,8 @@
 	const handleFollow = async () => {
 		btnFollowLoading = true
 		const request = await repository.follow.add($currentUser, $profile, data.supabase)
-		isFollowed = request
 
-		if (isFollowed) {
+		if (request) {
 			const updateFollowers = [
 				...(data.followers as IFollower[]),
 				{
@@ -79,6 +79,9 @@
 			]
 			data.followers = updateFollowers
 		}
+
+		isFollowed = request
+		data.isFollowing = isFollowed
 		btnFollowLoading = false
 	}
 
@@ -88,13 +91,14 @@
 		isFollowed = request
 		const updateFollowers = data.followers?.filter((follower: IFollower) => follower.uuid !== $currentUser.uuid)
 		data.followers = updateFollowers
+		data.isFollowing = request
 		btnFollowLoading = false
 	}
 
 	const HandleShowFollowers = async () => {
 		isModalFollowers = true
 		followers = []
-		const followersGetted: IProfile[] = []
+		let followersGetted: IProfile[] = []
 
 		for (const follower of data.followers as IProfile[]) {
 			const getFollowers = await handleGetFollowers(data.supabase, follower.uuid)
@@ -105,6 +109,13 @@
 				follower.is_star = getFollowers.is_star
 
 				followersGetted.push(follower)
+			} else if (!getFollowers) {
+				isModalFollowers = false
+				followersGetted = []
+				toast.pop()
+				toast.push('A error ocurred finding followers! try again')
+				followers = data.followers as IProfile[]
+				return
 			}
 		}
 
@@ -114,7 +125,7 @@
 	const HandleShowFollowings = async () => {
 		isModalFollowing = true
 		followings = []
-		const followingsGetted: IProfile[] = []
+		let followingsGetted: IProfile[] = []
 
 		for (const following of data.followings as IProfile[]) {
 			const getFollowings = await handleGetFollowings(data.supabase, following.uuid)
@@ -125,6 +136,12 @@
 				following.is_star = getFollowings.is_star
 
 				followingsGetted.push(following)
+			} else if (!getFollowings) {
+				followingsGetted = []
+				toast.pop()
+				toast.push('A error ocurred finding followings! try again')
+				followings = data.followings as IProfile[]
+				return
 			}
 		}
 
@@ -229,13 +246,14 @@
 	</div>
 
 	<div class="flex flex-col justify-center text-center mt-[73px]">
-		<p
-			class="text-2xl left-1 relative inline-flex w-max mx-auto items-center justify-center gap-1 font-semibold text-dark dark:text-dark_text leading-tight"
+		<article
+			class="text-xl max-w-[165px] sm:max-w-max break-words sm:text-2xl left-1 relative inline-flex w-max mx-auto items-center justify-center gap-1 font-semibold text-dark dark:text-dark_text leading-tight"
 		>
 			{$profile.public_name}
 			<VerifiedIcon isStar={$profile.is_star} />
-		</p>
-		<b class="text-lg capitalize text-dark opacity-80 leading-snug">@{$profile.username}</b>
+		</article>
+
+		<b class="text-base sm:text-lg capitalize text-dark opacity-80 leading-snug">@{$profile.username}</b>
 
 		{#if !data.isUserAuth}
 			<article class="mt-1.5 w-max flex mx-auto items-center gap-2">
@@ -369,7 +387,7 @@
 				use:enhance={handleSubmitChangeDescription}
 				action="?/changeDescription"
 				method="post"
-				class="bg-white dark:bg-dark_white dark:text-white flex flex-col sm:rounded-md shadow-sm p-2.5 sm:h-auto h-52"
+				class="bg-white dark:bg-dark_white dark:text-white flex flex-col sm:rounded-md shadow-sm p-2.5 sm:h-auto"
 			>
 				<h1 class="font-semibold px-2 border-b dark:border-dark_light_gray border-light_gray">Description</h1>
 
@@ -381,7 +399,9 @@
 						>{$profile.description.replaceAll('<br>', '\n') || 'Not description'}</textarea
 					>
 				{:else}
-					<div class="px-2 py-1 mt-1 text-dark dark:text-dark_text h-40 overflow-y-auto overflow-x-hidden rounded-md outline-primary">
+					<div
+						class="px-2 py-1 mt-1 text-dark dark:text-dark_text h-40 sm:h-auto text-sm sm:text-base overflow-y-auto overflow-x-hidden rounded-md outline-primary"
+					>
 						{@html $profile.description || '<p class="text-dark dark:text-white select-none">Not description</p>'}
 					</div>
 				{/if}

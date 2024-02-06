@@ -3,5 +3,6 @@ import type { SupabaseClient } from '@supabase/supabase-js'
 
 export const handleGetFollowings = async (supabase: SupabaseClient, uuid: IProfile['uuid']) => {
 	const { data, error } = await supabase.from('profiles').select().eq('uuid', uuid).single()
-	return data
+
+	return error ? false : data
 }
