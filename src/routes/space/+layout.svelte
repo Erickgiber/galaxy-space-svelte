@@ -42,9 +42,16 @@
 	<div
 		out:fade={{ duration: 150, delay: 200 }}
 		class="flex flex-col items-center justify-center w-full h-full fixed top-0 left-0 bg-bg dark:bg-dark_bg overflow-hidden"
+		id="loader-app"
 	>
 		<img out:fade={{ duration: 50 }} class="min-w-[125px] min-h-[125px] max-w-[150px] max-h-[150px] w-full h-full" src={appLoader} alt="" />
 		<br />
 		<span out:slide={{ duration: 200 }} class="dark:text-white font-semibold text-xl">Galaxy Space</span>
 	</div>
 {/if}
+
+<style lang="scss">
+	#loader-app {
+		z-index: 99999 !important;
+	}
+</style>
