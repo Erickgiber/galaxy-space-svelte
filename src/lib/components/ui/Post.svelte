@@ -2,6 +2,7 @@
 	import { currentUser } from '$lib/store/currentUser'
 	import { LikesRepository } from '$lib/supabase/likes/LikesRepository'
 	import type { IPost } from '$lib/types/post.types'
+	import { commentsShower } from '$lib/utils/commentsShower'
 	import { likesShower } from '$lib/utils/likesShower'
 	import Icon from '@iconify/svelte'
 	import type { SupabaseClient } from '@supabase/supabase-js'
@@ -99,11 +100,19 @@
 
 			<!-- Stats -->
 			<div class="mx-3 flex items gap-2 border-b dark:border-dark_light_gray">
-				<button class="relative hover:text-black group star-count-post-{post.id} text-sm text-dark font-semibold">
+				<button class="relative hover:text-black group dark:hover:text-white text-sm text-dark font-semibold">
 					{likesShower(post.totalLikes)}
 					<div class="hidden group-hover:flex text-dark">
 						<TooltipLikes likes={post.likes} />
 					</div>
+				</button>
+
+				<button
+					on:click={() => handleToggleComment(index)}
+					class="relative hover:text-black dark:hover:text-white group text-sm text-dark font-semibold
+					"
+				>
+					{commentsShower(post.totalComments)}
 				</button>
 			</div>
 

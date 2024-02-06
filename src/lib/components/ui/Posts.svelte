@@ -110,7 +110,7 @@
 
 					<!-- Stats -->
 					<div class="mx-3 flex items gap-2 border-b dark:border-dark_light_gray">
-						<button class="relative hover:text-black dark:hover:text-white group star-count-post-{post.id} text-sm text-dark font-semibold">
+						<button class="relative hover:text-black dark:hover:text-white group text-sm text-dark font-semibold">
 							{likesShower(post.totalLikes)}
 							<div class="hidden group-hover:flex text-dark">
 								<TooltipLikes likes={post.likes} />
@@ -119,7 +119,8 @@
 
 						<button
 							on:click={() => handleToggleComment(index)}
-							class="relative hover:text-black dark:hover:text-white group star-count-post-{post.id} text-sm text-dark font-semibold"
+							class="relative hover:text-black dark:hover:text-white group text-sm text-dark font-semibold
+							"
 						>
 							{commentsShower(post.totalComments)}
 						</button>
