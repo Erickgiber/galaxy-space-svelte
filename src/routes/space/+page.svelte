@@ -22,21 +22,10 @@
 
 	const handleSubmitPost = () => {
 		return resolver(btnPostDisabled, {
-			onSuccess: () => {
-				const post: IPost = {
-					text: postText,
-					image_url: imgExists ? imgExists.src : '',
-					// @ts-ignore
-					user: $currentUser,
-					username: $currentUser.username,
-					email: $currentUser.email,
-					uuid: $currentUser.uuid,
-					totalLikes: 0
+			onSuccess: (new_posts?: IPost[]) => {
+				if (new_posts) {
+					posts = new_posts
 				}
-				postText = ''
-				posts = [post, ...posts]
-				// @ts-ignore
-				imgExists = undefined
 			}
 		})
 	}

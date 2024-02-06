@@ -115,9 +115,61 @@ export const actions: Actions = {
 			}
 		}
 
+		const { data: posts } = await supabase.from('posts').select()
+		const { data: users, error: errorUsers } = await supabase.from('profiles').select('*')
+		const { data: getLikes } = await supabase.from('likes').select('post_id, like, username, uuid')
+		const { data: getComments } = await supabase.from('comments').select('post_id, username, uuid, text, image_url')
+
+		// ? Handle error
+		if (error || errorUsers) {
+			return {
+				status: 500,
+				error: new Error('Error fetching posts')
+			}
+		}
+
+		if (posts) {
+			// ? Map posts and users
+			posts.map((post) => {
+				const user = users.find((user) => user.uuid === post.uuid)
+				post.user = user
+			})
+
+			if (getLikes) {
+				posts.map((post) => {
+					const likes = getLikes.filter((like) => like.post_id === post.post_id)
+					post.likes = likes
+					post.totalLikes = likes.length
+					post.isLiked = likes.find((like) => like.uuid === locals.user.uuid) || false
+				})
+			}
+
+			if (getComments) {
+				posts.map((post) => {
+					const comments = getComments.filter((comment) => comment.post_id === post.post_id)
+					post.comments = comments
+					post.totalComments = comments.length
+				})
+
+				for (let post of posts) {
+					for (let i = 0; i < post.comments.length; i++) {
+						const profile = await supabase.from('profiles').select().eq('username', post.comments[i].username).single()
+						post.comments[i] = { ...post.comments[i], profile: profile.data as IProfile }
+					}
+				}
+			}
+
+			posts.map((post: IPost) => {
+				if (post.image_url === '{}') {
+					post.image_url = ''
+				}
+			})
+		}
+
 		return {
 			message: 'Post created successfully',
-			invalidate: false
+			invalidate: false,
+			posts: posts?.reverse()
 		}
 	}
 }
