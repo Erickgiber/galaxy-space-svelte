@@ -23,6 +23,9 @@
 	const handleSubmitPost = () => {
 		return resolver(btnPostDisabled, {
 			onSuccess: (new_posts?: IPost[]) => {
+				postText = ''
+				// @ts-ignore
+				imgExists = undefined
 				if (new_posts) {
 					posts = new_posts
 				}
