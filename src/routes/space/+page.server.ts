@@ -12,7 +12,7 @@ type IFormPost = {
 
 export const load: ServerLoad = async ({ locals }) => {
 	const { supabase } = locals
-	const { data: posts, error } = await supabase.from('posts').select('*').order('created_at', { ascending: false })
+	const { data: posts, error } = await supabase.from('posts').select('*').order('created_at', { ascending: false }).limit(5)
 	const { data: users, error: errorUsers } = await supabase.from('profiles').select('*')
 	const { data: getLikes } = await supabase.from('likes').select('post_id, like, username, uuid')
 	const { data: getComments } = await supabase.from('comments').select('post_id, username, uuid, text, image_url')

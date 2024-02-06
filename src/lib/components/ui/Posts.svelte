@@ -15,7 +15,8 @@
 	export let supabase: SupabaseClient
 	let btnLikeDisable = false
 	let isActiveModalShare = false
-	let isComment = false
+	let isComment: number[] = []
+	let isShare: number[] = []
 
 	const likeRepository = new LikesRepository()
 
@@ -57,56 +58,19 @@
 		btnLikeDisable = false
 	}
 
-	function handleToggleComment(post_id: number | string) {
-		isComment = !isComment
-
-		const btns = document.querySelectorAll<HTMLButtonElement>(`.btn-comment`)
-		const boxs = document.querySelectorAll<HTMLDivElement>(`.comment-box`)
-
-		btns.forEach((btn) => {
-			if (btn) {
-				btn.classList.remove('bg-primary')
-				btn.classList.remove('dark:bg-primary')
-				btn.classList.remove('text-white')
-			}
-		})
-
-		boxs.forEach((box) => {
-			if (box) {
-				box.style.display = 'flex'
-			}
-		})
-
-		if (isComment) {
-			if (typeof window !== 'undefined') {
-				setTimeout(() => {
-					const box = document.querySelector<HTMLDivElement>(`.comment-box-post-${post_id}`)
-					const btn = document.querySelector<HTMLButtonElement>(`.btn-comment-post-${post_id}`)
-
-					if (box) {
-						box.style.display = 'flex'
-					}
-					if (btn) {
-						btn.classList.add('bg-primary')
-						btn.classList.add('dark:bg-primary')
-						btn.classList.add('text-white')
-					}
-				}, 10)
-			}
+	function handleToggleComment(index: number) {
+		if (isComment.includes(index)) {
+			isComment = isComment.filter((id) => id !== index)
 		} else {
-			const btn = document.querySelector(`.btn-comment-post-${post_id}`)
+			isComment = [...isComment, index]
+		}
+	}
 
-			if (btn) {
-				btn.classList.remove('bg-primary')
-				btn.classList.remove('dark:bg-primary')
-				btn.classList.remove('text-white')
-			}
-
-			boxs.forEach((box) => {
-				if (box) {
-					box.style.display = 'flex'
-				}
-			})
+	function handleToggleShare(index: number) {
+		if (isShare.includes(index)) {
+			isShare = isShare.filter((id) => id !== index)
+		} else {
+			isShare = [...isShare, index]
 		}
 	}
 </script>
@@ -154,7 +118,7 @@
 						</button>
 
 						<button
-							on:click={() => handleToggleComment(post.post_id)}
+							on:click={() => handleToggleComment(index)}
 							class="relative hover:text-black dark:hover:text-white group star-count-post-{post.id} text-sm text-dark font-semibold"
 						>
 							{commentsShower(post.totalComments)}
@@ -185,33 +149,25 @@
 						{/if}
 
 						<button
-							class="btn-comment btn-comment-post-{post.post_id} w-10 h-10 bg-light_gray dark:bg-dark_light_gray dark:text-white pr-2 pl-2.5 pb-0.5 grid place-content-center outline-none transition-all duration-50 rounded-md text-dark
-							active:scale-95 active:duration-0 active:bg-primary active:text-white"
-							on:click={() => handleToggleComment(post.post_id)}
+							class="w-10 h-10 bg-light_gray dark:bg-dark_light_gray dark:text-white pr-2 pl-2.5 pb-0.5 grid place-content-center outline-none transition-all duration-50 rounded-md text-dark
+							active:scale-95 active:duration-0 active:bg-primary active:text-white
+							{isComment.includes(index) ? 'bg-primary dark:bg-primary text-white dark:text-white' : ''}"
+							on:click={() => handleToggleComment(index)}
 						>
 							<Icon class="text-inherit" icon="fluent:comment-note-20-regular" width="24" />
 						</button>
 
-						<button
-							class="w-10 h-10 bg-light_gray dark:bg-dark_light_gray dark:text-white pr-2 pl-2.5 pb-0.5 grid place-content-center outline-none transition-all duration-50 rounded-md text-dark
-							active:scale-95 active:duration-0 active:bg-primary active:text-white"
-							on:click={() => {
-								isActiveModalShare = !isActiveModalShare
-								if (isActiveModalShare) {
-									if (typeof window !== 'undefined') {
-										setTimeout(() => {
-											const modal = document.querySelector(`.modalShare-${index}`)
-											// @ts-ignore
-											modal.style.display = 'flex'
-										}, 10)
-									}
-								}
-							}}
-						>
-							<Icon class="text-inherit" icon="carbon:copy-link" width="23" />
-						</button>
-
-						<ModalShare bind:enable={isActiveModalShare} {post} classID={index.toString()} />
+						<div class="relative">
+							<button
+								class="w-10 h-10 bg-light_gray dark:bg-dark_light_gray dark:text-white pr-2 pl-2.5 pb-0.5 grid place-content-center outline-none transition-all duration-50 rounded-md text-dark
+							active:scale-95 active:duration-0 active:bg-primary active:text-white
+							{isShare.includes(index) ? 'bg-primary dark:bg-primary text-white dark:text-white' : ''}"
+								on:click={() => handleToggleShare(index)}
+							>
+								<Icon class="text-inherit" icon="carbon:copy-link" width="23" />
+							</button>
+							<ModalShare closeModal={handleToggleShare} {index} isEnable={isShare.includes(index)} {post} />
+						</div>
 
 						<!-- Date Time -->
 						<div class="absolute bg-white dark:bg-dark_white bottom-2 right-3 text-xs text-dark">
@@ -220,9 +176,7 @@
 					</div>
 
 					<!-- ? Comments -->
-					{#if isComment}
-						<CommentPost comments={post.comments} {supabase} post_id={post.post_id} />
-					{/if}
+					<CommentPost isEnable={isComment.includes(index)} comments={post.comments} {supabase} post_id={post.post_id} />
 				</article>
 			{/if}
 		{/each}

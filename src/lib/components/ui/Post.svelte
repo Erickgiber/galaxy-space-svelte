@@ -14,8 +14,9 @@
 	export let supabase: SupabaseClient
 	export let post: IPost
 	let btnLikeDisable = false
-	let isActiveModalShare = false
-	let isComment = true
+	let index = 0
+	let isShare: number[] = []
+	let isComment: number[] = [index]
 
 	const likeRepository = new LikesRepository()
 
@@ -41,19 +42,19 @@
 		btnLikeDisable = false
 	}
 
-	function handleToggleComment(post_id: number | string) {
-		isComment = !isComment
-		if (isComment) {
-			if (typeof window !== 'undefined') {
-				setTimeout(() => {
-					const modal = document.querySelector(`.comment-box-post-${post_id}`)
+	function handleToggleComment(index: number) {
+		if (isComment.includes(index)) {
+			isComment = isComment.filter((id) => id !== index)
+		} else {
+			isComment = [...isComment, index]
+		}
+	}
 
-					if (modal) {
-						// @ts-ignore
-						modal.style.display = 'flex'
-					}
-				}, 10)
-			}
+	function handleToggleShare(index: number) {
+		if (isShare.includes(index)) {
+			isShare = isShare.filter((id) => id !== index)
+		} else {
+			isShare = [...isShare, index]
 		}
 	}
 </script>
@@ -131,32 +132,24 @@
 
 				<button
 					class="bg-light_gray dark:bg-dark_light_gray dark:text-white pr-2 pl-2.5 pb-0.5 h-10 grid place-content-center outline-none transition-all duration-50 rounded-md text-dark
-						active:scale-95 active:duration-0 active:bg-primary active:text-white {isComment ? 'bg-primary dark:bg-primary text-white' : ''}"
-					on:click={() => handleToggleComment(post.post_id)}
+						active:scale-95 active:duration-0 active:bg-primary active:text-white {isComment.includes(index) ? 'bg-primary dark:bg-primary text-white' : ''}"
+					on:click={() => handleToggleComment(index)}
 				>
 					<Icon class="text-inherit" icon="fluent:comment-note-20-regular" width="24" />
 				</button>
 
-				<button
-					class="bg-light_gray dark:bg-dark_light_gray dark:text-white pr-2 pl-2.5 pb-0.5 h-10 grid place-content-center outline-none transition-all duration-50 rounded-md text-dark
-							active:scale-95 active:duration-0 active:bg-primary active:text-white {isActiveModalShare ? 'bg-primary text-white shadow-md ' : ''} "
-					on:click={() => {
-						isActiveModalShare = !isActiveModalShare
-						if (isActiveModalShare) {
-							if (typeof window !== 'undefined') {
-								setTimeout(() => {
-									const modal = document.querySelector(`.modalShare-${post.id}`)
-									// @ts-ignore
-									modal.style.display = 'flex'
-								}, 10)
-							}
-						}
-					}}
-				>
-					<Icon class="text-inherit" icon="carbon:copy-link" width="23" />
-				</button>
-
-				<ModalShare bind:enable={isActiveModalShare} {post} classID={post.id.toString()} />
+				<div class="relative">
+					<button
+						class="bg-light_gray dark:bg-dark_light_gray dark:text-white pr-2 pl-2.5 pb-0.5 h-10 grid place-content-center outline-none transition-all duration-50 rounded-md text-dark
+							active:scale-95 active:duration-0 active:bg-primary active:text-white {isShare.includes(index)
+							? 'bg-primary dark:bg-primary text-white dark:text-white shadow-md '
+							: ''} "
+						on:click={() => handleToggleShare(index)}
+					>
+						<Icon class="text-inherit" icon="carbon:copy-link" width="23" />
+					</button>
+					<ModalShare closeModal={handleToggleShare} {index} isEnable={isShare.includes(index)} {post} />
+				</div>
 
 				<!-- Date Time -->
 				<div class="absolute bg-white dark:bg-dark_white bottom-2 left-3 text-sm text-dark">
@@ -165,9 +158,7 @@
 			</div>
 
 			<!-- ? Comments -->
-			{#if isComment}
-				<CommentPost fullHeight={true} isActive={isComment} comments={post.comments} {supabase} post_id={post.post_id} />
-			{/if}
+			<CommentPost isEnable={isComment.includes(index)} comments={post.comments} {supabase} post_id={post.post_id} />
 		</article>
 	{/if}
 </section>

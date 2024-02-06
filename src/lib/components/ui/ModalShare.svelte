@@ -5,22 +5,20 @@
 	import { toast } from '@zerodevx/svelte-toast'
 	import { fade } from 'svelte/transition'
 
-	export let enable: boolean = false
+	export let isEnable: boolean = false
 	export let post: IPost
-	export let classID: string
+	export let index: number
+	export let closeModal: (index: number) => void
 
 	const valueLink = `${$page.url.host}/space/posts/${post.id}?u=${post.user.id}`
 	const twitterLink = `https://twitter.com/intent/tweet?text=Hey! this post is so cool! ${valueLink}`.replaceAll(' ', '%20')
 </script>
 
-{#if enable}
+{#if isEnable}
 	<!-- CONTAINER MODAL-->
-	<div
-		transition:fade={{ duration: 100 }}
-		class="absolute sm:w-96 w-56 -left-1 bottom-28 sm:left-20 sm:bottom-12 hidden modalShare-{classID} z-[100]"
-	>
+	<div transition:fade={{ duration: 100 }} class="absolute flex sm:w-96 w-56 left-0 bottom-28 sm:bottom-12 z-[100]">
 		<!--MODAL ITEM-->
-		<div class="bg-gray-100 dark:bg-dark_bg dark:text-white mx-4 p-4 pt-0 pb-2 rounded-xl w-full">
+		<div class="bg-gray-100 dark:bg-dark_white dark:shadow-2xl dark:border dark:border-dark_bg dark:text-white mx-4 p-4 pt-0 pb-2 rounded-xl w-full">
 			<!--MODAL HEADER-->
 			<div class="flex justify-between items center border-b border-gray-200 py-3">
 				<div class="flex items-center justify-center">
@@ -29,9 +27,7 @@
 
 				<button
 					class="bg-gray-300 dark:bg-dark_light_gray grid place-content-center hover:bg-gray-500 cursor-pointer hover:text-gray-300 font-sans text-gray-500 w-8 h-8 rounded-full"
-					on:click={() => {
-						enable = false
-					}}
+					on:click={() => closeModal(index)}
 				>
 					<span class="-translate-y-0.5 text-lg"> x</span>
 				</button>
