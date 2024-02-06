@@ -167,7 +167,7 @@
 			</div>
 
 			<!-- ? Comments -->
-			<CommentPost isEnable={isComment.includes(index)} comments={post.comments} {supabase} post_id={post.post_id} />
+			<CommentPost isEnable={isComment.includes(index)} fullHeight comments={post.comments} {supabase} post_id={post.post_id} />
 		</article>
 	{/if}
 </section>
