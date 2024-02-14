@@ -266,6 +266,7 @@
 					{#if $currentUser.role === 'admin'}
 						<li>
 							<a
+								on:click={() => isBars.set(false)}
 								href="/space/statistics"
 								class="active:transition-none flex items-center gap-1.5 text-lg px-1.5 py-2.5 rounded-lg transition-all
 							hover:bg-black hover:bg-opacity-5 dark:hover:bg-dark_white
@@ -280,7 +281,10 @@
 
 					<li>
 						<button
-							on:click={() => handleLogout(supabase)}
+							on:click={() => {
+								handleLogout(supabase)
+								isBars.set(false)
+							}}
 							class="active:transition-none w-full flex items-center gap-1.5 text-lg px-1.5 py-2.5 rounded-lg transition-all
 							hover:bg-black hover:bg-opacity-5 dark:hover:bg-dark_white
 							text-[#808080] dark:text-dark_text select-none"
