@@ -75,14 +75,14 @@
 			<div />
 			<h1 class="text-xl">Edit Post</h1>
 			<button class="" on:click={cleanStore}>
-				<Icon icon="mingcute:close-circle-fill" width="30" class="text-dark hover:text-black dark:hover:text-white" />
+				<Icon icon="mingcute:close-circle-fill" width="30" class="text-gray-300 hover:text-gray-500 dark:hover:text-white" />
 			</button>
 		</div>
 
 		<div class="px-3">
 			<textarea
 				class="
-			p-2 w-full h-24 sm::h-16 bg-white dark:bg-dark_white border-b-2 dark:border-b dark:border-dark_light_gray
+			p-2 w-full h-24 sm::h-16 bg-light_gray dark:bg-dark_white border-b-2 dark:border-b dark:border-dark_light_gray
 			border-transparent rounded-lg outline-none transition-all duration-300 resize-none
 			focus:h-24 focus:border-b-bg"
 				name="text"
@@ -97,7 +97,7 @@
 		<div class="p-3 pt-1 flex items-center justify-end gap-2">
 			<button
 				on:click={() => handleRollBack($postForEdit.post)}
-				class="bg-light_gray active:scale-95 active:duration-0 dark:bg-dark_white text-white dark:text-white px-2.5 py-1.5 rounded-md shadow-sm transition-all text-sm select-none"
+				class="bg-black active:scale-95 active:duration-0 dark:bg-dark_white text-white px-2.5 py-1.5 rounded-md shadow-sm transition-all text-sm select-none"
 				type="reset"
 			>
 				Rollback

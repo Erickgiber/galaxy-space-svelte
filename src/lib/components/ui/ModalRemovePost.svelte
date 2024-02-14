@@ -55,7 +55,7 @@
 		</div>
 
 		<div class="px-3 flex justify-center my-3">
-			<b class="flex items-center gap-2 bg-black rounded-lg bg-opacity-10 w-full p-2">
+			<b class="flex items-center gap-2 bg-light_gray dark:bg-black rounded-lg dark:bg-opacity-10 w-full p-2">
 				<Icon icon="clarity:alert-line" width={20} class="text-red-500" />
 				Are you sure you want to delete the post?
 			</b>
@@ -76,7 +76,7 @@
 				disabled={isBtnDisabled}
 				class="
 				{isBtnDisabled ? 'opacity-40 bg-gray-800' : 'bg_gradient'}
-				text-black dark:text-white px-2.5 font-semibold py-1.5 rounded-md shadow-lg transition-all text-sm select-none bg-white dark:bg-dark_white"
+				text-white px-2.5 active:scale-95 active:duration-0 font-semibold py-1.5 rounded-md shadow-lg transition-all text-sm select-none bg-black dark:bg-dark_white"
 			>
 				<p>Yes</p>
 			</button>
