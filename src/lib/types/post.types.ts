@@ -15,6 +15,7 @@ export interface IPost {
 	isLiked: IsLiked
 	comments: IComment[]
 	totalComments: number
+	visible: boolean
 }
 
 export type IsLiked = {

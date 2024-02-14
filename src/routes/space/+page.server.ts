@@ -169,7 +169,7 @@ export const actions: Actions = {
 		return {
 			message: 'Post created successfully',
 			invalidate: false,
-			posts: posts?.reverse()
+			posts: posts?.reverse().filter((post) => post.visible)
 		}
 	}
 }

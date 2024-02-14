@@ -66,4 +66,42 @@ export class PostsRepository {
 		] as IComment[])
 		loaderStore.set(false)
 	}
+
+	edit = async (supabase: SupabaseClient, post: IPost, text: string): Promise<boolean> => {
+		loaderStore.set(true)
+		const { error } = await supabase
+			.from('posts')
+			.update({
+				text
+			})
+			.eq('post_id', post.post_id)
+
+		if (error) {
+			toast.push('A error ocurred editing post! try again')
+			loaderStore.set(false)
+			return false
+		}
+
+		loaderStore.set(false)
+		return true
+	}
+
+	remove = async (supabase: SupabaseClient, post: IPost): Promise<boolean> => {
+		loaderStore.set(true)
+		const { error } = await supabase
+			.from('posts')
+			.update({
+				visible: false
+			})
+			.eq('post_id', post.post_id)
+
+		if (error) {
+			toast.push('A error ocurred editing post! try again')
+			loaderStore.set(false)
+			return false
+		}
+
+		loaderStore.set(false)
+		return true
+	}
 }
