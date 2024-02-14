@@ -23,7 +23,6 @@
 
 	async function handleRemovePost(post?: IPost): Promise<void> {
 		if (post && newValueText !== post?.text) {
-			const index = posts.indexOf(post)
 			isBtnDisabled = true
 			const { remove } = new PostsRepository()
 			const isRemoved = await remove(supabase, post)
@@ -31,6 +30,9 @@
 
 			if (isRemoved) {
 				posts = posts.filter((item) => item.post_id !== post.post_id)
+				if (posts.length === 0) {
+					history.back()
+				}
 				cleanStore()
 			}
 		}

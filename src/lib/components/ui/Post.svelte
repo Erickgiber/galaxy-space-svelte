@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { MENU_POST_OPTIONS } from '$lib/config/menus/menu-post-options'
 	import { currentUser } from '$lib/store/currentUser'
 	import { LikesRepository } from '$lib/supabase/likes/LikesRepository'
 	import type { IPost } from '$lib/types/post.types'
@@ -7,7 +8,10 @@
 	import Icon from '@iconify/svelte'
 	import type { SupabaseClient } from '@supabase/supabase-js'
 	import dayjs from 'dayjs'
+	import { slide } from 'svelte/transition'
 	import CommentPost from './CommentPost.svelte'
+	import ModalEditPost from './ModalEditPost.svelte'
+	import ModalRemovePost from './ModalRemovePost.svelte'
 	import ModalShare from './ModalShare.svelte'
 	import TooltipLikes from './TooltipLikes.svelte'
 	import VerifiedIcon from './VerifiedIcon.svelte'
@@ -18,6 +22,10 @@
 	let index = 0
 	let isShare: number[] = []
 	let isComment: number[] = [index]
+	let isMenuOptions: number[] = []
+	let posts = [post]
+
+	$: post = posts[0]
 
 	const likeRepository = new LikesRepository()
 
@@ -58,29 +66,69 @@
 			isShare = [index]
 		}
 	}
+
+	function handleTogglePostMenu(index: number) {
+		if (isMenuOptions.includes(index)) {
+			isMenuOptions = isMenuOptions.filter((id) => id !== index)
+		} else {
+			isMenuOptions = [index]
+		}
+	}
+
+	$: if (!post || (!post?.visible && typeof window !== 'undefined')) {
+		window.history.back()
+	}
 </script>
 
 <svelte:head>
-	<title>{post.text ? `${post.text} | ` : ''} Galaxy Space</title>
+	<title>{post?.text ? `${post?.text} | ` : ''} Galaxy Space</title>
 
-	<meta name="keywords" content={post.text?.replaceAll(' ', ',')} />
-	<meta name="title" content={post.text} />
-	<meta name="description" content={post.text ?? ''} />
+	<meta name="keywords" content={post?.text?.replaceAll(' ', ',')} />
+	<meta name="title" content={post?.text} />
+	<meta name="description" content={post?.text ?? ''} />
 </svelte:head>
 
 <section class="my-2 flex flex-col gap-3">
-	{#if post.text || post.image_url}
+	{#if post && (post.text || post.image_url) && post.visible}
 		<article class="relative flex flex-col gap-2 pb-10 bg-white dark:bg-dark_white py-2 sm:rounded-lg shadow-sm">
-			<a class="flex ml-2 max-w-max rounded-md gap-1.5 pl-0.5 py-1.5 transition-all" href="/space/u/{post.user?.username}">
-				<img class="w-10 h-10 rounded-full object-cover" src={post.user.photo_url} alt={post.username} />
-				<div class="flex flex-col leading-4">
-					<p class="flex items-center gap-1 dark:text-dark_text">
-						{post.user.public_name}
-						<VerifiedIcon isStar={post.user.is_star} />
-					</p>
-					<p class="text-sm font-semibold text-gray-500 dark:text-dark">@{post.username}</p>
-				</div>
-			</a>
+			<div class="relative flex items-start justify-between">
+				<a class="flex ml-2 max-w-max rounded-md gap-1.5 pl-0.5 py-1.5 transition-all" href="/space/u/{post.user?.username}">
+					<img class="w-10 h-10 rounded-full object-cover" src={post.user.photo_url} alt={post.username} />
+					<div class="flex flex-col leading-4">
+						<p class="flex items-center gap-1 dark:text-dark">
+							{post.user.public_name}
+							<VerifiedIcon isStar={post.user.is_star} />
+						</p>
+						<p class="text-sm font-semibold text-gray-500 dark:text-dark">@{post.username}</p>
+					</div>
+				</a>
+				<button on:click={() => handleTogglePostMenu(index)} class="mr-4 mt-1 hover:text-primary dark:text-dark dark:hover:text-white">
+					<Icon icon="iconamoon:menu-kebab-horizontal-bold" width="22" />
+				</button>
+
+				{#if isMenuOptions.includes(index)}
+					<article
+						transition:slide={{ duration: 200 }}
+						class="bg-white border dark:border-none dark:bg-dark_light_gray z-10 shadow-2xl rounded-xl rounded-tr-none w-32 h-max absolute top-5 right-11"
+					>
+						{#each MENU_POST_OPTIONS(post, $currentUser) as { name, width, icon, className, onClick }, index}
+							<button
+								style={index === 0
+									? 'border-top-left-radius: 10px;'
+									: index === Number(MENU_POST_OPTIONS(post, $currentUser).length - 1)
+									? 'border-bottom-left-radius: 10px; border-bottom-right-radius: 10px;'
+									: null}
+								class="w-full text-dark_text group transition-all hover:transition-none duration-300 active:transition-none active:text-black dark:active:text-white px-3 gap-2 py-2 flex items-center hover:bg-black hover:bg-opacity-10"
+								type="button"
+								on:click={onClick}
+							>
+								<Icon {icon} {width} class={className} />
+								<span class={className}>{name}</span>
+							</button>
+						{/each}
+					</article>
+				{/if}
+			</div>
 			{#if post.text}
 				<p class="px-3.5 text-[15px] dark:text-dark_text">
 					{@html post.text}
@@ -173,5 +221,9 @@
 			<!-- ? Comments -->
 			<CommentPost isEnable={isComment.includes(index)} fullHeight comments={post.comments} {supabase} post_id={post.post_id} />
 		</article>
+
+		<!-- Modals -->
+		<ModalEditPost bind:posts {supabase} />
+		<ModalRemovePost bind:posts {supabase} />
 	{/if}
 </section>
