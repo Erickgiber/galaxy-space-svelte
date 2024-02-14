@@ -1,6 +1,21 @@
 <script lang="ts">
+	import { browser } from '$app/environment'
+	import { preloadCode, preloadData } from '$app/navigation'
+	import { currentUser } from '$lib/store/currentUser'
 	import { FoldersList } from '$lib/utils/learning/folders'
 	import Icon from '@iconify/svelte'
+
+	$: if ($currentUser && browser) {
+		preloadData('/space/statistics')
+		preloadData('/space/learning')
+		preloadData('/space/services')
+		preloadData('/space/contacts')
+		preloadData('/space')
+		preloadCode('/space')
+
+		preloadData(`/space/u/${$currentUser.username}`)
+		preloadCode(`/space/u/${$currentUser.username}`)
+	}
 </script>
 
 <svelte:head>

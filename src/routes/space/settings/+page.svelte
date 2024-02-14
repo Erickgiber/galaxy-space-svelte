@@ -1,4 +1,7 @@
 <script>
+	import { browser } from '$app/environment'
+	import { preloadCode, preloadData } from '$app/navigation'
+	import { currentUser } from '$lib/store/currentUser'
 	import { loadTheme } from '$lib/utils/loadTheme'
 	import Icon from '@iconify/svelte'
 
@@ -11,6 +14,18 @@
 		}
 
 		loadTheme()
+	}
+
+	$: if ($currentUser && browser) {
+		preloadData('/space/statistics')
+		preloadData('/space/learning')
+		preloadData('/space/services')
+		preloadData('/space/contacts')
+		preloadData('/space')
+		preloadCode('/space')
+
+		preloadData(`/space/u/${$currentUser.username}`)
+		preloadCode(`/space/u/${$currentUser.username}`)
 	}
 </script>
 

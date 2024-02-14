@@ -8,7 +8,6 @@
 	import { fade, slide } from 'svelte/transition'
 
 	let isLoadingApp = true
-	export let data
 
 	$: if (!$currentUser) {
 		goto('/')

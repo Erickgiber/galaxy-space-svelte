@@ -1,7 +1,22 @@
 <script lang="ts">
+	import { browser } from '$app/environment'
+	import { preloadCode, preloadData } from '$app/navigation'
 	import VerifiedIcon from '$lib/components/ui/VerifiedIcon.svelte'
+	import { currentUser } from '$lib/store/currentUser'
 
 	export let data
+
+	$: if ($currentUser && browser) {
+		preloadData('/space/statistics')
+		preloadData('/space/learning')
+		preloadData('/space/services')
+		preloadData('/space/contacts')
+		preloadData('/space')
+		preloadCode('/space')
+
+		preloadData(`/space/u/${$currentUser.username}`)
+		preloadCode(`/space/u/${$currentUser.username}`)
+	}
 </script>
 
 <svelte:head>

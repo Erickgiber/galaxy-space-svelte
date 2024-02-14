@@ -1,5 +1,7 @@
 <script lang="ts">
+	import { browser } from '$app/environment'
 	import { enhance } from '$app/forms'
+	import { preloadCode, preloadData } from '$app/navigation'
 	import Posts from '$lib/components/ui/Posts.svelte'
 	import { currentUser } from '$lib/store/currentUser'
 	import type { IPost } from '$lib/types/post.types.js'
@@ -77,6 +79,16 @@
 		if (postText.length === 0) {
 			btnPostDisabled.set(true)
 		}
+	}
+
+	$: if ($currentUser && browser) {
+		preloadData('/space/statistics')
+		preloadData('/space/learning')
+		preloadData('/space/services')
+		preloadData('/space/contacts')
+
+		preloadData(`/space/u/${$currentUser.username}`)
+		preloadCode(`/space/u/${$currentUser.username}`)
 	}
 </script>
 

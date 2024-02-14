@@ -1,5 +1,7 @@
 <script lang="ts">
+	import { browser } from '$app/environment'
 	import { enhance } from '$app/forms'
+	import { preloadCode, preloadData } from '$app/navigation'
 	import { page } from '$app/stores'
 	import ButtonFollowingLoader from '$lib/components/ui/ButtonFollowingLoader.svelte'
 	import ModalFollower from '$lib/components/ui/ModalFollower.svelte'
@@ -175,6 +177,15 @@
 		let textoConSaltosDeLinea = $profile.description.replace(regex, '<br>')
 
 		$profile.description = textoConSaltosDeLinea
+	}
+
+	$: if ($currentUser && browser) {
+		preloadData('/space/statistics')
+		preloadData('/space/learning')
+		preloadData('/space/services')
+		preloadData('/space/contacts')
+		preloadData('/space')
+		preloadCode('/space')
 	}
 </script>
 
