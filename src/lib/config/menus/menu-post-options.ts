@@ -1,12 +1,14 @@
 import type { ICurrentUser } from '$lib/store/currentUser'
 import { postForEdit } from '$lib/store/postForEdit'
 import type { IPost } from '$lib/types/post.types'
+import { copyText } from '$lib/utils/copyText'
 import { v4 } from 'uuid'
 
 const TYPE_POST = {
 	DOWNLOAD: 'DOWNLOAD',
 	REMOVE: 'REMOVE',
-	EDIT: 'EDIT'
+	EDIT: 'EDIT',
+	COPY_TEXT: 'COPY_TEXT'
 }
 
 const FOR_POST = {
@@ -66,6 +68,17 @@ export const MENU_POST_OPTIONS = (post: IPost, user: ICurrentUser) => {
 
 				URL.revokeObjectURL(url)
 			}
+		},
+		{
+			id: 4,
+			name: 'Copy text',
+			icon: 'ph:copy',
+			width: 17,
+			className,
+			type: TYPE_POST.COPY_TEXT,
+			for: FOR_POST.TEXT,
+			someUser: true,
+			onClick: () => copyText(post.text)
 		}
 	]
 
@@ -75,6 +88,10 @@ export const MENU_POST_OPTIONS = (post: IPost, user: ICurrentUser) => {
 
 	if (!isSomeUser) {
 		options = options.filter((option) => option.someUser !== true)
+	}
+
+	if (!post.text) {
+		options = options.filter((option) => option.type !== TYPE_POST.COPY_TEXT)
 	}
 
 	return options
