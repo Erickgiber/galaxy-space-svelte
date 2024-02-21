@@ -7,10 +7,10 @@ import type { Writable } from 'svelte/store'
 const repository = new ProfileRepository()
 
 export const handleChangePhoto = (
-	user: IProfile,
+	user: IProfile | any,
 	currentUserProp: ICurrentUser,
 	supabase: SupabaseClient,
-	profile: Writable<IProfile>,
+	profile: Writable<IProfile> | any,
 	isPhotoLoading: Writable<boolean>
 ) => {
 	const input = createInput()

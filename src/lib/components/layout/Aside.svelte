@@ -36,7 +36,7 @@
                     hover:bg-black hover:bg-opacity-5 dark:hover:bg-dark_white
                     text-[#808080] dark:text-dark_text select-none
                     {route.customClass}
-                    {$page.url.pathname === route.href
+                    {$page.url.pathname.includes(`space/${route.name.toLowerCase()}`) || $page.url.pathname === route.href
 							? 'link_active'
 							: $page.url.pathname.includes($currentUser.username) && route.href.includes('/u')
 							? 'link_active'

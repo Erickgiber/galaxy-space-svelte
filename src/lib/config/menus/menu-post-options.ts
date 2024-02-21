@@ -77,7 +77,7 @@ export const MENU_POST_OPTIONS = (post: IPost, user: ICurrentUser) => {
 			className,
 			type: TYPE_POST.COPY_TEXT,
 			for: FOR_POST.TEXT,
-			someUser: true,
+			someUser: false,
 			onClick: () => copyText(post.text)
 		}
 	]

@@ -1,20 +1,9 @@
 <script>
 	import { browser } from '$app/environment'
 	import { preloadCode, preloadData } from '$app/navigation'
+	import { MENU_CONFIG_PAGE } from '$lib/config/menus/menu-config-page'
 	import { currentUser } from '$lib/store/currentUser'
-	import { loadTheme } from '$lib/utils/loadTheme'
 	import Icon from '@iconify/svelte'
-
-	const toggleDarkMode = () => {
-		const storage = localStorage.getItem('theme')
-		if (storage === 'dark') {
-			localStorage.removeItem('theme')
-		} else {
-			localStorage.setItem('theme', 'dark')
-		}
-
-		loadTheme()
-	}
 
 	$: if ($currentUser && browser) {
 		preloadData('/space/statistics')
@@ -35,18 +24,25 @@
 	<meta name="description" content="Config your Galaxy Space account" />
 </svelte:head>
 
-<article class="flex items-center p-2 pb-3 sm:p-0 sm:pb-1 gap-1 border-b border-gray-300 text-xl dark:border-dark_light_gray">
-	<Icon icon="solar:settings-linear" class="text-primary" width={21} />
-	<h1 class="font-semibold dark:text-white">Settings</h1>
+<article class="flex items-center p-2 pb-3 sm:p-0 sm:pb-1 gap-1 text-xl">
+	<h1 class="font-semibold w-full dark:text-white border-b border-gray-300 dark:border-dark_light_gray">Settings</h1>
 </article>
 
 <section class="sm:p-0 p-2">
-	<button
-		on:click={toggleDarkMode}
-		type="button"
-		class="bg-white dark:text-white hover:text-white text-dark dark:bg-dark_white flex items-center gap-1 mt-5 bg-text-white px-3 py-2 rounded-xl hover:bg-dark_white active:bg-dark_white focus:outline-none shadow hover:shadow-md transition duration-50"
-	>
-		<Icon icon="material-symbols:dark-mode" width="20" />
-		Dark Mode
-	</button>
+	<ul class="flex flex-col gap-2">
+		{#each MENU_CONFIG_PAGE() as { name, id, description, icon, width, href }}
+			<li>
+				<a
+					class="w-full active:scale-[98%] active:text-white active:bg-primary dark:active:bg-primary transition-all duration-150 active:duration-0 rounded-md px-2 py-3 bg-white shadow-md dark:bg-dark_light_gray flex flex-col"
+					{href}
+				>
+					<h1 class="dark:text-white font-medium flex items-center gap-1">
+						<Icon {icon} {width} />
+						{name}
+					</h1>
+					<h2 class="text-dark_text text-sm md:text-base pl-1.5">{description}</h2>
+				</a>
+			</li>
+		{/each}
+	</ul>
 </section>

@@ -3,6 +3,7 @@
 	import LOGO from '$lib/assets/logos/logo.png'
 	import ButtonLoader from '$lib/components/ui/ButtonLoader.svelte'
 	import { currentUser } from '$lib/store/currentUser'
+	import { handleInputUsername } from '$lib/utils/handleInputUsername'
 	import { loadTheme } from '$lib/utils/loadTheme'
 	import { resolver } from '$lib/utils/resolver'
 	import Icon from '@iconify/svelte'
@@ -11,12 +12,6 @@
 
 	// Disable for btn
 	const btnDisabled = writable(false)
-
-	const handleInputUsername = (e: Event) => {
-		const input = e.currentTarget as HTMLInputElement
-		const { value } = input
-		input.value = value.replace(/[^A-Za-z0-9\-]/g, '')
-	}
 
 	const handleSubmit = () => {
 		return resolver(btnDisabled, {})
