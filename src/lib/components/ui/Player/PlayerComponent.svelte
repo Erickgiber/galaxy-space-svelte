@@ -13,16 +13,15 @@
 
 {#if loaded && src}
 	<!-- By default there are no controls so let's turn them on. -->
-	<Player controls class={className}>
-		<Video crossorigin="">
-			<!-- These are passed directly to the underlying HTML5 `<video>` element. -->
-			<!-- Why `data-src`? Lazy loading, you can always use `src` if you prefer.  -->
+	<vm-player playsinline class={className}>
+		<vm-video cross-origin="true">
 			<source data-src={src} type="video/mp4" />
 			<track default kind="subtitles" src="https://media.vimejs.com/subs/english.vtt" srclang="en" label="English" />
-		</Video>
+			<track kind="subtitles" src="https://media.vimejs.com/subs/spanish.vtt" srclang="es" label="Spanish" />
+		</vm-video>
 
-		<!-- ... -->
-	</Player>
+		<vm-default-ui />
+	</vm-player>
 {/if}
 
 {#if !src}

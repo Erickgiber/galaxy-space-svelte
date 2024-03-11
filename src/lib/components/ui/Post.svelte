@@ -145,15 +145,11 @@
 			{/if}
 
 			{#if post.video_url}
-				<a
-					href="/space/posts/{post.id}?u={post.user.id}"
-					class="w-full h-max mt-1"
-					style="background-image: url({post.image_url}); background-size: cover; background-position: center;"
-				>
+				<div class="w-full h-max mt-1">
 					<div class="w-full h-max backdrop-blur-md">
 						<PlayerComponent src={post.video_url} />
 					</div>
-				</a>
+				</div>
 			{/if}
 
 			<!-- Stats -->
