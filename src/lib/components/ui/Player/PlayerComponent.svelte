@@ -1,6 +1,4 @@
 <script lang="ts">
-	// @ts-nocheck
-	import { Player, Video } from '@vime/svelte'
 	import { onMount } from 'svelte'
 	export let loaded = false
 	export let src: string
