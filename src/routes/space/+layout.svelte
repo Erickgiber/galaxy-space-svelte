@@ -6,6 +6,11 @@
 	import { currentUser } from '$lib/store/currentUser'
 	import { onMount } from 'svelte'
 	import { fade, slide } from 'svelte/transition'
+	// Default theme. ~960B
+	import '@vime/core/themes/default.css'
+	// Optional light theme (extends default). ~400B
+	import '@vime/core/themes/light.css'
+	import '@vime/core'
 
 	let isLoadingApp = true
 
