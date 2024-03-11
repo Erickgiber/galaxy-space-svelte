@@ -86,8 +86,6 @@
 			isMenuOptions = [index]
 		}
 	}
-
-	console.log(posts.filter((post) => post.video_url !== ''))
 </script>
 
 <section class="my-2 flex flex-col gap-3">
