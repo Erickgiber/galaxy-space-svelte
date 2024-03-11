@@ -14,8 +14,8 @@
 	<vm-player playsinline class={className}>
 		<vm-video cross-origin="true">
 			<source data-src={src} type="video/mp4" />
-			<track default kind="subtitles" src="https://media.vimejs.com/subs/english.vtt" srclang="en" label="English" />
-			<track kind="subtitles" src="https://media.vimejs.com/subs/spanish.vtt" srclang="es" label="Spanish" />
+			<!-- <track default kind="subtitles" src="https://media.vimejs.com/subs/english.vtt" srclang="en" label="English" /> -->
+			<!-- <track kind="subtitles" src="https://media.vimejs.com/subs/spanish.vtt" srclang="es" label="Spanish" /> -->
 		</vm-video>
 
 		<vm-default-ui />
