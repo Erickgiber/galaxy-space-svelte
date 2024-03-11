@@ -146,7 +146,7 @@
 
 			{#if post.video_url}
 				<div class="w-full h-max mt-1">
-					<div class="w-full h-max backdrop-blur-md">
+					<div class="w-full h-max backdrop-blur-md bg-black">
 						<PlayerComponent src={post.video_url} />
 					</div>
 				</div>
