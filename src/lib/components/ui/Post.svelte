@@ -15,6 +15,7 @@
 	import ModalShare from './ModalShare.svelte'
 	import TooltipLikes from './TooltipLikes.svelte'
 	import VerifiedIcon from './VerifiedIcon.svelte'
+	import PlayerComponent from './Player/PlayerComponent.svelte'
 
 	export let supabase: SupabaseClient
 	export let post: IPost
@@ -141,6 +142,18 @@
 						<img class="w-auto mx-auto h-full max-h-[450px]" src={post.image_url} alt="xd" />
 					</div>
 				</div>
+			{/if}
+
+			{#if post.video_url}
+				<a
+					href="/space/posts/{post.id}?u={post.user.id}"
+					class="w-full h-max mt-1"
+					style="background-image: url({post.image_url}); background-size: cover; background-position: center;"
+				>
+					<div class="w-full h-max backdrop-blur-md">
+						<PlayerComponent src={post.video_url} />
+					</div>
+				</a>
 			{/if}
 
 			<!-- Stats -->

@@ -3,11 +3,14 @@
 	import { enhance } from '$app/forms'
 	import { preloadCode, preloadData } from '$app/navigation'
 	import Posts from '$lib/components/ui/Posts.svelte'
+	import PlayerComponent from '$lib/components/ui/Player/PlayerComponent.svelte'
 	import { currentUser } from '$lib/store/currentUser'
 	import type { IPost } from '$lib/types/post.types.js'
 	import { resolver } from '$lib/utils/resolver'
+	import { bytesToMB } from '$lib/utils/bytesToMb'
 	import Icon from '@iconify/svelte'
 	import { writable } from 'svelte/store'
+	import { toast } from '@zerodevx/svelte-toast'
 
 	export let data
 	let posts = data.posts as IPost[]
@@ -15,11 +18,17 @@
 	const username = $currentUser.username.charAt(0).toUpperCase() + $currentUser.username.slice(1)
 	let postText = ''
 	let btnPostDisabled = writable(false)
-	let inputHTMLFile: HTMLInputElement
+	let inputHTMLFileImage: HTMLInputElement
+	let inputHTMLFileVideo: HTMLInputElement
 	let imgExists = {
 		src: '',
 		name: ''
 	}
+	let videoExists = {
+		src: '',
+		name: ''
+	}
+
 	$: postText.length < 1 ? ($btnPostDisabled = true) : ($btnPostDisabled = false)
 
 	const handleSubmitPost = () => {
@@ -28,6 +37,8 @@
 				postText = ''
 				// @ts-ignore
 				imgExists = undefined
+				// @ts-ignore
+				videoExists = undefined
 				if (new_posts) {
 					posts = new_posts
 				}
@@ -54,6 +65,35 @@
 		}
 	}
 
+	const handleLoadVideo = (e: Event) => {
+		const input = e.currentTarget as HTMLInputElement
+		const files = input.files
+		const reader = new FileReader()
+		const sizeFile = inputHTMLFileVideo && inputHTMLFileVideo.files ? inputHTMLFileVideo.files[0]?.size : false
+		if (sizeFile) {
+			const mbSize = bytesToMB(sizeFile)
+			if (mbSize > 20) {
+				toast.pop()
+				toast.push('The video must be equal to or less than 20 mb in size')
+				return
+			}
+		}
+
+		if (files && files.length > 0) {
+			reader.readAsDataURL(files![0])
+			reader.addEventListener('loadend', () => {
+				videoExists = {
+					src: reader.result as string,
+					name: files[0]?.name
+				}
+
+				btnPostDisabled.set(false)
+			})
+		} else {
+			btnPostDisabled.set(false)
+		}
+	}
+
 	const handleCleanFormPost = () => {
 		// Reseting img variable
 		imgExists = {
@@ -65,15 +105,28 @@
 		}
 
 		// Reseting input file
-		inputHTMLFile.files = null
-		inputHTMLFile.value = ''
+		inputHTMLFileImage.files = null
+		inputHTMLFileImage.value = ''
+		inputHTMLFileVideo.files = null
+		inputHTMLFileVideo.value = ''
 		btnPostDisabled.set(true)
 	}
 
-	const handleCleanImage = () => {
-		imgExists = {
-			src: '',
-			name: ''
+	const handleCleanMedia = (type: 'image' | 'video') => {
+		if (type === 'image') {
+			imgExists = {
+				src: '',
+				name: ''
+			}
+			inputHTMLFileImage.files = null
+			inputHTMLFileImage.value = ''
+		} else if (type === 'video') {
+			videoExists = {
+				src: '',
+				name: ''
+			}
+			inputHTMLFileVideo.files = null
+			inputHTMLFileVideo.value = ''
 		}
 
 		if (postText.length === 0) {
@@ -135,7 +188,18 @@
 				maxlength="1"
 				accept="image/*"
 				class="hidden"
-				bind:this={inputHTMLFile}
+				bind:this={inputHTMLFileImage}
+			/>
+
+			<input
+				on:change={handleLoadVideo}
+				type="file"
+				name="video_url"
+				id="video"
+				maxlength="1"
+				accept="video/*"
+				class="hidden"
+				bind:this={inputHTMLFileVideo}
 			/>
 
 			<textarea
@@ -152,8 +216,11 @@
 			<article class="w-full flex items-center justify-between px-4 pb-2">
 				<!-- ? Buttons left -->
 				<div class="flex justify-end gap-3">
-					<label for="image" class="cursor-pointer">
+					<label for="image" class="cursor-pointer active:scale-95">
 						<Icon class="text-4xl" icon="flat-color-icons:add-image" />
+					</label>
+					<label for="video" class="cursor-pointer translate-y-0.5 active:scale-95">
+						<Icon class="text-3xl" icon="flat-color-icons:video-file" />
 					</label>
 				</div>
 
@@ -190,7 +257,17 @@
 					<img class="w-auto mx-auto h-80" src={imgExists.src} alt="xd" />
 				</div>
 
-				<button on:click={handleCleanImage} class="absolute top-2 right-2 p-0.5 rounded-md bg-red-500 shadow-xl">
+				<button on:click={() => handleCleanMedia('image')} class="absolute top-2 right-2 p-0.5 rounded-md bg-red-500 shadow-xl">
+					<Icon icon="solar:trash-bin-2-bold" width="20" height="20" color="white" />
+				</button>
+			</div>
+		{/if}
+
+		{#if videoExists?.src}
+			<div class="relative w-full h-max mt-2 rounded-lg shadow-md">
+				<PlayerComponent src={videoExists.src} className="rounded-lg shadow-md" />
+
+				<button on:click={() => handleCleanMedia('video')} class="absolute top-2 right-2 p-0.5 rounded-md bg-red-500 shadow-xl">
 					<Icon icon="solar:trash-bin-2-bold" width="20" height="20" color="white" />
 				</button>
 			</div>

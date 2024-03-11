@@ -15,6 +15,7 @@
 	import ModalShare from './ModalShare.svelte'
 	import TooltipLikes from './TooltipLikes.svelte'
 	import VerifiedIcon from './VerifiedIcon.svelte'
+	import PlayerComponent from './Player/PlayerComponent.svelte'
 	export let posts: IPost[]
 	export let supabase: SupabaseClient
 	let btnLikeDisable = false
@@ -85,12 +86,14 @@
 			isMenuOptions = [index]
 		}
 	}
+
+	console.log(posts.filter((post) => post.video_url !== ''))
 </script>
 
 <section class="my-2 flex flex-col gap-3">
 	{#if posts && posts.length > 0}
 		{#each posts as post, index}
-			{#if (post.text || post.image_url) && post.visible}
+			{#if post.text || post.image_url || (post.text && post.video_url && post.visible)}
 				<article class="relative flex flex-col gap-2 pb-2 bg-white dark:bg-dark_white dark:text-dark_text py-2 sm:rounded-lg shadow-sm">
 					<div class="relative flex items-start justify-between">
 						<a class="flex ml-2 max-w-max rounded-md gap-1.5 pl-0.5 py-1.5 transition-all" href="/space/u/{post.user?.username}">
@@ -103,6 +106,7 @@
 								<p class="text-sm font-semibold text-gray-500 dark:text-dark">@{post.username}</p>
 							</div>
 						</a>
+
 						<button on:click={() => handleTogglePostMenu(index)} class="mr-4 mt-1 hover:text-primary">
 							<Icon icon="iconamoon:menu-kebab-horizontal-bold" width="22" />
 						</button>
@@ -145,6 +149,18 @@
 						>
 							<div class="w-full h-max backdrop-blur-md">
 								<img class="w-auto mx-auto h-full max-h-[450px]" src={post.image_url} alt={post.text ?? post.username} />
+							</div>
+						</a>
+					{/if}
+
+					{#if post.video_url}
+						<a
+							href="/space/posts/{post.id}?u={post.user.id}"
+							class="w-full h-max mt-1"
+							style="background-image: url({post.image_url}); background-size: cover; background-position: center;"
+						>
+							<div class="w-full h-max backdrop-blur-md">
+								<PlayerComponent src={post.video_url} />
 							</div>
 						</a>
 					{/if}

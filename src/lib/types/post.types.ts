@@ -5,6 +5,7 @@ export interface IPost {
 	created_at: Date
 	text: string
 	image_url: string
+	video_url: string
 	uuid: string
 	username: string
 	email: string

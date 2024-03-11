@@ -7,6 +7,7 @@ import { v4 } from 'uuid'
 type IFormPost = {
 	text: string
 	image_url: File | File[] | string
+	video_url: File | File[] | string
 	user: IProfile
 }
 
@@ -99,6 +100,25 @@ export const actions: Actions = {
 			}
 		} else {
 			postData.image_url = ''
+		}
+
+		// @ts-ignore
+		if (postData.video_url?.name) {
+			if ((postData.video_url as File).size > 20000000) {
+				return {
+					message: 'The video must be equal to or less than 20 mb in size',
+					invalidate: false
+				}
+			}
+
+			const { data } = await supabase.storage.from('videos').upload(`/posts_video/${locals.user.username}/${v4()}`, postData.video_url as File)
+
+			if (data) {
+				const path = `https://ufcvvchllbhbkfekutmt.supabase.co/storage/v1/object/public/videos/${data.path}`
+				postData.video_url = path as string
+			}
+		} else {
+			postData.video_url = ''
 		}
 
 		const { error } = await supabase.from('posts').insert({
