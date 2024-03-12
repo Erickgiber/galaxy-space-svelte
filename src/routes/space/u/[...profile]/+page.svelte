@@ -438,15 +438,12 @@
 	{/if}
 
 	{#if data.wordsPosts && currentSection === 'words'}
-		<Posts posts={data.wordsPosts.reverse()} {supabase} />
+		<Posts posts={data.wordsPosts.filter((post) => !post.video_url)} {supabase} />
 		<br />
 	{/if}
 
-	{#if currentSection === 'videos'}
-		<div class="mx-auto my-5 flex flex-col items-center">
-			<lord-icon src="https://cdn.lordicon.com/nmipallp.json" trigger="loop" delay="2000" style="width:250px;height:250px" />
-			<b class="text-xl dark:text-white">This is dead x.x</b>
-		</div>
+	{#if data.posts && currentSection === 'videos'}
+		<Posts posts={data.posts.filter((post) => post.video_url)} {supabase} />
 		<br />
 	{/if}
 
