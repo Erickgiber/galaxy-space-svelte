@@ -164,6 +164,8 @@
 		if (typeof window !== 'undefined') {
 			window.addEventListener('keyup', handleCloseModalFollowers)
 		}
+
+		console.log(data.posts?.filter((a) => a.video_url !== ''))
 	})
 
 	onDestroy(() => {

@@ -63,7 +63,7 @@ export const load: ServerLoad = async ({ locals }) => {
 	})
 
 	return {
-		posts: posts as IPost[]
+		posts: posts.filter((post) => post.visible) as IPost[]
 	}
 }
 
