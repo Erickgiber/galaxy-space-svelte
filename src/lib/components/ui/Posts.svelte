@@ -91,7 +91,7 @@
 <section class="my-2 flex flex-col gap-3">
 	{#if posts && posts.length > 0}
 		{#each posts as post, index}
-			{#if post.text || post.image_url || (post.text && post.video_url && post.visible)}
+			{#if (post.text || post.image_url || post.video_url) && post.visible}
 				<article class="relative flex flex-col gap-2 pb-2 bg-white dark:bg-dark_white dark:text-dark_text py-2 sm:rounded-lg shadow-sm">
 					<div class="relative flex items-start justify-between">
 						<a class="flex ml-2 max-w-max rounded-md gap-1.5 pl-0.5 py-1.5 transition-all" href="/space/u/{post.user?.username}">
