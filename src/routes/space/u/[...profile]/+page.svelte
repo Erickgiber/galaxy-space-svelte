@@ -220,8 +220,8 @@
 			{:else}
 				<button
 					class="
-			absolute text-dark bottom-3 right-3 text-2xl rounded-full bg-white shadow-md p-2 transition-all duration-100 border-2 border-white
-			{!$isPhotoLoading ? 'hover:text-white hover:bg-primary hover:p-2.5 hover:duration-200' : 'opacity-0'}
+			absolute text-dark bottom-3 right-3 text-2xl rounded-full bg-white dark:bg-dark_bg shadow-md p-2 transition-all duration-100 border-2 border-white dark:border-dark_light_gray dark:shadow-2xl
+			{!$isPhotoLoading ? 'hover:text-white  hover:bg-primary hover:p-2.5 hover:duration-200' : 'opacity-0'}
 			"
 					on:click={() => handleChangePhotoCover($profile, $currentUser, data.supabase, profile, isPhotoCoverLoading)}
 					disabled={$isPhotoLoading}
@@ -233,20 +233,20 @@
 
 		<!-- ? Photo container -->
 		<div
-			class="w-36 h-36 select-none relative top-16 rounded-full bg-light_gray dark:bg-dark_bg border-4 border-white dark:border-dark_light_gray shadow-sm"
+			class="w-36 h-36 select-none relative top-16 rounded-full bg-light_gray dark:bg-dark_bg dark:border-dark_light_gray dark:shadow-2xl shadow-md border-4 border-white"
 		>
 			{#if $isPhotoLoading}
 				<div in:fade class="w-full h-full">
 					<PhotoLoader />
 				</div>
 			{:else}
-				<img in:fade class="rounded-full bg-white dark:bg-dark_bg w-full h-full object-cover" src={$profile.photo_url} alt="" />
+				<img in:fade class="rounded-full bg-white dark:bg-dark_bg w-full h-full object-cover" src={$profile.photo_url} alt={$profile.username} />
 			{/if}
 
 			{#if data.isUserAuth}
 				<button
 					class="
-				absolute text-dark bottom-0 right-0 text-2xl rounded-full bg-white shadow-md p-2 transition-all duration-100 border-2 border-white
+				absolute text-dark bottom-0 right-0 text-2xl rounded-full bg-white dark:bg-dark_bg dark:border-dark_light_gray dark:shadow-2xl shadow-md p-2 transition-all duration-100 border-2 border-white
 				{!$isPhotoLoading ? 'hover:text-white hover:bg-primary hover:p-2.5 hover:duration-200' : 'opacity-0'}
 				"
 					on:click={() => handleChangePhoto($profile, $currentUser, data.supabase, profile, isPhotoLoading)}
