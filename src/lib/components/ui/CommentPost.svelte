@@ -47,7 +47,6 @@
 					on:click={() => postRepository.newComment(supabase, post_id, $currentUser, comment, $comment, '', commentsStore, $commentsStore)}
 					class="w-11 h-10 rounded-lg grid place-content-center text-white bg-primary"
 					type="button"
-					on:click={() => console.log('waos')}
 				>
 					<Icon icon="lucide:send" />
 				</button>
