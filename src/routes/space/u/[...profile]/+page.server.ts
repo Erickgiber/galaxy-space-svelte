@@ -69,8 +69,16 @@ export const load: ServerLoad = async (event) => {
 			followings: dataFollowers && dataFollowers.length > 0 ? (dataFollowers[0].following as IFollower[]) : ([] as IFollower[]),
 			isUserAuth: dataUser?.user ? dataUser.user.id === profile.uuid : false,
 			isFollowing: isFollowing,
-			images: imagesProfile ? (imagesProfile?.filter((obj: TypeImage) => obj.image_url).filter((post) => post.visible) as TypeImage[]) : [],
-			wordsPosts: imagesProfile?.filter((post: TypeImage) => post.image_url === '' || post.image_url === '{}').filter((post) => post.visible),
+			images: imagesProfile
+				? (imagesProfile
+						?.reverse()
+						.filter((obj: TypeImage) => obj.image_url)
+						.filter((post) => post.visible) as TypeImage[])
+				: [],
+			wordsPosts: imagesProfile
+				?.reverse()
+				.filter((post: TypeImage) => post.image_url === '' || post.image_url === '{}')
+				.filter((post) => post.visible),
 			posts: imagesProfile?.reverse().filter((post) => post.visible),
 			status: 200,
 			msg: 'Profile found'

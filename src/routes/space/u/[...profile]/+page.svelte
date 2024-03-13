@@ -428,7 +428,7 @@
 		</article>
 	</div>
 
-	<ImagesGallery {supabase} imageList={data.images?.reverse()} bind:currentSection />
+	<ImagesGallery {supabase} imageList={data.images} bind:currentSection />
 
 	{#if data.posts && currentSection === ''}
 		<Posts posts={data.posts} {supabase} />

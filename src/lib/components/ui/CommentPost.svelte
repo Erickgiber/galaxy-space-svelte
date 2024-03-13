@@ -58,7 +58,7 @@
 		{#each $commentsStore.reverse() as { profile, text }}
 			<article class="flex flex-col gap-2 w-full p-3 border-l-2 border-l-primary border-b border-b-light_gray dark:border-b-dark_light_gray">
 				<a href="/space/u/{profile.username}" class="relative w-max flex gap-2 items-center pb-0">
-					<img class="w-9 h-9 sm:w-10 sm:h-10 rounded-full" src={profile.photo_url} alt={profile.public_name} />
+					<img class="w-9 h-9 sm:w-10 sm:h-10 rounded-full object-cover" src={profile.photo_url} alt={profile.public_name} />
 
 					<p class="flex flex-col leading-none">
 						<span class="dark:text-white">{profile.public_name}</span>
