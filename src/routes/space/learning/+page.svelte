@@ -23,7 +23,6 @@
 </svelte:head>
 
 <article class="flex items-center gap-1 border-b border-gray-300 text-xl dark:border-dark_light_gray pb-1">
-	<Icon icon="icon-park-outline:book-one" class="text-primary" />
 	<h1 class="font-semibold dark:text-white">Learning</h1>
 </article>
 

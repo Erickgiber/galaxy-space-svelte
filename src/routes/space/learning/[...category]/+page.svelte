@@ -1,13 +1,10 @@
 <script lang="ts">
-	import Icon from '@iconify/svelte'
-
 	export let data
 	let category = data.category
 	$: category = data.category
 </script>
 
 <article class="flex items-center gap-1 border-b border-gray-300 text-xl dark:border-dark_light_gray pb-1">
-	<Icon icon={category.icon} />
 	<h1 class="font-semibold dark:text-white">{category.name?.toUpperCase()}</h1>
 </article>
 
