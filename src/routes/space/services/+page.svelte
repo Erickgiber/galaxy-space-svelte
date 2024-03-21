@@ -8,6 +8,8 @@
 
 	export let data
 	let authWithAnyApp = Boolean(data.services.length > 0)
+	
+	console.log(authWithAnyApp)
 	let selectServiceOpened: TypeSelectService = {
 		enable: false,
 		service: ''

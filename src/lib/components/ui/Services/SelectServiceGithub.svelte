@@ -36,7 +36,7 @@
 		if (data) {
 			const { avatar_url, name } = data as TypeGithubUserResponse
 			basicData = { avatar_url, name }
-			authWithAnyApp = true
+			selectServiceOpened = { enable: true, service: 'github' }
 		}
 
 		isLoadingAccount = false
@@ -55,6 +55,8 @@
 			toast.push(message)
 			resetDataBasic()
 			selectServiceOpened = { enable: false, service: '' }
+			authWithAnyApp = true
+
 		}
 	}
 </script>

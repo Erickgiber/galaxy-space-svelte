@@ -11,7 +11,6 @@
 		const supabase = data.supabase
 		const request = await supabase.from("services").delete().eq("uuid", $currentUser.uuid)
 		goto("/space/services")
-		console.log(request)
 	}
 </script>
 
