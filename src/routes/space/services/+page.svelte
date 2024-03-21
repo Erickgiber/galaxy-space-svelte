@@ -39,7 +39,7 @@
 </article>
 
 {#if !authWithAnyApp}
-	<div class="dark:text-white flex items-center gap-1.5 bg-dark_light_gray p-2 rounded-lg mt-1 mb-3">
+	<div class="dark:text-white flex items-center gap-1.5 bg-white dark:bg-dark_light_gray p-2 rounded-lg mt-1 mb-3">
 		<Icon icon="emojione:warning" class="-translate-y-[1px]" />
 		<p>Take it easy! No private information will be saved. Nor will it be shared</p>
 	</div>

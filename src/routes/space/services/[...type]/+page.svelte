@@ -1,11 +1,18 @@
 <script lang="ts">
+	import { goto } from '$app/navigation'
 	import VerifiedIcon from '$lib/components/ui/VerifiedIcon.svelte'
 	import { currentUser } from '$lib/store/currentUser.js'
-	import Icon from '@iconify/svelte'
 
 	export let data
 	let service_info = data.service_info
 	$: service_info = data.service_info
+
+	async function handleLogout(): Promise<void> {
+		const supabase = data.supabase
+		const request = await supabase.from("services").delete().eq("uuid", $currentUser.uuid)
+		goto("/space/services")
+		console.log(request)
+	}
 </script>
 
 <article class="flex items-center p-2 pb-3 sm:p-0 sm:pb-1 gap-1 mb-3 text-xl">
@@ -30,5 +37,6 @@
 			</p>
 			<p class="dark:text-dark text-xl">@{service_info.login}</p>
 		</div>
+		<button class="bg-red-400 hover:bg-red-500 active:bg-red-500 h-max px-2 py-1 text-white rounded" on:click={handleLogout} type="button">Logout</button>
 	</article>
 </section>
