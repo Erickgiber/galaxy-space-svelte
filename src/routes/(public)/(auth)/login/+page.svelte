@@ -57,7 +57,6 @@
 			<div class="flex items-center bg-light_gray px-2 rounded-lg border border-transparent focus-within:border-primary">
 				<Icon icon="clarity:email-line" />
 				<input
-					autocomplete="off"
 					class="w-full border-none focus:ring-0 px-2 py-2 bg-transparent outline-none"
 					id="email"
 					name="email"
