@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Icon from '@iconify/svelte'
+	import BreadCrumb from '$lib/components/ui/BreadCrumb.svelte'
 </script>
 
 <svelte:head>
@@ -9,12 +9,10 @@
 	<meta name="description" content="See your balance in your wallet of your Galaxy Space account" />
 </svelte:head>
 
-<article class="flex items-center p-2 sm:p-0 gap-1 border-b border-gray-300 text-xl dark:border-dark_light_gray pb-1">
-	<h1 class="font-semibold dark:text-white">Wallet</h1>
-</article>
+<BreadCrumb data={{ current: { title: 'Wallet', icon: 'ph:wallet' } }} />
 
 <section class="flex flex-wrap gap-2">
-	<article class="w-full flex flex-col justify-between sm:w-2/4 h-32 p-3 bg-white dark:bg-dark_white mt-2 sm:rounded-md shadow-sm">
+	<article class="w-full flex flex-col justify-between sm:w-2/4 h-32 p-3 bg-white dark:bg-dark_white sm:rounded-md shadow-sm">
 		<div>
 			<h1 class="text-base text-dark_text font-semibold">Wallet balance</h1>
 			<h2 class="text-xl font-semibold dark:text-white">$ 0,00</h2>
@@ -33,7 +31,7 @@
 		</div>
 	</article>
 
-	<article class="w-full h-32 sm:w-[48%] pb-3 px-0 bg-white dark:bg-dark_white mt-2 sm:rounded-md shadow-sm">
+	<article class="w-full h-32 sm:w-[48%] pb-3 px-0 bg-white dark:bg-dark_white sm:rounded-md shadow-sm">
 		<h1 class="border-b dark:border-dark_light_gray py-1 px-3 text-center dark:text-white">History payment's</h1>
 		<p class="text-center mt-3 dark:text-white">No transactions...</p>
 	</article>

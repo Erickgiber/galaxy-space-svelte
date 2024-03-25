@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { browser } from '$app/environment'
 	import { preloadCode, preloadData } from '$app/navigation'
+	import BreadCrumb from '$lib/components/ui/BreadCrumb.svelte'
 	import { currentUser } from '$lib/store/currentUser'
 	import { FoldersList } from '$lib/utils/learning/folders'
 	import Icon from '@iconify/svelte'
@@ -22,15 +23,13 @@
 	<title>Learning | Galaxy Space</title>
 </svelte:head>
 
-<article class="flex items-center gap-1 border-b border-gray-300 text-xl dark:border-dark_light_gray pb-1">
-	<h1 class="font-semibold dark:text-white">Learning</h1>
-</article>
+<BreadCrumb data={{ current: { title: 'Learning', icon: 'icon-park-outline:book-one' } }} />
 
-<section class="flex flex-wrap py-2">
+<section class="flex flex-wrap">
 	{#each FoldersList as { title, icon, author, level, href }}
 		<a
 			{href}
-			class="px-2 border flex flex-wrap items-center gap-1 dark:border-dark_light_gray w-full h-14 rounded-lg bg-white dark:bg-dark_white shadow-sm dark:text-white"
+			class="px-2 flex flex-wrap items-center gap-1 dark:border-dark_light_gray w-full h-14 rounded-md bg-white dark:bg-dark_white shadow-sm dark:text-white"
 		>
 			<Icon {icon} class="text-[28px] my-2" />
 			<article class="flex flex-col leading-none">

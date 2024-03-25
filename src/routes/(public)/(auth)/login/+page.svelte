@@ -56,7 +56,7 @@
 			<span>Email</span>
 			<div class="flex items-center bg-light_gray px-2 rounded-lg border border-transparent focus-within:border-primary">
 				<Icon icon="clarity:email-line" />
-				<input class="w-60 px-2 py-2 bg-transparent outline-none" id="email" name="email" type="text" placeholder="example@example.com" />
+				<input class="w-full px-2 py-2 bg-transparent outline-none" id="email" name="email" type="text" placeholder="example@example.com" />
 			</div>
 		</label>
 
@@ -65,7 +65,7 @@
 			<span>Password</span>
 			<div class="flex items-center bg-light_gray px-2 rounded-lg border border-transparent focus-within:border-primary">
 				<Icon icon="carbon:password" />
-				<input class="w-60 px-2 py-2 bg-transparent outline-none" id="password" name="password" type="password" placeholder="********" />
+				<input class="w-full px-2 py-2 bg-transparent outline-none" id="password" name="password" type="password" placeholder="********" />
 			</div>
 		</label>
 

@@ -3,6 +3,7 @@
 	import { enhance } from '$app/forms'
 	import { preloadCode, preloadData } from '$app/navigation'
 	import { page } from '$app/stores'
+	import BreadCrumb from '$lib/components/ui/BreadCrumb.svelte'
 	import ButtonFollowingLoader from '$lib/components/ui/ButtonFollowingLoader.svelte'
 	import ModalFollower from '$lib/components/ui/ModalFollower.svelte'
 	import ModalFollowing from '$lib/components/ui/ModalFollowing.svelte'

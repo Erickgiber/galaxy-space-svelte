@@ -3,6 +3,7 @@ export const CategoriesList: TypeCategory[] = [
 		author: '@erickgiber',
 		icon: 'devicon:html5',
 		title: 'Starting to HTML',
-		level: 'Jr'
+		level: 'Jr',
+		nameID: 'html'
 	}
 ]

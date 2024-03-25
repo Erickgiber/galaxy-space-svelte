@@ -6,6 +6,7 @@ interface IOptionMenuConfig {
 	icon: string
 	className?: string
 	width: number
+	nameID: 'account' | 'profile' | 'privacy' | 'app';
 }
 
 export const MENU_CONFIG_PAGE = () => {
@@ -13,6 +14,7 @@ export const MENU_CONFIG_PAGE = () => {
 		{
 			id: 1,
 			name: 'Account',
+			nameID: 'account',
 			description: 'Configure your public name and more',
 			href: '/space/settings/account',
 			icon: 'ion:settings-outline',
@@ -21,6 +23,7 @@ export const MENU_CONFIG_PAGE = () => {
 		{
 			id: 2,
 			name: 'Profile',
+			nameID: 'profile',
 			description: 'Change your profile picture, add decoration to your profile and more',
 			href: '/space/settings/profile',
 			icon: 'lucide:user-2',
@@ -29,6 +32,7 @@ export const MENU_CONFIG_PAGE = () => {
 		{
 			id: 3,
 			name: 'Privacy',
+			nameID: 'privacy',
 			description: 'Choose if you want to be followed or how you want your profile privacy to work',
 			href: '/space/settings/privacy',
 			icon: 'ic:outline-privacy-tip',
@@ -37,6 +41,7 @@ export const MENU_CONFIG_PAGE = () => {
 		{
 			id: 4,
 			name: 'App',
+			nameID: 'app',
 			description: 'Set the app theme and more',
 			href: '/space/settings/app',
 			icon: 'tdesign:application',

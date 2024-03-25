@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { browser } from '$app/environment'
 	import { preloadCode, preloadData } from '$app/navigation'
+	import BreadCrumb from '$lib/components/ui/BreadCrumb.svelte'
 	import { currentUser } from '$lib/store/currentUser'
 
 	$: if ($currentUser && browser) {
@@ -20,4 +21,4 @@
 	<title>My contacts | Galaxy Space</title>
 </svelte:head>
 
-<h1>Contacts</h1>
+<BreadCrumb data={{ current: { title: 'My Contacts', icon: 'ic:twotone-connect-without-contact' } }} />

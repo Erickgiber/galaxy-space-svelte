@@ -7,6 +7,7 @@
 	import ButtonLoader from '../ButtonLoader.svelte'
 	import { toast } from '@zerodevx/svelte-toast'
 	import type { TypeMessageResponse } from '$lib/types/services/response-api.types'
+	import { goto } from '$app/navigation'
 
 	export let selectServiceOpened: TypeSelectService
 	export let authWithAnyApp: boolean
@@ -56,7 +57,7 @@
 			resetDataBasic()
 			selectServiceOpened = { enable: false, service: '' }
 			authWithAnyApp = true
-
+			goto('/space/services/github')
 		}
 	}
 </script>
@@ -92,7 +93,8 @@
 	</form>
 
 	{#if isLoadingAccount}
-		<ButtonLoader />
+		<br>
+		<ButtonLoader  />
 	{/if}
 
 	{#if basicData.name}

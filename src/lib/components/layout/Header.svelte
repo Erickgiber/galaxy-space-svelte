@@ -54,7 +54,12 @@
 		rounded-xl h-9 gap-1 transition focus-within:text-primary"
 		>
 			<Icon icon="majesticons:search-line" class="text-xl" />
-			<input class="h-full text-base bg-transparent outline-none transition-all text-dark focus-within:pl-1" type="search" placeholder="Search" />
+			<input
+				style="border: none !important; outline: none !important;"
+				class="h-full border-none outline-none text-base bg-transparent transition-all text-dark focus:pl-1"
+				type="search"
+				placeholder="Search"
+			/>
 		</label>
 
 		<ul class="relative w-full md:w-max justify-evenly md:justify-start flex items-center gap-2">

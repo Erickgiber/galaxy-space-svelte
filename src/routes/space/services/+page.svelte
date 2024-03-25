@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { browser } from '$app/environment'
 	import { preloadCode, preloadData } from '$app/navigation'
+	import BreadCrumb from '$lib/components/ui/BreadCrumb.svelte'
 	import SelectServiceGithub from '$lib/components/ui/Services/SelectServiceGithub.svelte'
 	import { currentUser } from '$lib/store/currentUser'
 	import type { TypeSelectService } from '$lib/types/select-service.types'
@@ -8,8 +9,7 @@
 
 	export let data
 	let authWithAnyApp = Boolean(data.services.length > 0)
-	
-	console.log(authWithAnyApp)
+
 	let selectServiceOpened: TypeSelectService = {
 		enable: false,
 		service: ''
@@ -24,9 +24,9 @@
 		preloadData('/space/learning')
 		preloadData('/space/services')
 		preloadData('/space/contacts')
+
 		preloadData('/space')
 		preloadCode('/space')
-
 		preloadData(`/space/u/${$currentUser.username}`)
 		preloadCode(`/space/u/${$currentUser.username}`)
 	}
@@ -36,9 +36,7 @@
 	<title>Services | Galaxy Space</title>
 </svelte:head>
 
-<article class="flex items-center p-2 pb-3 sm:p-0 sm:pb-1 gap-1 text-xl">
-	<h1 class="font-semibold w-full dark:text-white border-b border-gray-300 dark:border-dark_light_gray">Services</h1>
-</article>
+<BreadCrumb data={{ current: { title: 'Services', icon: 'ant-design:api-outlined' } }} />
 
 {#if !authWithAnyApp}
 	<div class="dark:text-white flex items-center gap-1.5 bg-white dark:bg-dark_light_gray p-2 rounded-lg mt-1 mb-3">
@@ -59,10 +57,11 @@
 	<div class="flex flex-wrap">
 		<a
 			href="/space/services/github"
-			class="bg-[#161B22] border border-[#30363D] text-white font-bold py-2 px-4 rounded
+			class="flex items-center gap-1 bg-dark_white border border-dark_light_gray text-white font-bold py-2 px-4 rounded
     		transition-all hover:bg-opacity-80 active:scale-95 active:transition-none"
 		>
-			GitHub
+			<Icon icon="mdi:github" width="24" />
+			<span class="text-xl">Github</span>
 		</a>
 	</div>
 {/if}

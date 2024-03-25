@@ -1,6 +1,7 @@
 <script>
 	import { browser } from '$app/environment'
 	import { preloadCode, preloadData } from '$app/navigation'
+	import BreadCrumb from '$lib/components/ui/BreadCrumb.svelte'
 	import { MENU_CONFIG_PAGE } from '$lib/config/menus/menu-config-page'
 	import { currentUser } from '$lib/store/currentUser'
 	import Icon from '@iconify/svelte'
@@ -24,16 +25,14 @@
 	<meta name="description" content="Config your Galaxy Space account" />
 </svelte:head>
 
-<article class="flex items-center p-2 pb-3 sm:p-0 sm:pb-1 gap-1 text-xl">
-	<h1 class="font-semibold w-full dark:text-white border-b border-gray-300 dark:border-dark_light_gray">Settings</h1>
-</article>
+<BreadCrumb data={{ current: { title: 'Settings', icon: 'solar:settings-linear' } }} />
 
 <section class="sm:p-0 p-2">
 	<ul class="flex flex-col gap-2">
 		{#each MENU_CONFIG_PAGE() as { name, id, description, icon, width, href }}
 			<li>
 				<a
-					class="w-full active:scale-[98%] active:text-white active:bg-primary dark:active:bg-primary transition-all duration-150 active:duration-0 rounded-md px-2 py-3 bg-white shadow-md dark:bg-dark_light_gray flex flex-col"
+					class="w-full active:scale-[98%] active:text-white active:bg-primary dark:active:bg-primary transition-all duration-150 active:duration-0 rounded-md px-2 py-3 bg-white shadow-sm dark:bg-dark_light_gray flex flex-col"
 					{href}
 				>
 					<h1 class="dark:text-white font-medium flex items-center gap-1">
