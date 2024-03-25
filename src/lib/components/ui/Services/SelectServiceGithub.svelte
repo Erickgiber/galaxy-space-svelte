@@ -78,7 +78,7 @@
 				type="submit"
 				in:fade={{ duration: 100 }}
 				disabled={Boolean(basicData.name || basicData.avatar_url)}
-				class="bg-white text-dark dark:bg-dark_light_gray shadow-sm dark:border dark:border-[#30363D] dark:text-white font-bold py-2 px-4 rounded
+				class="bg-white text-dark dark:bg-dark_light_gray shadow-sm dark:border dark:border-[#30363D] dark:text-white font-bold px-4 rounded
     transition-all hover:bg-opacity-80 active:scale-95 active:transition-none disabled:cursor-not-allowed">Find</button
 			>
 		{:else if !buttonSaveEnable && !isLoadingAccount}
