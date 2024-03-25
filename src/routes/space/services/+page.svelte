@@ -54,7 +54,7 @@
 		</button>
 	{/if}
 {:else}
-	<div class="flex flex-wrap">
+	<div class="flex flex-wrap px-3 sm:px-0">
 		<a
 			href="/space/services/github"
 			class="flex items-center gap-1 bg-dark_white border border-dark_light_gray text-white font-bold py-2 px-4 rounded

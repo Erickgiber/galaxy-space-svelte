@@ -26,7 +26,7 @@
 	}
 </script>
 
-<div class="py-3">
+<div class="py-3 px-3 sm:px-0">
 	<Breadcrumb aria-label="Solid background breadcrumb example">
 		<BreadcrumbItem href="/" home>
 			<svelte:fragment slot="icon">

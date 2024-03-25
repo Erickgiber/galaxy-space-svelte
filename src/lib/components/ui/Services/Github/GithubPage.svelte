@@ -24,7 +24,7 @@
 	}
 </script>
 
-<section class="flex dark:text-white justify-between gap-3">
+<section class="flex flex-col px-3 sm:flex-row dark:text-white justify-between gap-3">
 	<article class="flex gap-2">
 		<a href={service_info.html_url} target="_blank" class="relative group">
 			<div

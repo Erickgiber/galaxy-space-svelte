@@ -27,7 +27,7 @@
 
 <BreadCrumb data={{ current: { title: 'Settings', icon: 'solar:settings-linear' } }} />
 
-<section class="sm:p-0 p-2">
+<section class="sm:p-0 px-3">
 	<ul class="flex flex-col gap-2">
 		{#each MENU_CONFIG_PAGE() as { name, id, description, icon, width, href }}
 			<li>
