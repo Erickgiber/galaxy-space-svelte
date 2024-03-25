@@ -56,7 +56,7 @@
 			<Icon icon="majesticons:search-line" class="text-xl" />
 			<input
 				style="border: none !important; outline: none !important;"
-				class="h-full border-none outline-none text-base bg-transparent transition-all text-dark focus:pl-1"
+				class="h-full focus:ring-0 border-none outline-none text-base bg-transparent transition-all text-dark focus:pl-1"
 				type="search"
 				placeholder="Search"
 			/>
