@@ -16,7 +16,7 @@
 </script>
 
 {#if $currentUser}
-	<aside class="w-52 min-w-[208px] h-screen hidden md:flex flex-col px-5 py-5 gap-8 select-none">
+	<aside class="w-52 min-w-[208px] sticky top-0 h-full min-h-screen hidden md:flex flex-col px-5 py-5 gap-8 select-none">
 		<!-- ? Profile btn -->
 		<a
 			style="font-family: 'Gabarito', sans-serif;"
@@ -81,7 +81,7 @@
 <style lang="scss">
 	.link_active {
 		border-radius: 10px;
-		background: linear-gradient(180deg, #5700e4 0%, #3e00a5 100%);
+		background-color: var(--primary);
 		box-shadow: 0px 3px 10px 0px rgba(0, 0, 0, 0.2);
 		color: white;
 		padding-left: 15px;

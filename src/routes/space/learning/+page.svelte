@@ -25,7 +25,7 @@
 
 <BreadCrumb data={{ current: { title: 'Learning', icon: 'icon-park-outline:book-one' } }} />
 
-<section class="flex flex-wrap">
+<section class="flex flex-wrap px-3 sm:px-0">
 	{#each FoldersList as { title, icon, author, level, href }}
 		<a
 			{href}

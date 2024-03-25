@@ -32,6 +32,7 @@
 		if (status !== 200) {
 			toast.pop()
 			toast.push('Error on fetch user! Try again')
+			return
 		}
 
 		if (data) {

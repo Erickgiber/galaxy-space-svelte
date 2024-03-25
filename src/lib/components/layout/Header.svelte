@@ -6,7 +6,9 @@
 	import { HeaderConfig } from '$lib/config/layout/header.config'
 	import { currentUser } from '$lib/store/currentUser'
 	import type { INotification } from '$lib/types/notification.types'
+	import { loadTheme } from '$lib/utils/loadTheme'
 	import { handleLogout } from '$lib/utils/logout'
+	import { toggleDarkMode } from '$lib/utils/toggleDarkMode'
 	import Icon from '@iconify/svelte'
 	import type { SupabaseClient } from '@supabase/supabase-js'
 	import { writable } from 'svelte/store'
@@ -204,6 +206,13 @@
 						<Icon icon="lucide:user-2" />
 						<span>My Profile</span>
 					</a>
+					<button
+						class="w-full flex text-dark items-center gap-1 px-2 py-3 font-semibold border-b dark:border-dark_light_gray hover:bg-primary hover:text-white dark:text-dark_text"
+						on:click={toggleDarkMode}
+					>
+						<Icon icon="fluent:dark-theme-24-regular" />
+						<span>Change theme</span>
+					</button>
 					<a
 						class="flex text-dark items-center gap-1 px-2 py-3 font-semibold border-b dark:border-dark_light_gray hover:bg-primary hover:text-white dark:text-dark_text"
 						href="/space/settings"

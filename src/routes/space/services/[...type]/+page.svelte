@@ -10,7 +10,12 @@
 	$: service_info = data.service_info
 </script>
 
-<BreadCrumb data={{ module: { title: 'Services', href: '/space/services' }, current: { title: data.type ?? '' } }} />
+<BreadCrumb
+	data={{
+		module: { title: 'Services', href: '/space/services', icon: 'ant-design:api-outlined' },
+		current: { title: data.type ?? '', icon: data.icon }
+	}}
+/>
 
 {#if data.type === 'github'}
 	<GithubPage {service_info} />

@@ -5,6 +5,7 @@
 	import SelectServiceGithub from '$lib/components/ui/Services/SelectServiceGithub.svelte'
 	import { currentUser } from '$lib/store/currentUser'
 	import type { TypeSelectService } from '$lib/types/select-service.types'
+	import { ServicesList } from '$lib/utils/services/servicesList'
 	import Icon from '@iconify/svelte'
 
 	export let data
@@ -55,14 +56,16 @@
 	{/if}
 {:else}
 	<div class="flex flex-wrap px-3 sm:px-0">
-		<a
-			href="/space/services/github"
-			class="flex items-center gap-1 bg-dark_white border border-dark_light_gray text-white font-bold py-2 px-4 rounded
+		{#each ServicesList as service}
+			<a
+				href="/space/services/{service.nameID}"
+				class="flex items-center gap-1 bg-dark_white border border-dark_light_gray text-white font-bold py-2 px-4 rounded
     		transition-all hover:bg-opacity-80 active:scale-95 active:transition-none"
-		>
-			<Icon icon="mdi:github" width="24" />
-			<span class="text-xl">Github</span>
-		</a>
+			>
+				<Icon icon={service.icon} width="24" />
+				<span class="text-xl">{service.name}</span>
+			</a>
+		{/each}
 	</div>
 {/if}
 
