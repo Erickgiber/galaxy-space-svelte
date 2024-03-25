@@ -32,11 +32,11 @@
 			<svelte:fragment slot="icon">
 				<Icon icon="mage:home-2-fill" width="17" class="mr-1.5" />
 			</svelte:fragment>
-			<span class="text-xl">Home</span>
+			<span class="text-lg sm:text-xl">Home</span>
 		</BreadcrumbItem>
 		{#if data.module}
 			<BreadcrumbItem href={data.module.href}>
-				<span class="capitalize text-xl flex items-center gap-1">
+				<span class="capitalize text-lg sm:text-xl flex items-center gap-1">
 					{#if data.module.icon}
 						<Icon icon={data.module.icon} />
 					{/if}
@@ -45,7 +45,7 @@
 			</BreadcrumbItem>
 		{/if}
 		<BreadcrumbItem>
-			<span class="capitalize text-xl flex items-center gap-1">
+			<span class="capitalize text-lg sm:text-xl flex items-center gap-1">
 				{#if data.current.icon}
 					<Icon icon={data.current.icon} />
 				{/if}
