@@ -68,8 +68,8 @@
 			bind:value={username}
 			type="text"
 			placeholder="Github username"
-			class="bg-[#161B22] border border-[#30363D] text-white font-bold py-2 pl-2 pr-4 rounded outline-none
-        transition-all hover:bg-opacity-80 focus:border-primary active:transition-none disabled:cursor-not-allowed"
+			class="bg-white dark:bg-dark_light_gray placeholder:text-dark_text placeholder:font-semibold shadow-sm border-none font-bold py-2 pl-2 pr-4 outline-none
+        transition-all hover:bg-opacity-80 text-black ring-0 focus:border-primary active:transition-none disabled:cursor-not-allowed rounded-md"
 			disabled={Boolean(basicData.name || basicData.avatar_url)}
 		/>
 
@@ -78,7 +78,7 @@
 				type="submit"
 				in:fade={{ duration: 100 }}
 				disabled={Boolean(basicData.name || basicData.avatar_url)}
-				class="bg-[#161B22] border border-[#30363D] text-white font-bold py-2 px-4 rounded
+				class="bg-white text-dark dark:bg-dark_light_gray shadow-sm dark:border dark:border-[#30363D] dark:text-white font-bold py-2 px-4 rounded
     transition-all hover:bg-opacity-80 active:scale-95 active:transition-none disabled:cursor-not-allowed">Find</button
 			>
 		{:else if !buttonSaveEnable && !isLoadingAccount}
@@ -86,15 +86,15 @@
 				type="button"
 				on:click={() => setServiceOpened(false, '')}
 				in:fade={{ duration: 100 }}
-				class="bg-red-400 border border-red-500 text-white font-bold py-2 px-4 rounded
+				class="bg-red-400 border border-red-500 text-white font-bold px-2.5 rounded-md
     transition-all hover:bg-opacity-80 active:scale-95 active:transition-none">Close</button
 			>
 		{/if}
 	</form>
 
 	{#if isLoadingAccount}
-		<br>
-		<ButtonLoader  />
+		<br />
+		<ButtonLoader />
 	{/if}
 
 	{#if basicData.name}
