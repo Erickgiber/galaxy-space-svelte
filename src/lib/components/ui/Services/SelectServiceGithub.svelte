@@ -68,7 +68,7 @@
 			bind:value={username}
 			type="text"
 			placeholder="Github username"
-			class="bg-white focus:ring-0 dark:bg-dark_light_gray placeholder:text-dark_text placeholder:font-semibold shadow-sm border-none font-bold py-2 pl-2 pr-4 outline-none
+			class="bg-white focus:ring-0 dark:bg-dark_light_gray placeholder:text-dark_text dark:text-white placeholder:font-semibold shadow-sm border-none font-bold py-2 pl-2 pr-4 outline-none
         transition-all hover:bg-opacity-80 text-black focus:border-primary active:transition-none disabled:cursor-not-allowed rounded-md"
 			disabled={Boolean(basicData.name || basicData.avatar_url)}
 		/>
