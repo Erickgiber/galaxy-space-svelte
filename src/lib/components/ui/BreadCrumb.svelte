@@ -27,7 +27,7 @@
 </script>
 
 <div class="py-3 px-3 sm:px-0">
-	<Breadcrumb aria-label="Solid background breadcrumb example">
+	<Breadcrumb aria-label="Breadcrumb">
 		<BreadcrumbItem href="/" home>
 			<svelte:fragment slot="icon">
 				<Icon icon="mage:home-2-fill" width="17" class="mr-1.5" />
