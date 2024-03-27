@@ -279,7 +279,7 @@
 
 	<section
 		style="background-image: linear-gradient(180deg, #5700e4 0%, #3e00a5 100%); background-size: 100% 80px;"
-		class="w-[250px] hidden md:flex md:flex-col bg-white dark:bg-dark_white dark:text-dark_text rounded-lg shadow-sm h-full bg-no-repeat"
+		class="w-[250px] sticky top-24 hidden md:flex md:flex-col bg-white dark:bg-dark_white dark:text-dark_text rounded-lg shadow-sm h-full bg-no-repeat"
 	>
 		<div class="w-[250px] h-max flex flex-col items-center px-2 pt-7 pb-3">
 			<a href="/space/u/{$currentUser.username}" class="rounded-full transition-all hover:duration-75 hover:scale-95 hover:shadow-xl">
