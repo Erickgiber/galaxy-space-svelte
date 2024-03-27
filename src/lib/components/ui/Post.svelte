@@ -216,7 +216,7 @@
 							: ''} "
 						on:click={() => handleToggleShare(index)}
 					>
-						<Icon class="text-inherit" icon="carbon:copy-link" width="23" />
+						<Icon class="text-inherit" icon="uil:share" width="23" />
 					</button>
 					<ModalShare closeModal={handleToggleShare} {index} isEnable={isShare.includes(index)} {post} />
 				</div>
