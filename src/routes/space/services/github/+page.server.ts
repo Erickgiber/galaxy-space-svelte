@@ -6,22 +6,33 @@ import type { SupabaseClient } from '@supabase/supabase-js'
 import type { ServerLoad } from '@sveltejs/kit'
 
 export const load: ServerLoad = async ({
-	params: { type },
 	locals: {
 		supabase,
 		user: { uuid }
 	}
 }) => {
-	const serviceInformation = await loadDataService(type as TypeSelectService['service'], supabase, uuid)
+	const serviceInformation = await loadDataServiceGithub(supabase, uuid)
 	const info = serviceInformation ? serviceInformation : ({} as TypeGithubUserResponse)
-	const currentType = ServicesList.find(service => service.nameID === type)
+	const { icon, childIcon, name } = ServicesList[0]
 
-	return { type, service_info: info, icon: currentType?.icon }
+	return {
+		title: name,
+		service_info: info,
+		module: {
+			title: 'Services',
+			icon: 'ant-design:api-outlined',
+			href: '/space/services'
+		},
+		icon,
+		child: {
+			id: null,
+			icon: childIcon,
+			name: ''
+		}
+	}
 }
 
-async function loadDataService(type: TypeSelectService['service'], supabase: SupabaseClient, uuid: string) {
-	if (type === 'github') {
-		const { data } = await supabase.from('services').select().eq('uuid', uuid).single()
-		return await getGithubUserData(data.username)
-	}
+async function loadDataServiceGithub(supabase: SupabaseClient, uuid: string) {
+	const { data } = await supabase.from('services').select().eq('uuid', uuid).single()
+	return await getGithubUserData(data.username)
 }

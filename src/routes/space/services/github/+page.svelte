@@ -1,18 +1,17 @@
 <script lang="ts">
 	import { goto } from '$app/navigation'
-	import { page } from '$app/stores'
-	import { currentUser } from '$lib/store/currentUser'
-	import type { TypeGithubUserResponse } from '$lib/types/services/github-response.types'
-	import dayjs from 'dayjs'
-	import VerifiedIcon from '$lib/components/ui/VerifiedIcon.svelte'
+	import BreadCrumb from '$lib/components/ui/BreadCrumb.svelte'
+	import { TabsGithubPage } from '$lib/components/ui/Services/Github/tabs.js'
 	import Tabs from '$lib/components/ui/Tabs.svelte'
-	import { tooltip } from '@svelte-plugins/tooltips'
+	import VerifiedIcon from '$lib/components/ui/VerifiedIcon.svelte'
+	import { currentUser } from '$lib/store/currentUser.js'
 	import Icon from '@iconify/svelte'
+	import { tooltip } from '@svelte-plugins/tooltips'
 	import { toast } from '@zerodevx/svelte-toast'
-	import { TabsGithubPage } from './tabs'
+	import dayjs from 'dayjs'
 
-	export let service_info: TypeGithubUserResponse
-	let data = $page.data
+	export let data
+	const service_info = data.service_info
 
 	async function handleLogout(): Promise<void> {
 		const supabase = data.supabase
@@ -26,12 +25,19 @@
 	}
 </script>
 
+<BreadCrumb
+	data={{
+		module: { title: data.module.title, href: data.module.href, icon: data.module.icon },
+		current: { title: data.title, icon: data.icon }
+	}}
+/>
+
 <section class="flex flex-col px-3 dark:text-white justify-between gap-3">
 	<div class="flex w-full lg:flex-row flex-col gap-3">
 		<article class="flex sm:flex-row flex-col items-center sm:items-start gap-2">
 			<a href={service_info.html_url} target="_blank" class="relative group">
 				<div
-					class="absolute font-semibold group-hover:opacity-100 transition-all bg-black bg-opacity-60 backdrop-blur-[1px] opacity-0 flex flex-col justify-center items-center w-full h-full rounded-3xl min-w-[150px] min-h-[150px]"
+					class="absolute text-white font-semibold group-hover:opacity-100 transition-all bg-black bg-opacity-60 backdrop-blur-[1px] opacity-0 flex flex-col justify-center items-center w-full h-full rounded-3xl min-w-[150px] min-h-[150px]"
 				>
 					<span>Go to</span>
 					<span>Github Profile</span>
@@ -49,7 +55,7 @@
 					{service_info.name}
 					<VerifiedIcon isStar={$currentUser.is_star} className="text-xl" />
 				</p>
-				<p class="dark:text-dark font-semibold text-base text-center sm:text-start sm:text-xl">@{service_info.login}</p>
+				<p class="text-dark font-semibold text-base text-center sm:text-start sm:text-xl">@{service_info.login}</p>
 			</div>
 			<button class="bg-red-400 hover:bg-red-500 active:bg-red-500 h-max px-2 py-1 text-white rounded" on:click={handleLogout} type="button"
 				>Logout</button

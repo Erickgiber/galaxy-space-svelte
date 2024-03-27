@@ -1,0 +1,43 @@
+.topic:where(.css, .tailwind, .tailwindcss, .tailwind-css, .css-grid, .css-flexbox, .css3) {
+    background-color: var(--css);
+}
+
+.topic:where(.javascript, .js, .js-vanilla) {
+    background-color: var(--js);
+}
+
+.topic:where(.html, .html5, .ejs) {
+    background-color: var(--html);
+}
+
+.topic:where(.eslint, .express, .node, .node-js, .nodejs) {
+    background-color: var(--eslint);
+}
+
+.topic.sass {
+    background-color: var(--sass);
+}
+
+.topic:where(.svelte, .sveltekit) {
+    background-color: var(--sveltekit);
+}
+
+.topic.youtube {
+    background-color: var(--youtube);
+}
+
+.topic:where(.gatsby, .gatsbyjs, .gatsby-js) {
+    background-color: var(--gatsby);
+}
+
+.topic:where(.react, .reactjs, .react-js) {
+    background-color: var(--react);
+}
+
+.topic:where(.ts, .typescript) {
+    background-color: var(--ts);
+}
+
+.topic:where(.socket, .socketio, .socket-io) {
+    background-color: var(--socket-io);
+}
