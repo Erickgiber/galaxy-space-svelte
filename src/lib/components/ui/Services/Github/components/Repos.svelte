@@ -41,7 +41,7 @@
 		{#each repos as repo}
 			<li>
 				<a
-					class="sm:hover:scale-[99%] hover:bg-primary dark:hover:bg-primary hover:text-white transition-all hover:duration-0 px-3 pt-2 flex flex-col justify-between gap-1 dark:border-dark_light_gray w-full h-[70px] rounded-md bg-white dark:bg-dark_white shadow-sm dark:text-white"
+					class="sm:hover:scale-[99%] sm:hover:bg-primary dark:hover:bg-primary hover:text-white transition-all hover:duration-0 px-3 pt-2 flex flex-col justify-between gap-1 dark:border-dark_light_gray w-full h-[70px] rounded-md bg-white dark:bg-dark_white shadow-sm dark:text-white"
 					href="/space/services/github/{repo.id}"
 				>
 					<div class="flex items-center gap-1">
