@@ -6,7 +6,6 @@
 	import { HeaderConfig } from '$lib/config/layout/header.config'
 	import { currentUser } from '$lib/store/currentUser'
 	import type { INotification } from '$lib/types/notification.types'
-	import { loadTheme } from '$lib/utils/loadTheme'
 	import { handleLogout } from '$lib/utils/logout'
 	import { toggleDarkMode } from '$lib/utils/toggleDarkMode'
 	import Icon from '@iconify/svelte'
@@ -240,7 +239,7 @@
 				in:fade={{ duration: 100 }}
 				class="fixed p-3 scroll-smooth scroll-modern top-0 right-0 bg-white dark:text-white dark:bg-dark_white shadow-2xl z-50 w-screen h-screen"
 			>
-				<button type="button" in:slide={{ duration: 1000 }} on:click={() => isBars.set(false)} class="absolute top-3 right-3 text-2xl p-1">
+				<button type="button" on:click={() => isBars.set(false)} class="absolute top-3 right-3 text-2xl p-1">
 					<Icon icon="mingcute:close-fill" />
 				</button>
 
