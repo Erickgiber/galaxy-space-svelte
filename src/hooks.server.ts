@@ -69,5 +69,9 @@ export const handle: Handle = async ({ event, resolve }) => {
 		throw redirect(303, '/space')
 	}
 
+	if (event.url.pathname.includes('/reset-password') && user) {
+		throw redirect(303, '/space')
+	}
+
 	return resolve(event)
 }
