@@ -237,7 +237,6 @@
 
 			{#if $isBars}
 				<div
-					in:fade={{ duration: 100 }}
 					class="fixed p-3 scroll-smooth scroll-modern top-0 right-0 bg-white dark:text-white dark:bg-dark_white shadow-2xl z-50 w-screen h-screen"
 				>
 					<button type="button" on:click={() => isBars.set(false)} class="absolute top-3 right-3 text-2xl p-1">
