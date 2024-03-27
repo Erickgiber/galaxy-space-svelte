@@ -45,7 +45,7 @@
 <svelte:window on:resize={handleResize} />
 
 {#if $currentUser}
-	<div class="sticky top-0 sm:pt-5 flex z-50 sm:backdrop-blur-sm sm:h-[75px] sm:mb-5">
+	<div class="sticky top-0 sm:pt-5 flex z-50 sm:backdrop-blur-2xl sm:h-[75px] sm:mb-5">
 		<header
 			class="relative shadow-sm w-full h-14 px-1 sm:px-3 sm:mb-3 flex items-center justify-evenly md:justify-between bg-white dark:bg-dark_white sm:rounded-xl"
 		>
