@@ -137,9 +137,9 @@
 			{/if}
 
 			{#if post.image_url}
-				<div class="w-full h-max mt-1" style="background-image: url({post.image_url}); background-size: cover; background-position: center;">
-					<div class="w-full h-max backdrop-blur-md">
-						<img class="w-auto mx-auto h-full max-h-[450px]" src={post.image_url} alt="xd" />
+				<div class="w-full h-max mt-1">
+					<div class="w-full h-max bg-opacity-10 dark:bg-opacity-40 bg-black">
+						<img class="w-auto mx-auto h-full max-h-[600px]" src={post.image_url} alt="xd" />
 					</div>
 				</div>
 			{/if}
