@@ -19,7 +19,7 @@ const FOR_POST = {
 
 export const MENU_POST_OPTIONS = (post: IPost, user: ICurrentUser) => {
 	const isImage = post.image_url && post.image_url.length > 3
-	const isSomeUser = user.username === post.user.username
+	const isSomeUser = user.username === post.user.username || user.role === 'admin'
 	const className = ''
 
 	let options = [
