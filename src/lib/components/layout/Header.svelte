@@ -153,7 +153,7 @@
 			{#if $isNotificationsOpen}
 				<div
 					transition:slide={{ duration: 150 }}
-					class="absolute scroll-smooth scroll-modern top-16 right-0 bg-white dark:bg-dark_white shadow-2xl z-10 rounded-lg w-52 h-52 overflow-y-auto"
+					class="absolute scroll-smooth scroll-modern top-16 right-38 sm:right-0 bg-white dark:bg-dark_white shadow-2xl z-10 rounded-lg w-52 h-52 overflow-y-auto"
 				>
 					<h1 class="text-center font-bold text-black py-2 border-b-2 border-gray-200 dark:border-dark_light_gray dark:text-dark_text">
 						Notifications
@@ -194,7 +194,7 @@
 			{#if $isDropdownOpen}
 				<div
 					transition:slide={{ duration: 150 }}
-					class="absolute scroll-smooth scroll-modern top-16 right-0 bg-white dark:bg-dark_white shadow-2xl z-10 rounded-lg w-52 h-max"
+					class="absolute scroll-smooth scroll-modern top-16 right-38 sm:right-0 bg-white dark:bg-dark_white shadow-2xl z-10 rounded-lg w-52 h-max"
 				>
 					<h1 class="text-center font-bold text-black dark:text-dark_text py-2 border-b-2 border-gray-200 dark:border-dark_light_gray">Menu</h1>
 					<div transition:fade={{ duration: 200 }} class="w-full h-max">
