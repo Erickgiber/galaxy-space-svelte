@@ -388,7 +388,7 @@
 				use:enhance={handleSubmitChangeDescription}
 				action="?/changeDescription"
 				method="post"
-				class="bg-white mt-1 sm:mt-0 dark:bg-dark_white dark:text-white flex flex-col sm:rounded-md shadow-sm p-2.5 sm:h-auto"
+				class="bg-white mt-1 sm:mt-0 dark:bg-dark_white dark:text-white flex flex-col sm:rounded-md shadow-sm p-2.5"
 			>
 				<h1 class="font-semibold px-1 border-b dark:border-dark_light_gray border-light_gray">Description</h1>
 
@@ -400,9 +400,7 @@
 						>{$profile.description.replaceAll('<br>', '\n') || 'Not description'}</textarea
 					>
 				{:else}
-					<div
-						class="px-1 py-1 mt-1 text-dark dark:text-dark_text h-40 sm:h-auto text-sm sm:text-base overflow-y-auto overflow-x-hidden rounded-md outline-primary"
-					>
+					<div class="px-1 py-1 mt-1 text-dark dark:text-dark_text text-sm sm:text-base overflow-y-auto overflow-x-hidden rounded-md outline-primary">
 						{@html $profile.description || '<p class="text-dark dark:text-white select-none">Not description</p>'}
 					</div>
 				{/if}
