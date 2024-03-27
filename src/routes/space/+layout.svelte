@@ -31,7 +31,7 @@
 	<main class="flex mx-auto max-w-[1336px]">
 		<Aside />
 
-		<div class="w-full sm:py-5 sm:px-3">
+		<div class="w-full sm:pb-5 sm:px-3">
 			<Header />
 			<slot />
 		</div>
