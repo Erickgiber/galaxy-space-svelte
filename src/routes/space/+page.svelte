@@ -206,7 +206,7 @@
 				class="
 			p-2 w-full h-24 sm::h-16 bg-white dark:bg-dark_white border-b-2 dark:border-b dark:border-dark_light_gray
 			border-transparent outline-none transition-all duration-300 resize-none
-			focus:h-24 focus:border-b-bg focus:ring-0 ring-0 border-l-0 border-r-0 border-t-0"
+			focus:h-24 border-b-bg focus:ring-0 ring-0 border-l-0 border-r-0 border-t-0"
 				name="text"
 				id="text"
 				placeholder="{username}, What's on your mind?"
